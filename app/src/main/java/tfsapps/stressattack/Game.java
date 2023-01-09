@@ -35,7 +35,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
         /* ゲーム画面 */
         enemy = (ImageView) findViewById(R.id.img_enemy);
-        enemy.setImageResource(R.drawable.enemy1);
+        enemy.setImageResource(R.drawable.enemy10);
     }
 
     /********************************************************************************

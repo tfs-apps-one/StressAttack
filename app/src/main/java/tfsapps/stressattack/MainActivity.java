@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import java.util.Random;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 //public class MainActivity extends AppCompatActivity  implements Game.Callback{
 
     static private Game myGame = null;
+    private final Random rand = new Random(System.currentTimeMillis());
 
     //  DB関連
     public MyOpenHelper helper;             //DBアクセス
@@ -67,6 +69,14 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar prog = null;
     private TextView story = null;
     private int seqno = 0;
+    private int effect_hold = 0;
+    private int game_step = 0;
+    final int G_INIT = 0;
+    final int G_STORY = 1;
+    final int G_BATTLE = 2;
+    final int G_RESULT = 3;
+    final int G_ENDING = 4;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,30 +90,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (enemy_hp == 0){
-                    break;
-                }
-                damege = 5;
-                enemy_hp -= damege;
-                seqno++;
-                if (enemy_hp <= 0){
-                    gamestr = " モンスターを倒した！！";
+                if (enemy_hp == 0 || effect_hold > 0){
+                    ;
                 }
                 else {
-                    bak5_gamestr = bak4_gamestr;
-                    bak4_gamestr = bak3_gamestr;
-                    bak3_gamestr = bak2_gamestr;
-                    bak2_gamestr = bak1_gamestr;
-                    bak1_gamestr = " " + seqno + "ターン目:  " + "敵に " + damege + " のダメージを与えた\n";
-                    gamestr = "";
-                    gamestr += bak1_gamestr;
-                    gamestr += bak2_gamestr;
-                    gamestr += bak3_gamestr;
-                    gamestr += bak4_gamestr;
-                    gamestr += bak5_gamestr;
+                    EventGameView();
                 }
-                EventGameView();
-                break;
         }
         return super.onTouchEvent(event);
     }
@@ -118,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             enemy.setImageResource(0);
         }
         else{
-            enemy.setImageResource(R.drawable.enemy1);
+            enemy.setImageResource(R.drawable.enemy10);
         }
         enemy.setBackgroundResource(R.drawable.bak_11);
 
@@ -152,8 +144,72 @@ public class MainActivity extends AppCompatActivity {
         if (enemy == null) {
             enemy = (ImageView) findViewById(R.id.img_enemy);
         }
-        enemy.setImageResource(R.drawable.enemy2);
-        enemy.setBackgroundResource(R.drawable.bak_12);
+
+        int at_rand = rand.nextInt(100);
+        int sp_rand = rand.nextInt(100);
+        int at_type = 0;
+        String at_str = "";
+
+        // 攻撃エフェクト  斬撃
+        if (at_rand <= 50){
+            at_type = 1;
+            if (sp_rand >75){   //雷　斬撃
+                at_type =3;
+            }
+        }
+        //  打撃
+        else{
+            at_type = 2;
+            if (sp_rand >75){   //爆発
+                at_type =4;
+            }
+        }
+        switch (at_type){
+            default:
+            case 1:
+                at_str = "斬撃で ";
+                damege = 5;
+                enemy.setImageResource(R.drawable.enemy11);
+                enemy.setBackgroundResource(R.drawable.bak_12);
+                break;
+            case 2:
+                at_str = "打撃で ";
+                damege = 5;
+                enemy.setImageResource(R.drawable.enemy12);
+                enemy.setBackgroundResource(R.drawable.bak_12);
+                break;
+            case 3:
+                at_str = "鋭い雷撃で ";
+                damege = 15;    effect_hold = 5;
+                enemy.setImageResource(R.drawable.enemy13);
+                enemy.setBackgroundResource(R.drawable.bak_13);
+                break;
+            case 4:
+                at_str = "大爆発で ";
+                damege = 15;    effect_hold = 5;
+                enemy.setImageResource(R.drawable.enemy14);
+                enemy.setBackgroundResource(R.drawable.bak_14);
+                break;
+        }
+        enemy_hp -= damege;
+        seqno++;
+
+        if (enemy_hp <= 0){
+            gamestr = " モンスターを倒した！！";
+        }
+        else {
+            bak5_gamestr = bak4_gamestr;
+            bak4_gamestr = bak3_gamestr;
+            bak3_gamestr = bak2_gamestr;
+            bak2_gamestr = bak1_gamestr;
+            bak1_gamestr = " " + seqno + "ターン目:  " + "敵に"+ at_str + damege + " のダメージ\n";
+            gamestr = "";
+            gamestr += bak1_gamestr;
+            gamestr += bak2_gamestr;
+            gamestr += bak3_gamestr;
+            gamestr += bak4_gamestr;
+            gamestr += bak5_gamestr;
+        }
     }
 
     public void GameStart(){
@@ -163,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
         //タスククラスインスタンス生成
         gameTimerTask = new GameTimerTask();
         //タイマースケジュール設定＆開始
-        GameTimer.schedule(gameTimerTask, 0, 100);  //100msec更新
+        GameTimer.schedule(gameTimerTask, 0, 200);  //100msec更新
     }
 
     public class GameTimerTask extends TimerTask {
@@ -172,8 +228,12 @@ public class MainActivity extends AppCompatActivity {
             //ここに定周期で実行したい処理を記述します
             gHandler.post(new Runnable() {
                 public void run() {
-                    GameView();
-
+                    if (effect_hold <= 0) {
+                        GameView();
+                    }
+                    else{
+                        effect_hold--;
+                    }
                 }
             });
         }
