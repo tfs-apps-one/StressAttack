@@ -124,8 +124,8 @@
                 app:backgroundTint="@null"
                 android:background="@drawable/bak_1"
                 android:textColor="@color/white"
-                android:gravity="center"
-                android:text="ここにナレーションを表示"
+                android:gravity="center|left"
+                android:text=""
                 android:textStyle="bold" />
 
             <LinearLayout

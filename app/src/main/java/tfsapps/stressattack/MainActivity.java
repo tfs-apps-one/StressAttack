@@ -69,13 +69,18 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar prog = null;
     private TextView story = null;
     private int seqno = 0;
-    private int effect_hold = 0;
+    private int display_hold = 0;
     private int game_step = 0;
+    //ゲーム進行ステップ
     final int G_INIT = 0;
     final int G_STORY = 1;
     final int G_BATTLE = 2;
     final int G_RESULT = 3;
     final int G_ENDING = 4;
+    //インターバル時間
+    final int TIME_EFFECT = 6;
+    final int TIME_PROG_SHORT = 15;
+    final int TIME_PROG_LONG = 20;
 
 
     @Override
@@ -90,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (enemy_hp == 0 || effect_hold > 0){
+                if (enemy_hp == 0 || display_hold > 0){
                     ;
                 }
                 else {
@@ -100,12 +105,93 @@ public class MainActivity extends AppCompatActivity {
         return super.onTouchEvent(event);
     }
 
+    /****************************************************
+     ゲーム進行ステップのセット
+     ****************************************************/
+    public void GameNextStep() {
+        switch (game_step){
+            default:
+                game_step = G_STORY;
+                break;
+            case G_STORY:
+                game_step = G_BATTLE;
+                break;
+            case G_BATTLE:
+                game_step = G_RESULT;
+                break;
+            case G_RESULT:
+                game_step = G_ENDING;
+                break;
+            case G_ENDING:
+                game_step = G_INIT;
+                break;
+        }
+    }
 
-    public void GameView(){
-        //敵イメージ
+    /****************************************************
+        ゲーム関係パラメータの初期化
+    ****************************************************/
+    public void GameParaInit() {
+
         if (enemy == null) {
             enemy = (ImageView) findViewById(R.id.img_enemy);
         }
+        if (prog == null) {
+            prog = (ProgressBar) findViewById(R.id.progress);
+        }
+        if (story == null){
+            story = (TextView) findViewById(R.id.text_story);
+        }
+
+        game_step = G_INIT;     //ゲーム進行
+        enemy_hp = 100;         //敵ＨＰ
+        damege = 0;             //敵へのダメージ
+        seqno = 0;              //ターン数
+        display_hold = 0;        //エフェクトホールド状態
+        gamestr = "";           //ゲーム進行文字
+        bak1_gamestr = "";      //ゲーム進行文字　前１行目
+        bak2_gamestr = "";      //ゲーム進行文字　前２行目
+        bak3_gamestr = "";      //ゲーム進行文字　前３行目
+        bak4_gamestr = "";      //ゲーム進行文字　前４行目
+        bak5_gamestr = "";      //ゲーム進行文字　前５行目
+    }
+    /****************************************************
+     ゲーム表示（エンディング）
+     ****************************************************/
+    public void GameEndingView() {
+        //敵イメージ
+        enemy.setImageResource(0);
+        enemy.setBackgroundResource(R.drawable.bak_11);
+        //ダメージバー
+        prog.setProgress(0);
+        //ストリー
+        gamestr =   "　エンディング\n" +
+                    "　";
+        story.setText(gamestr);
+        display_hold = TIME_PROG_LONG;
+        GameNextStep();
+    }
+    /****************************************************
+     ゲーム表示（バトル結果）
+     ****************************************************/
+    public void GameResultView() {
+        //敵イメージ
+        enemy.setImageResource(0);
+        enemy.setBackgroundResource(R.drawable.bak_11);
+        //ダメージバー
+        prog.setProgress(0);
+        //ストリー
+        gamestr =   "　勇者のストレスが解消された\n" +
+                    "　＜戦闘結果＞";
+        story.setText(gamestr);
+        display_hold = TIME_PROG_LONG;
+        GameNextStep();
+    }
+    /****************************************************
+        ゲーム表示（バトル中）
+     ****************************************************/
+    public void GameButtleView(){
+        //敵イメージ
         if(enemy_hp == 0) {
             enemy.setImageResource(0);
         }
@@ -115,35 +201,66 @@ public class MainActivity extends AppCompatActivity {
         enemy.setBackgroundResource(R.drawable.bak_11);
 
         //ダメージバー
-        if (prog == null){
-            prog = (ProgressBar) findViewById(R.id.progress);
-            prog.setMin(0);
-            prog.setMax(100);
-        }
-        if (damege == 0) {
-            enemy_hp = 100;
-            damege = 0;
-            seqno = 0;
-            gamestr = " モンスターが現れた\n";
-            bak1_gamestr = "";
-            bak2_gamestr = "";
-            bak3_gamestr = "";
-            bak4_gamestr = "";
-            bak5_gamestr = "";
-        }
+        prog.setMin(0);
+        prog.setMax(100);
         prog.setProgress(enemy_hp);
 
         //ストリー
-        if (story == null){
-            story = (TextView) findViewById(R.id.text_story);
-        }
         story.setText(gamestr);
     }
-
-    public void EventGameView(){
-        if (enemy == null) {
-            enemy = (ImageView) findViewById(R.id.img_enemy);
+    /****************************************************
+     ゲーム表示（ストーリー）
+     ****************************************************/
+    public void GameStoryView() {
+        //敵イメージ
+        enemy.setImageResource(0);
+        enemy.setBackgroundResource(R.drawable.bak_11);
+        //ダメージバー
+        prog.setProgress(0);
+        //ストリー
+        gamestr =   "　勇者がストレスの森を歩いていると・・・・\n" +
+                    "　何とモンスターが現れた！！";
+        story.setText(gamestr);
+//        enemy_hp = 100;
+//        seqno = 0;
+        display_hold = TIME_PROG_SHORT;
+        GameNextStep();
+    }
+    /****************************************************
+     ゲーム表示（メイン）
+     ****************************************************/
+    public void GameView() {
+        if (display_hold > 0) {
+            display_hold--;
+            return;
         }
+
+        switch (game_step){
+            default:
+            case G_INIT:
+                GameParaInit();
+                GameNextStep();
+                break;
+            case G_STORY:
+                GameStoryView();
+                break;
+            case G_BATTLE:
+                GameButtleView();
+                break;
+            case G_RESULT:
+                GameResultView();
+                break;
+            case G_ENDING:
+                GameEndingView();
+                break;
+        }
+
+    }
+
+    /****************************************************
+        ゲーム表示（タップ時）
+     ****************************************************/
+    public void EventGameView(){
 
         int at_rand = rand.nextInt(100);
         int sp_rand = rand.nextInt(100);
@@ -180,13 +297,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 3:
                 at_str = "鋭い雷撃で ";
-                damege = 15;    effect_hold = 5;
+                damege = 15;
+                display_hold = TIME_EFFECT;
                 enemy.setImageResource(R.drawable.enemy13);
                 enemy.setBackgroundResource(R.drawable.bak_13);
                 break;
             case 4:
                 at_str = "大爆発で ";
-                damege = 15;    effect_hold = 5;
+                damege = 15;
+                display_hold = TIME_EFFECT;
                 enemy.setImageResource(R.drawable.enemy14);
                 enemy.setBackgroundResource(R.drawable.bak_14);
                 break;
@@ -195,14 +314,16 @@ public class MainActivity extends AppCompatActivity {
         seqno++;
 
         if (enemy_hp <= 0){
-            gamestr = " モンスターを倒した！！";
+            gamestr = "　モンスターを倒した！！";
+            display_hold = TIME_PROG_SHORT;
+            GameNextStep();
         }
         else {
             bak5_gamestr = bak4_gamestr;
             bak4_gamestr = bak3_gamestr;
             bak3_gamestr = bak2_gamestr;
             bak2_gamestr = bak1_gamestr;
-            bak1_gamestr = " " + seqno + "ターン目:  " + "敵に"+ at_str + damege + " のダメージ\n";
+            bak1_gamestr = "　" + seqno + "ターン目:  " + "敵に"+ at_str + damege + " のダメージ\n";
             gamestr = "";
             gamestr += bak1_gamestr;
             gamestr += bak2_gamestr;
@@ -214,12 +335,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void GameStart(){
         setContentView(R.layout.activity_sub);
+        GameParaInit();
+
         //タイマーインスタンス生成
         GameTimer = new Timer();
         //タスククラスインスタンス生成
         gameTimerTask = new GameTimerTask();
         //タイマースケジュール設定＆開始
-        GameTimer.schedule(gameTimerTask, 0, 200);  //100msec更新
+        GameTimer.schedule(gameTimerTask, 0, 100);  //100msec更新
     }
 
     public class GameTimerTask extends TimerTask {
@@ -228,12 +351,7 @@ public class MainActivity extends AppCompatActivity {
             //ここに定周期で実行したい処理を記述します
             gHandler.post(new Runnable() {
                 public void run() {
-                    if (effect_hold <= 0) {
-                        GameView();
-                    }
-                    else{
-                        effect_hold--;
-                    }
+                    GameView();
                 }
             });
         }
