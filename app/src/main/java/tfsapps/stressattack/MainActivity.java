@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     private int enemy_type = 0;
     private int enemy_hp = 0;
     private int damege = 0;
+    private String enemynamestr = "";
     private String gamestr = "";
     private String bak1_gamestr = "";
     private String bak2_gamestr = "";
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     private String bak5_gamestr = "";
     private ProgressBar prog = null;
     private TextView story = null;
+    private TextView ename = null;
     private int seqno = 0;
     private int display_hold = 0;
     private int game_step = 0;
@@ -85,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
     final int TIME_EFFECT = 4;
     final int TIME_PROG_SHORT = 15;
     final int TIME_PROG_LONG = 20;
+    final int TIME_PROG_HI_LONG = 100;
 
     //サウンド関係
     private AudioManager am;
@@ -103,6 +106,11 @@ public class MainActivity extends AppCompatActivity {
     private MediaPlayer efs_32 = null;
     private MediaPlayer efs_41 = null;
     private MediaPlayer efs_42 = null;
+
+    final String E_NAME_1 = "オーガ";
+    final String E_NAME_2 = "ミイラ";
+    final String B_NAME_1 = "ゴーレム";
+    final String B_NAME_2 = "闇ドラゴン";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,6 +171,9 @@ public class MainActivity extends AppCompatActivity {
         if (prog == null) {
             prog = (ProgressBar) findViewById(R.id.progress);
         }
+        if (ename == null){
+            ename = (TextView) findViewById(R.id.text_enemy_name);
+        }
         if (story == null){
             story = (TextView) findViewById(R.id.text_story);
         }
@@ -175,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
             else{
                 enemy_type = 2;         //敵通常
             }
-            enemy_hp = 100;         //敵ＨＰ
+            enemy_hp = 100;             //敵ＨＰ
             BgmStart(2);
         }
         else{
@@ -183,9 +194,9 @@ public class MainActivity extends AppCompatActivity {
                 enemy_type = 11;         //敵BOSS
             }
             else{
-                enemy_type = 12;         //敵BOSS
+                enemy_type = 12;        //敵BOSS
             }
-            enemy_hp = 200;         //敵ＨＰ
+            enemy_hp = 200;             //敵ＨＰ
             BgmStart(3);
         }
         prog.setMin(0);
@@ -193,7 +204,8 @@ public class MainActivity extends AppCompatActivity {
 
         damege = 0;             //敵へのダメージ
         seqno = 0;              //ターン数
-        display_hold = 0;        //エフェクトホールド状態
+        display_hold = 0;       //エフェクトホールド状態
+        enemynamestr = "";      //敵名前
         gamestr = "";           //ゲーム進行文字
         bak1_gamestr = "";      //ゲーム進行文字　前１行目
         bak2_gamestr = "";      //ゲーム進行文字　前２行目
@@ -206,15 +218,18 @@ public class MainActivity extends AppCompatActivity {
      ****************************************************/
     public void GameEndingView() {
         //敵イメージ
-        enemy.setImageResource(0);
-        enemy.setBackgroundResource(R.drawable.bak_11);
+        EnemyDisp(99);
+        BgmStart(4);
         //ダメージバー
         prog.setProgress(0);
+        //敵名前
+        enemynamestr = "";
+        ename.setText(enemynamestr);
         //ストリー
         gamestr =   "　エンディング\n" +
-                    "　";
+                "　";
         story.setText(gamestr);
-        display_hold = TIME_PROG_LONG;
+        display_hold = TIME_PROG_HI_LONG;
         GameNextStep();
     }
     /****************************************************
@@ -222,10 +237,12 @@ public class MainActivity extends AppCompatActivity {
      ****************************************************/
     public void GameResultView() {
         //敵イメージ
-        enemy.setImageResource(0);
-        enemy.setBackgroundResource(R.drawable.bak_11);
+        EnemyDisp(99);
         //ダメージバー
         prog.setProgress(0);
+        //敵名前
+        enemynamestr = "";
+        ename.setText(enemynamestr);
         //ストリー
         gamestr =   "　勇者のストレスが解消された\n" +
                     "　＜戦闘結果＞";
@@ -244,9 +261,10 @@ public class MainActivity extends AppCompatActivity {
         else{
             EnemyDisp(0);
         }
-
         //ダメージバー
         prog.setProgress(enemy_hp);
+        //敵名前
+        ename.setText(enemynamestr);
         //ストリー
         story.setText(gamestr);
     }
@@ -255,10 +273,12 @@ public class MainActivity extends AppCompatActivity {
      ****************************************************/
     public void GameStoryView() {
         //敵イメージ
-        enemy.setImageResource(0);
-        enemy.setBackgroundResource(R.drawable.bak_11);
+        EnemyDisp(99);
         //ダメージバー
         prog.setProgress(0);
+        //敵名前
+        enemynamestr = "";
+        ename.setText(enemynamestr);
         //ストリー
         gamestr =   "　勇者がストレスの森を歩いていると・・・・\n" +
                     "　なんと！？\n\n　敵が現れた！！";
@@ -307,6 +327,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 非バトル中のモンスター画像表示
         if (at_type == 99) {
+            enemynamestr = "";
             enemy.setImageResource(0);
             enemy.setBackgroundResource(R.drawable.bak_11);
             return;
@@ -314,6 +335,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 以下モンスターごとに表示
         if (enemy_type == 1) {
+            enemynamestr = E_NAME_1;
             switch (at_type) {
                 case 0:
                     enemy.setImageResource(R.drawable.e_10);
@@ -338,6 +360,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         if (enemy_type == 2) {
+            enemynamestr = E_NAME_2;
             switch (at_type) {
                 case 0:
                     enemy.setImageResource(R.drawable.e_20);
@@ -362,6 +385,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         else if(enemy_type == 11){
+            enemynamestr = B_NAME_1;
             switch (at_type) {
                 case 0:
                     enemy.setImageResource(R.drawable.b_10);
@@ -386,6 +410,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         else if(enemy_type == 12){
+            enemynamestr = B_NAME_2;
             switch (at_type) {
                 case 0:
                     enemy.setImageResource(R.drawable.b_20);
@@ -543,13 +568,6 @@ public class MainActivity extends AppCompatActivity {
         if (bgm == null){
             bgm = (MediaPlayer) MediaPlayer.create(this, R.raw.menu);
         }
-        /*
-        if (bs_normal == null){
-            bs_normal = (MediaPlayer) MediaPlayer.create(this, R.raw.battle);
-        }
-        if (bs_boss == null){
-            bs_boss = (MediaPlayer) MediaPlayer.create(this, R.raw.boss);
-        }*/
 
         //以下攻撃エフェクト
         if (efs_11 == null){
@@ -580,6 +598,38 @@ public class MainActivity extends AppCompatActivity {
             efs_42 = (MediaPlayer) MediaPlayer.create(this, R.raw.s_14);
         }
 
+    }
+
+    public void SoundStop() {
+
+        if (bgm != null){
+            bgm.stop();     bgm.release();      bgm = null;
+        }
+
+        if (efs_11 != null){
+            efs_11.stop();  efs_11.release();   efs_11 = null;
+        }
+        if (efs_12 != null){
+            efs_12.stop();  efs_12.release();   efs_12 = null;
+        }
+        if (efs_21 != null){
+            efs_21.stop();  efs_21.release();   efs_21 = null;
+        }
+        if (efs_22 != null){
+            efs_22.stop();  efs_22.release();   efs_22 = null;
+        }
+        if (efs_31 != null){
+            efs_31.stop();  efs_31.release();   efs_31 = null;
+        }
+        if (efs_32 != null){
+            efs_32.stop();  efs_32.release();   efs_32 = null;
+        }
+        if (efs_41 != null){
+            efs_41.stop();  efs_41.release();   efs_41 = null;
+        }
+        if (efs_42 != null){
+            efs_42.stop();  efs_42.release();   efs_42 = null;
+        }
     }
     /***************************************************
         音源処理
@@ -613,6 +663,11 @@ public class MainActivity extends AppCompatActivity {
             case 3:
                 if (bgm == null){
                     bgm = (MediaPlayer) MediaPlayer.create(this, R.raw.boss);
+                }
+                break;
+            case 4:
+                if (bgm == null){
+                    bgm = (MediaPlayer) MediaPlayer.create(this, R.raw.ending);
                 }
                 break;
         }
@@ -664,25 +719,30 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        //動画
     }
     @Override
     public void onPause(){
         super.onPause();
         //  DB更新
         AppDBUpdated();
+        //  サウンド
+        SoundStop();
     }
     @Override
     public void onStop(){
         super.onStop();
         //  DB更新
         AppDBUpdated();
+        //  サウンド
+        SoundStop();
     }
     @Override
     public void onDestroy(){
         super.onDestroy();
         //  DB更新
         AppDBUpdated();
+        //  サウンド
+        SoundStop();
     }
 
 
