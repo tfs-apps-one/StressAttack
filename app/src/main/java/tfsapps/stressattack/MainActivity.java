@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     final int TIME_EFFECT = 4;
     final int TIME_PROG_SHORT = 15;
     final int TIME_PROG_LONG = 20;
-    final int TIME_PROG_HI_LONG = 100;
+    final int TIME_PROG_HI_LONG = 50;
 
     //サウンド関係
     private AudioManager am;
@@ -109,12 +109,12 @@ public class MainActivity extends AppCompatActivity {
     private MediaPlayer efs_42 = null;
 
     final int E_TYPE_1 = 1;
-    final String E_NAME_1 = "オーガ";
+    final String E_NAME_1 = "オーガ　　";
     final int E_TYPE_2 = 2;
-    final String E_NAME_2 = "ミイラ";
+    final String E_NAME_2 = "ミイラ　　";
 
     final int B_TYPE_1 = 11;
-    final String B_NAME_1 = "ゴーレム";
+    final String B_NAME_1 = "ゴーレム　";
     final int B_TYPE_2 = 12;
     final String B_NAME_2 = "闇ドラゴン";
 
@@ -174,13 +174,16 @@ public class MainActivity extends AppCompatActivity {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
 //                if (enemy_hp == 0 || display_hold > 0){
-                if (game_step != G_BATTLE || display_hold > 0){
 
+                if (display_hold > 0) {
                     ;
                 }
                 else {
-                    EventGameView();
+                    if (game_step == G_BATTLE) {
+                        EventGameView();
+                    }
                 }
+                break;
         }
         return super.onTouchEvent(event);
     }
