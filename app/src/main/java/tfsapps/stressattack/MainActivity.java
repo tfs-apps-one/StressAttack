@@ -334,7 +334,7 @@ public class MainActivity extends AppCompatActivity {
         enemynamestr = "";
         ename.setText(enemynamestr);
         //ストリー
-        gamestr =   "　勇者がストレスの森を歩いていると・・・\n" +
+        gamestr =   "　勇者がストレスの草原を歩いていると・・・\n" +
                     "　なんと・・・！？\n\n" + "　" + GetEnemyName() + "が現れた！！";
         story.setText(gamestr);
         display_hold = TIME_PROG_LONG;
@@ -605,11 +605,40 @@ public class MainActivity extends AppCompatActivity {
 
     }
     /************************************************
-         ステータス（戦歴）
+         戦　歴
      ************************************************/
     public void onStatus(View v){
-
+        setContentView(R.layout.activity_his);
+        HistoryDisp();
     }
+    public void onBackHis(View v) {
+        setContentView(R.layout.activity_main);
+        BgmStart(1);
+    }
+    public void HistoryDisp() {
+        String tmp = "";
+        TextView map = (TextView) findViewById(R.id.text_map_name);
+        map.setText("〜　ストレスの草原　状態　〜");
+
+        ProgressBar map_bar = (ProgressBar) findViewById(R.id.map_progress);
+        map_bar.setMin(0);
+        map_bar.setMax(100);
+        map_bar.setProgress(10);
+
+        int para = 10;
+
+        TextView history = (TextView) findViewById(R.id.text_history);
+        tmp += "　〜　戦歴モンスター　〜 \n"
+                + "　" + E_NAME_1 + "の討伐数：" + para + " \n"
+                + "　" + E_NAME_2 + "の討伐数：" + para + " \n"
+                + "\n"
+                + "　〜　戦歴BOSS　〜 \n"
+                + "　" + B_NAME_1 + "の討伐数：" + para + " \n"
+                + "　" + B_NAME_2 + "の討伐数：" + para + " \n"
+        ;
+        history.setText(tmp);
+    }
+
 
     /************************************************
          メイン画面へ戻る

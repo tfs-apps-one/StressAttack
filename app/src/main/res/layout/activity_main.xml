@@ -75,7 +75,7 @@
             android:layout_weight="1"
             app:backgroundTint="@null"
             android:background="@drawable/bak_1"
-            android:text="ステータス"
+            android:text="戦　歴"
             android:textColor="@color/white"
             android:onClick="onStatus"
             android:textSize="20dp"
