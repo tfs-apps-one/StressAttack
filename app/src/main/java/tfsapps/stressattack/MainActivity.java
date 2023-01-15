@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     final int G_RESULT = 3;
     final int G_ENDING = 4;
     //インターバル時間
+    final int TIME_EFFECT_SHORT = 2;
     final int TIME_EFFECT = 4;
     final int TIME_PROG_SHORT = 15;
     final int TIME_PROG_LONG = 20;
@@ -107,9 +108,14 @@ public class MainActivity extends AppCompatActivity {
     private MediaPlayer efs_41 = null;
     private MediaPlayer efs_42 = null;
 
+    final int E_TYPE_1 = 1;
     final String E_NAME_1 = "オーガ";
+    final int E_TYPE_2 = 2;
     final String E_NAME_2 = "ミイラ";
+
+    final int B_TYPE_1 = 11;
     final String B_NAME_1 = "ゴーレム";
+    final int B_TYPE_2 = 12;
     final String B_NAME_2 = "闇ドラゴン";
 
     @Override
@@ -118,13 +124,58 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    /**
+     * OS関連処理
+     */
+    @Override
+    public void onStart() {
+        super.onStart();
+        //DBのロード
+        /* データベース */
+        helper = new MyOpenHelper(this);
+        AppDBInitRoad();
+
+        /* サウンド */
+        SoundInit();
+        BgmStart(1);
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        //  DB更新
+        AppDBUpdated();
+        //  サウンド
+        SoundStop();
+    }
+    @Override
+    public void onStop(){
+        super.onStop();
+        //  DB更新
+        AppDBUpdated();
+        //  サウンド
+        SoundStop();
+    }
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        //  DB更新
+        AppDBUpdated();
+        //  サウンド
+        SoundStop();
+    }
 
     /* タッチイベント（タップ処理）自機移動 */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (enemy_hp == 0 || display_hold > 0){
+//                if (enemy_hp == 0 || display_hold > 0){
+                if (game_step != G_BATTLE || display_hold > 0){
+
                     ;
                 }
                 else {
@@ -226,8 +277,8 @@ public class MainActivity extends AppCompatActivity {
         enemynamestr = "";
         ename.setText(enemynamestr);
         //ストリー
-        gamestr =   "　エンディング\n" +
-                "　";
+        gamestr =   "　勇者はストレスのない週末を\n" +
+                    "　しばらくの間・・・過ごすことにした";
         story.setText(gamestr);
         display_hold = TIME_PROG_HI_LONG;
         GameNextStep();
@@ -245,9 +296,12 @@ public class MainActivity extends AppCompatActivity {
         ename.setText(enemynamestr);
         //ストリー
         gamestr =   "　勇者のストレスが解消された\n" +
-                    "　＜戦闘結果＞";
+                    "　ストレスの森が少し浄化した\n\n" +
+                    "　〜戦闘結果〜\n" +
+                    "　" + GetEnemyName() + "を倒した\n" +
+                    "　" + GetEnemyName() + "の欠片を手に入れた！！";
         story.setText(gamestr);
-        display_hold = TIME_PROG_LONG;
+        display_hold = TIME_PROG_HI_LONG;
         GameNextStep();
     }
     /****************************************************
@@ -280,12 +334,10 @@ public class MainActivity extends AppCompatActivity {
         enemynamestr = "";
         ename.setText(enemynamestr);
         //ストリー
-        gamestr =   "　勇者がストレスの森を歩いていると・・・・\n" +
-                    "　なんと！？\n\n　敵が現れた！！";
+        gamestr =   "　勇者がストレスの森を歩いていると・・・\n" +
+                    "　なんと・・・！？\n\n" + "　" + GetEnemyName() + "が現れた！！";
         story.setText(gamestr);
-//        enemy_hp = 100;
-//        seqno = 0;
-        display_hold = TIME_PROG_SHORT;
+        display_hold = TIME_PROG_LONG;
         GameNextStep();
     }
     /****************************************************
@@ -319,148 +371,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    /****************************************************
-         モンスター表示
-     ****************************************************/
-    public void EnemyDisp(int at_type) {
-
-        // 非バトル中のモンスター画像表示
-        if (at_type == 99) {
-            enemynamestr = "";
-            enemy.setImageResource(0);
-            enemy.setBackgroundResource(R.drawable.bak_11);
-            return;
-        }
-
-        // 以下モンスターごとに表示
-        if (enemy_type == 1) {
-            enemynamestr = E_NAME_1;
-            switch (at_type) {
-                case 0:
-                    enemy.setImageResource(R.drawable.e_10);
-                    enemy.setBackgroundResource(R.drawable.bak_11);
-                    break;
-                case 1:
-                    enemy.setImageResource(R.drawable.e_11);
-                    enemy.setBackgroundResource(R.drawable.bak_12);
-                    break;
-                case 2:
-                    enemy.setImageResource(R.drawable.e_12);
-                    enemy.setBackgroundResource(R.drawable.bak_12);
-                    break;
-                case 3:
-                    enemy.setImageResource(R.drawable.e_13);
-                    enemy.setBackgroundResource(R.drawable.bak_13);
-                    break;
-                case 4:
-                    enemy.setImageResource(R.drawable.e_14);
-                    enemy.setBackgroundResource(R.drawable.bak_14);
-                    break;
-            }
-        }
-        if (enemy_type == 2) {
-            enemynamestr = E_NAME_2;
-            switch (at_type) {
-                case 0:
-                    enemy.setImageResource(R.drawable.e_20);
-                    enemy.setBackgroundResource(R.drawable.bak_11);
-                    break;
-                case 1:
-                    enemy.setImageResource(R.drawable.e_21);
-                    enemy.setBackgroundResource(R.drawable.bak_12);
-                    break;
-                case 2:
-                    enemy.setImageResource(R.drawable.e_22);
-                    enemy.setBackgroundResource(R.drawable.bak_12);
-                    break;
-                case 3:
-                    enemy.setImageResource(R.drawable.e_23);
-                    enemy.setBackgroundResource(R.drawable.bak_13);
-                    break;
-                case 4:
-                    enemy.setImageResource(R.drawable.e_24);
-                    enemy.setBackgroundResource(R.drawable.bak_14);
-                    break;
-            }
-        }
-        else if(enemy_type == 11){
-            enemynamestr = B_NAME_1;
-            switch (at_type) {
-                case 0:
-                    enemy.setImageResource(R.drawable.b_10);
-                    enemy.setBackgroundResource(R.drawable.bak_11);
-                    break;
-                case 1:
-                    enemy.setImageResource(R.drawable.b_11);
-                    enemy.setBackgroundResource(R.drawable.bak_12);
-                    break;
-                case 2:
-                    enemy.setImageResource(R.drawable.b_12);
-                    enemy.setBackgroundResource(R.drawable.bak_12);
-                    break;
-                case 3:
-                    enemy.setImageResource(R.drawable.b_13);
-                    enemy.setBackgroundResource(R.drawable.bak_13);
-                    break;
-                case 4:
-                    enemy.setImageResource(R.drawable.b_14);
-                    enemy.setBackgroundResource(R.drawable.bak_14);
-                    break;
-            }
-        }
-        else if(enemy_type == 12){
-            enemynamestr = B_NAME_2;
-            switch (at_type) {
-                case 0:
-                    enemy.setImageResource(R.drawable.b_20);
-                    enemy.setBackgroundResource(R.drawable.bak_11);
-                    break;
-                case 1:
-                    enemy.setImageResource(R.drawable.b_21);
-                    enemy.setBackgroundResource(R.drawable.bak_12);
-                    break;
-                case 2:
-                    enemy.setImageResource(R.drawable.b_22);
-                    enemy.setBackgroundResource(R.drawable.bak_12);
-                    break;
-                case 3:
-                    enemy.setImageResource(R.drawable.b_23);
-                    enemy.setBackgroundResource(R.drawable.bak_13);
-                    break;
-                case 4:
-                    enemy.setImageResource(R.drawable.b_24);
-                    enemy.setBackgroundResource(R.drawable.bak_14);
-                    break;
-            }
-        }
-    }
-
-    /****************************************************
-     モンスター表示
-     ****************************************************/
-    public void EffectSoundStart(int at_type) {
-
-        switch (at_type) {
-            default:
-            case 1:
-                if (efs_11.isPlaying()==false) efs_11.start();
-                if (efs_12.isPlaying()==false) efs_12.start();
-                break;
-            case 2:
-                if (efs_21.isPlaying()==false) efs_21.start();
-                if (efs_22.isPlaying()==false) efs_22.start();
-                break;
-            case 3:
-                if (efs_31.isPlaying()==false) efs_31.start();
-                if (efs_32.isPlaying()==false) efs_32.start();
-                break;
-            case 4:
-                if (efs_41.isPlaying()==false) efs_41.start();
-                if (efs_42.isPlaying()==false) efs_42.start();
-                break;
-        }
-    }
     /****************************************************
         ゲーム表示（タップ時）
      ****************************************************/
@@ -494,10 +404,12 @@ public class MainActivity extends AppCompatActivity {
             case 1:
                 at_str = "斬撃で ";
                 damege = 5;
+                display_hold = TIME_EFFECT_SHORT;
                 break;
             case 2:
                 at_str = "打撃で ";
                 damege = 5;
+                display_hold = TIME_EFFECT_SHORT;
                 break;
             case 3:
                 at_str = "鋭い雷撃で ";
@@ -680,70 +592,207 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     /************************************************
-     ゲームスタート
+        ゲームスタート
      ************************************************/
     public void onGameScreen(View v){
         GameStart();
     }
     /************************************************
-     買い物
+        買い物
      ************************************************/
     public void onShop(View v){
 
     }
     /************************************************
-     ステータス（戦歴）
+         ステータス（戦歴）
      ************************************************/
     public void onStatus(View v){
 
     }
 
-    /**
-     * OS関連処理
-     *
-     */
-    @Override
-    public void onStart() {
-        super.onStart();
-        //DBのロード
-        /* データベース */
-        helper = new MyOpenHelper(this);
-        AppDBInitRoad();
+    /************************************************
+         メイン画面へ戻る
+     ************************************************/
+    public void onBack(View v){
+        GameTimer.cancel(); GameTimer = null;
+        enemy = null;
+        prog = null;
+        ename = null;
+        story = null;
+
+        SoundStop();
+        setContentView(R.layout.activity_main);
 
         /* サウンド */
         SoundInit();
         BgmStart(1);
     }
-    @Override
-    public void onResume() {
-        super.onResume();
+
+
+    /***************************************************
+     　↓↓↓ 以下、モンスター表示関連　↓↓↓
+     ***************************************************/
+
+    /**
+        モンスターの名前取得
+    **/
+    public String GetEnemyName(){
+        String tmp = "";
+        switch (enemy_type){
+            case E_TYPE_1:
+                tmp +=  "オーガ";          break;
+            case E_TYPE_2:
+                tmp +=  "ミイラ";          break;
+            case B_TYPE_1:
+                tmp +=  "BOSS:ゴーレム";    break;
+            case B_TYPE_2:
+                tmp +=  "BOSS:闇ドラゴン";  break;
+
+        }
+        return tmp;
     }
-    @Override
-    public void onPause(){
-        super.onPause();
-        //  DB更新
-        AppDBUpdated();
-        //  サウンド
-        SoundStop();
+
+
+    /****************************************************
+        モンスター表示
+     ****************************************************/
+    public void EnemyDisp(int at_type) {
+
+        // 非バトル中のモンスター画像表示
+        if (at_type == 99) {
+            enemynamestr = "";
+            enemy.setImageResource(0);
+            enemy.setBackgroundResource(R.drawable.bak_11);
+            return;
+        }
+
+        enemynamestr = GetEnemyName();
+        // 以下モンスターごとに表示
+        if (enemy_type == E_TYPE_1) {
+            switch (at_type) {
+                case 0:
+                    enemy.setImageResource(R.drawable.e_10);
+                    enemy.setBackgroundResource(R.drawable.bak_11);
+                    break;
+                case 1:
+                    enemy.setImageResource(R.drawable.e_11);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 2:
+                    enemy.setImageResource(R.drawable.e_12);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 3:
+                    enemy.setImageResource(R.drawable.e_13);
+                    enemy.setBackgroundResource(R.drawable.bak_13);
+                    break;
+                case 4:
+                    enemy.setImageResource(R.drawable.e_14);
+                    enemy.setBackgroundResource(R.drawable.bak_14);
+                    break;
+            }
+        }
+        if (enemy_type == E_TYPE_2) {
+            switch (at_type) {
+                case 0:
+                    enemy.setImageResource(R.drawable.e_20);
+                    enemy.setBackgroundResource(R.drawable.bak_11);
+                    break;
+                case 1:
+                    enemy.setImageResource(R.drawable.e_21);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 2:
+                    enemy.setImageResource(R.drawable.e_22);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 3:
+                    enemy.setImageResource(R.drawable.e_23);
+                    enemy.setBackgroundResource(R.drawable.bak_13);
+                    break;
+                case 4:
+                    enemy.setImageResource(R.drawable.e_24);
+                    enemy.setBackgroundResource(R.drawable.bak_14);
+                    break;
+            }
+        }
+        else if(enemy_type == B_TYPE_1){
+            switch (at_type) {
+                case 0:
+                    enemy.setImageResource(R.drawable.b_10);
+                    enemy.setBackgroundResource(R.drawable.bak_11);
+                    break;
+                case 1:
+                    enemy.setImageResource(R.drawable.b_11);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 2:
+                    enemy.setImageResource(R.drawable.b_12);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 3:
+                    enemy.setImageResource(R.drawable.b_13);
+                    enemy.setBackgroundResource(R.drawable.bak_13);
+                    break;
+                case 4:
+                    enemy.setImageResource(R.drawable.b_14);
+                    enemy.setBackgroundResource(R.drawable.bak_14);
+                    break;
+            }
+        }
+        else if(enemy_type == B_TYPE_2){
+            switch (at_type) {
+                case 0:
+                    enemy.setImageResource(R.drawable.b_20);
+                    enemy.setBackgroundResource(R.drawable.bak_11);
+                    break;
+                case 1:
+                    enemy.setImageResource(R.drawable.b_21);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 2:
+                    enemy.setImageResource(R.drawable.b_22);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 3:
+                    enemy.setImageResource(R.drawable.b_23);
+                    enemy.setBackgroundResource(R.drawable.bak_13);
+                    break;
+                case 4:
+                    enemy.setImageResource(R.drawable.b_24);
+                    enemy.setBackgroundResource(R.drawable.bak_14);
+                    break;
+            }
+        }
     }
-    @Override
-    public void onStop(){
-        super.onStop();
-        //  DB更新
-        AppDBUpdated();
-        //  サウンド
-        SoundStop();
+
+    /****************************************************
+     モンスター表示
+     ****************************************************/
+    public void EffectSoundStart(int at_type) {
+
+        switch (at_type) {
+            default:
+            case 1:
+                if (efs_11.isPlaying()==false) efs_11.start();
+                if (efs_12.isPlaying()==false) efs_12.start();
+                break;
+            case 2:
+                if (efs_21.isPlaying()==false) efs_21.start();
+                if (efs_22.isPlaying()==false) efs_22.start();
+                break;
+            case 3:
+                if (efs_31.isPlaying()==false) efs_31.start();
+                if (efs_32.isPlaying()==false) efs_32.start();
+                break;
+            case 4:
+                if (efs_41.isPlaying()==false) efs_41.start();
+                if (efs_42.isPlaying()==false) efs_42.start();
+                break;
+        }
     }
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        //  DB更新
-        AppDBUpdated();
-        //  サウンド
-        SoundStop();
-    }
+
 
 
     /***************************************************

@@ -95,8 +95,9 @@
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
-                    android:gravity="center|right"
-                    android:text="[敵ＨＰ]"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:text=" 敵ＨＰ "
                     android:textColor="@color/white" />
 
                 <ProgressBar
@@ -104,11 +105,11 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="0dp"
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="0dp"
-                    android:layout_weight="3"
+                    android:layout_weight="4"
                     android:max="100"
                     android:progress="86"
                     android:progressBackgroundTint="@color/white" />
@@ -177,6 +178,7 @@
                     android:layout_weight="1"
                     app:backgroundTint="@null"
                     android:background="@drawable/bak_1"
+                    android:onClick="onBack"
                     android:text="戻る"
                     android:textColor="@color/white"
                     android:textSize="20dp"
