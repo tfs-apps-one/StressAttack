@@ -302,7 +302,8 @@ public class MainActivity extends AppCompatActivity {
                     "　ストレスの森が少し浄化した\n\n" +
                     "　〜戦闘結果〜\n" +
                     "　" + GetEnemyName() + "を倒した\n" +
-                    "　" + GetEnemyName() + "の欠片を手に入れた！！";
+                    "　" + GetEnemyName() + "の欠片を手に入れた\n"+
+                    "　浄化ポイント "+GetEnemyPoint()+" を手に入れた！！\n";
         story.setText(gamestr);
         display_hold = TIME_PROG_HI_LONG;
         GameNextStep();
@@ -338,7 +339,7 @@ public class MainActivity extends AppCompatActivity {
         ename.setText(enemynamestr);
         //ストリー
         gamestr =   "　勇者がストレスの草原を歩いていると・・・\n" +
-                    "　なんと・・・！？\n\n" + "　" + GetEnemyName() + "が現れた！！";
+                    "　なんと・・・！？\n\n" + "　ストレス（" + GetEnemyName() + "）が現れた！！";
         story.setText(gamestr);
         display_hold = TIME_PROG_LONG;
         GameNextStep();
@@ -440,7 +441,7 @@ public class MainActivity extends AppCompatActivity {
             bak2_gamestr = bak1_gamestr;
             bak1_gamestr = "　" + seqno + "ターン目:  " + "敵に"+ at_str + damege + " のダメージ\n";
             gamestr = "";
-            gamestr += bak1_gamestr;
+            gamestr += bak1_gamestr+"\n";
             gamestr += bak2_gamestr;
             gamestr += bak3_gamestr;
             gamestr += bak4_gamestr;
@@ -599,14 +600,20 @@ public class MainActivity extends AppCompatActivity {
         ゲームスタート
      ************************************************/
     public void onGameScreen(View v){
+        /* ゲームスタート */
         GameStart();
     }
     /************************************************
         買い物
      ************************************************/
     public void onShop(View v){
-
+        setContentView(R.layout.activity_list);
     }
+    public void onBackList(View v) {
+        setContentView(R.layout.activity_main);
+        BgmStart(1);
+    }
+
     /************************************************
          戦　歴
      ************************************************/
@@ -665,6 +672,24 @@ public class MainActivity extends AppCompatActivity {
     /***************************************************
      　↓↓↓ 以下、モンスター表示関連　↓↓↓
      ***************************************************/
+
+    /**
+        モンスターの討伐後の経験値
+     **/
+    public int GetEnemyPoint(){
+        int point = 0;
+        switch (enemy_type) {
+            case E_TYPE_1:
+            case E_TYPE_2:
+                point = 10;
+                break;
+            case B_TYPE_1:
+            case B_TYPE_2:
+                point = 50;
+                break;
+        }
+        return point;
+    }
 
     /**
         モンスターの名前取得

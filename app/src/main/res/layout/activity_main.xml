@@ -57,7 +57,7 @@
             android:layout_weight="1"
             app:backgroundTint="@null"
             android:background="@drawable/bak_1"
-            android:text="買い物"
+            android:text="ショップ（攻撃）"
             android:textColor="@color/white"
             android:onClick="onShop"
             android:textSize="20dp"

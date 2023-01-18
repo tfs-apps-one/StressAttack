@@ -141,7 +141,7 @@
                     app:backgroundTint="@null"
                     android:background="@drawable/bak_1"
                     android:gravity="center"
-                    android:text="勇者の強さ表示"
+                    android:text="浄化率１５％（少しストレスが減ってきた）"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     tools:ignore="SpeakableTextPresentCheck" />
