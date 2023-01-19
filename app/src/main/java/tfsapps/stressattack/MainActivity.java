@@ -348,6 +348,13 @@ public class MainActivity extends AppCompatActivity {
      ゲーム表示（メイン）
      ****************************************************/
     public void GameView() {
+
+        TextView mystatus = (TextView) findViewById(R.id.text_mystatus);
+        String buf = "";
+        buf += "　勇者のＬｖ："+99;
+        buf += "\n　累計浄化ポイント："+12345678;
+        mystatus.setText(buf);
+
         if (display_hold > 0) {
             display_hold--;
             return;
@@ -604,10 +611,75 @@ public class MainActivity extends AppCompatActivity {
         GameStart();
     }
     /************************************************
-        買い物
+        買い物（攻撃）
      ************************************************/
     public void onShop(View v){
+        /* エフェクト入手状況 */
         setContentView(R.layout.activity_list);
+        EffectDisp();
+    }
+    public void EffectDisp(){
+        /* 左列 */
+        TextView l11 = (TextView) findViewById(R.id.text_list11);
+        TextView l21 = (TextView) findViewById(R.id.text_list21);
+        TextView l31 = (TextView) findViewById(R.id.text_list31);
+        TextView l41 = (TextView) findViewById(R.id.text_list41);
+        /* 右列 */
+        TextView l12 = (TextView) findViewById(R.id.text_list12);
+        TextView l22 = (TextView) findViewById(R.id.text_list22);
+        TextView l32 = (TextView) findViewById(R.id.text_list32);
+        TextView l42 = (TextView) findViewById(R.id.text_list42);
+
+        TextView total = (TextView) findViewById(R.id.text_list_total);
+
+        String get_after  = "[済] 浄化ポイント:";
+        String get_before = "[　] 浄化ポイント:";
+        String buf = "";
+        boolean flag = true;
+        int _color = 0;
+
+        total.setText("累計浄化ポイント:12345678");
+
+        flag = true;
+        if (flag)   buf = get_after  + 10;
+        else        buf = get_before + 10;
+        l11.setText(buf);
+
+        flag = true;
+        if (flag)   buf = get_after  + 20;
+        else        buf = get_before + 20;
+        l21.setText(buf);
+
+        flag = true;
+        if (flag)   buf = get_after  + 30;
+        else        buf = get_before + 30;
+        l31.setText(buf);
+
+        flag = true;
+        if (flag)   buf = get_after  + 40;
+        else        buf = get_before + 40;
+        l41.setText(buf);
+
+        flag = false;
+        if (flag)   buf = get_after  + 100;
+        else        buf = get_before + 100;
+        l12.setText(buf);
+
+        flag = false;
+        if (flag)   buf = get_after  + 200;
+        else        buf = get_before + 200;
+        l22.setText(buf);
+
+        flag = false;
+        if (flag)   buf = get_after  + 3000;
+        else        buf = get_before + 3000;
+        l32.setText(buf);
+
+        flag = false;
+        if (flag)   buf = get_after  + 99999;
+        else        buf = get_before + 99999;
+        l42.setText(buf);
+
     }
     public void onBackList(View v) {
         setContentView(R.layout.activity_main);
@@ -629,6 +701,9 @@ public class MainActivity extends AppCompatActivity {
         String tmp = "";
         TextView map = (TextView) findViewById(R.id.text_map_name);
         map.setText("〜　ストレスの草原　状態　〜");
+
+        TextView now = (TextView) findViewById(R.id.text_nowprog);
+        now.setText("　浄化率:19％\n　少しストレスが減ってきた");
 
         ProgressBar map_bar = (ProgressBar) findViewById(R.id.map_progress);
         map_bar.setMin(0);
