@@ -26,33 +26,55 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
 //public class MainActivity extends AppCompatActivity  implements Game.Callback{
 
-    static private Game myGame = null;
     private final Random rand = new Random(System.currentTimeMillis());
 
     //  DB関連
     public MyOpenHelper helper;             //DBアクセス
     private int db_isopen = 0;              //DB使用したか
-    private int db_level = 0;               //DB
-    private int db_stamina = 0;             //DB
-    private int db_money = 0;               //DB
-    private int db_coin = 0;                //DB
-    private int db_gold = 0;                //DB
-    private int db_silver = 0;              //DB
-    private int db_bronze = 0;              //DB
-    private int db_stage = 0;               //DB
-    private int db_scoop = 0;               //DB
-    private int db_goggles = 0;             //DB
-    private int db_ore_1 = 0;               //DB
-    private int db_ore_2= 0;                //DB
-    private int db_ore_3 = 0;               //DB
-    private int db_item_1 = 0;              //DB
-    private int db_item_2 = 0;              //DB
-    private int db_item_3 = 0;              //DB
-    private int db_syssw_1 = 0;             //DB
-    private int db_syssw_2 = 0;             //DB
-    private int db_syssw_3 = 0;             //DB
-    private int db_syssw_4 = 0;             //DB
-    private int db_syssw_5 = 0;             //DB
+
+    private int db_level = 0;               //DB　勇者
+    private int db_damage = 0;              //DB
+    private int db_critical = 0;            //DB
+    private int db_status_1 = 0;            //DB
+    private int db_status_2 = 0;            //DB
+    private int db_status_3 = 0;            //DB
+    private int db_status_4 = 0;            //DB
+    private int db_status_5 = 0;            //DB
+
+    private int db_map = 0;                 //DB　システム
+    private int db_jpoint = 0;              //DB
+    private int db_sysm_1 = 0;              //DB
+    private int db_sysm_2 = 0;              //DB
+    private int db_sysm_3 = 0;              //DB
+    private int db_sysm_4 = 0;              //DB
+    private int db_sysm_5 = 0;              //DB
+
+    private int db_enemy_1 = 0;             //DB　敵
+    private int db_enemy_2 = 0;             //DB
+    private int db_enemy_3 = 0;             //DB
+    private int db_enemy_4 = 0;             //DB
+    private int db_enemy_5 = 0;             //DB
+    private int db_enemy_6 = 0;             //DB
+    private int db_enemy_7 = 0;             //DB
+    private int db_enemy_8 = 0;             //DB
+    private int db_enemy_9 = 0;             //DB
+    private int db_enemy_10 = 0;            //DB
+    private int db_enemy_11 = 0;            //DB
+    private int db_enemy_12 = 0;            //DB
+    private int db_enemy_13 = 0;            //DB
+    private int db_enemy_14 = 0;            //DB
+    private int db_enemy_15 = 0;            //DB
+
+    private int db_boss_1 = 0;              //DB　ボス
+    private int db_boss_2 = 0;              //DB　
+    private int db_boss_3 = 0;              //DB　
+    private int db_boss_4 = 0;              //DB　
+    private int db_boss_5 = 0;              //DB　
+    private int db_boss_6 = 0;              //DB　
+    private int db_boss_7 = 0;              //DB　
+    private int db_boss_8 = 0;              //DB　
+    private int db_boss_9 = 0;              //DB　
+    private int db_boss_10 = 0;             //DB　
 
     private boolean taskrun = false;
     private ImageView enemy = null;
@@ -301,8 +323,8 @@ public class MainActivity extends AppCompatActivity {
         gamestr =   "　勇者のストレスが解消された\n" +
                     "　ストレスの森が少し浄化した\n\n" +
                     "　〜戦闘結果〜\n" +
-                    "　" + GetEnemyName() + "を倒した\n" +
-                    "　" + GetEnemyName() + "の欠片を手に入れた\n"+
+                    "　" + GetEnemyName(false) + "を倒した\n" +
+                    "　" + GetEnemyName(false) + "の欠片を手に入れた\n"+
                     "　浄化ポイント "+GetEnemyPoint()+" を手に入れた！！\n";
         story.setText(gamestr);
         display_hold = TIME_PROG_HI_LONG;
@@ -339,7 +361,8 @@ public class MainActivity extends AppCompatActivity {
         ename.setText(enemynamestr);
         //ストリー
         gamestr =   "　勇者がストレスの草原を歩いていると・・・\n" +
-                    "　なんと・・・！？\n\n" + "　ストレス（" + GetEnemyName() + "）が現れた！！";
+                    "　なんと・・・！？\n\n" + "　ストレス（" + GetEnemyName(false) + "）が現れた！！\n"+
+                    "　【タップ】してストレスを倒せ！！";
         story.setText(gamestr);
         display_hold = TIME_PROG_LONG;
         GameNextStep();
@@ -348,6 +371,13 @@ public class MainActivity extends AppCompatActivity {
      ゲーム表示（メイン）
      ****************************************************/
     public void GameView() {
+
+        /* タイトル部の表示 */
+        TextView summap = (TextView) findViewById(R.id.text_submap_name);
+        summap.setText("草原");
+
+        ImageView submap = (ImageView) findViewById(R.id.img_submap);
+        submap.setImageResource(R.drawable.map00);
 
         TextView mystatus = (TextView) findViewById(R.id.text_mystatus);
         String buf = "";
@@ -769,8 +799,10 @@ public class MainActivity extends AppCompatActivity {
     /**
         モンスターの名前取得
     **/
-    public String GetEnemyName(){
+    public String GetEnemyName(boolean space){
         String tmp = "";
+        if (space)  tmp += "　　　　敵：";
+
         switch (enemy_type){
             case E_TYPE_1:
                 tmp +=  "オーガ";          break;
@@ -799,7 +831,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        enemynamestr = GetEnemyName();
+        enemynamestr = GetEnemyName(true);
         // 以下モンスターごとに表示
         if (enemy_type == E_TYPE_1) {
             switch (at_type) {
@@ -940,26 +972,45 @@ public class MainActivity extends AppCompatActivity {
         sql.append(" SELECT");
         sql.append(" isopen");
         sql.append(" ,level");
-        sql.append(" ,stamina");
-        sql.append(" ,money");
-        sql.append(" ,coin");
-        sql.append(" ,gold");
-        sql.append(" ,silver");
-        sql.append(" ,bronze");
-        sql.append(" ,stage");
-        sql.append(" ,scoop");
-        sql.append(" ,goggles");
-        sql.append(" ,ore_1");
-        sql.append(" ,ore_2");
-        sql.append(" ,ore_3");
-        sql.append(" ,item_1");
-        sql.append(" ,item_2");
-        sql.append(" ,item_3");
-        sql.append(" ,syssw_1");
-        sql.append(" ,syssw_2");
-        sql.append(" ,syssw_3");
-        sql.append(" ,syssw_4");
-        sql.append(" ,syssw_5");
+        sql.append(" ,damage");
+        sql.append(" ,critical");
+        sql.append(" ,status_1");
+        sql.append(" ,status_2");
+        sql.append(" ,status_3");
+        sql.append(" ,status_4");
+        sql.append(" ,status_5");
+        sql.append(" ,map");
+        sql.append(" ,jpoint");
+        sql.append(" ,sysm_1");
+        sql.append(" ,sysm_2");
+        sql.append(" ,sysm_3");
+        sql.append(" ,sysm_4");
+        sql.append(" ,sysm_5");
+        sql.append(" ,enemy_1");
+        sql.append(" ,enemy_2");
+        sql.append(" ,enemy_3");
+        sql.append(" ,enemy_4");
+        sql.append(" ,enemy_5");
+        sql.append(" ,enemy_6");
+        sql.append(" ,enemy_7");
+        sql.append(" ,enemy_8");
+        sql.append(" ,enemy_9");
+        sql.append(" ,enemy_10");
+        sql.append(" ,enemy_11");
+        sql.append(" ,enemy_12");
+        sql.append(" ,enemy_13");
+        sql.append(" ,enemy_14");
+        sql.append(" ,enemy_15");
+        sql.append(" ,boss_1");
+        sql.append(" ,boss_2");
+        sql.append(" ,boss_3");
+        sql.append(" ,boss_4");
+        sql.append(" ,boss_5");
+        sql.append(" ,boss_6");
+        sql.append(" ,boss_7");
+        sql.append(" ,boss_8");
+        sql.append(" ,boss_9");
+        sql.append(" ,boss_10");
         sql.append(" FROM appinfo;");
         try {
             Cursor cursor = db.rawQuery(sql.toString(), null);
@@ -968,26 +1019,45 @@ public class MainActivity extends AppCompatActivity {
             if (cursor.moveToNext()) {
                 db_isopen = cursor.getInt(0);
                 db_level = cursor.getInt(1);
-                db_stamina = cursor.getInt(2);
-                db_money = cursor.getInt(3);
-                db_coin = cursor.getInt(4);
-                db_gold = cursor.getInt(5);
-                db_silver = cursor.getInt(6);
-                db_bronze = cursor.getInt(7);
-                db_stage = cursor.getInt(8);
-                db_scoop = cursor.getInt(9);
-                db_goggles = cursor.getInt(10);
-                db_ore_1 = cursor.getInt(11);
-                db_ore_2 = cursor.getInt(12);
-                db_ore_3 = cursor.getInt(13);
-                db_item_1 = cursor.getInt(14);
-                db_item_2 = cursor.getInt(15);
-                db_item_3 = cursor.getInt(16);
-                db_syssw_1 = cursor.getInt(17);
-                db_syssw_2 = cursor.getInt(18);
-                db_syssw_3 = cursor.getInt(19);
-                db_syssw_4 = cursor.getInt(20);
-                db_syssw_5 = cursor.getInt(21);
+                db_damage = cursor.getInt(2);
+                db_critical = cursor.getInt(3);
+                db_status_1 = cursor.getInt(4);
+                db_status_2 = cursor.getInt(5);
+                db_status_3 = cursor.getInt(6);
+                db_status_4 = cursor.getInt(7);
+                db_status_5 = cursor.getInt(8);
+                db_map = cursor.getInt(9);
+                db_jpoint = cursor.getInt(10);
+                db_sysm_1 = cursor.getInt(11);
+                db_sysm_2 = cursor.getInt(12);
+                db_sysm_3 = cursor.getInt(13);
+                db_sysm_4 = cursor.getInt(14);
+                db_sysm_5 = cursor.getInt(15);
+                db_enemy_1 = cursor.getInt(16);
+                db_enemy_2 = cursor.getInt(17);
+                db_enemy_3 = cursor.getInt(18);
+                db_enemy_4 = cursor.getInt(19);
+                db_enemy_5 = cursor.getInt(20);
+                db_enemy_6 = cursor.getInt(21);
+                db_enemy_7 = cursor.getInt(22);
+                db_enemy_8 = cursor.getInt(23);
+                db_enemy_9 = cursor.getInt(24);
+                db_enemy_10 = cursor.getInt(25);
+                db_enemy_11 = cursor.getInt(26);
+                db_enemy_12 = cursor.getInt(27);
+                db_enemy_13 = cursor.getInt(28);
+                db_enemy_14 = cursor.getInt(29);
+                db_enemy_15 = cursor.getInt(30);
+                db_boss_1 = cursor.getInt(31);
+                db_boss_2 = cursor.getInt(32);
+                db_boss_3 = cursor.getInt(33);
+                db_boss_4 = cursor.getInt(34);
+                db_boss_5 = cursor.getInt(35);
+                db_boss_6 = cursor.getInt(36);
+                db_boss_7 = cursor.getInt(37);
+                db_boss_8 = cursor.getInt(38);
+                db_boss_9 = cursor.getInt(39);
+                db_boss_10 = cursor.getInt(40);
             }
         } finally {
             db.close();
@@ -1000,26 +1070,45 @@ public class MainActivity extends AppCompatActivity {
             ContentValues insertValues = new ContentValues();
             insertValues.put("isopen", 1);
             insertValues.put("level", 1);
-            insertValues.put("stamina", 100);
-            insertValues.put("money", 0);
-            insertValues.put("coin", 0);
-            insertValues.put("gold", 0);
-            insertValues.put("silver", 0);
-            insertValues.put("bronze", 0);
-            insertValues.put("stage", 0);
-            insertValues.put("scoop", 0);
-            insertValues.put("goggles", 0);
-            insertValues.put("ore_1", 0);
-            insertValues.put("ore_2", 0);
-            insertValues.put("ore_3", 0);
-            insertValues.put("item_1", 0);
-            insertValues.put("item_2", 0);
-            insertValues.put("item_3", 0);
-            insertValues.put("syssw_1", 0);
-            insertValues.put("syssw_2", 0);
-            insertValues.put("syssw_3", 0);
-            insertValues.put("syssw_4", 0);
-            insertValues.put("syssw_5", 0);
+            insertValues.put("damage", 5);
+            insertValues.put("critical", 5);
+            insertValues.put("status_1", 0);
+            insertValues.put("status_2", 0);
+            insertValues.put("status_3", 0);
+            insertValues.put("status_4", 0);
+            insertValues.put("status_5", 0);
+            insertValues.put("map", 0);
+            insertValues.put("jpoint", 0);
+            insertValues.put("sysm_1", 0);
+            insertValues.put("sysm_2", 0);
+            insertValues.put("sysm_3", 0);
+            insertValues.put("sysm_4", 0);
+            insertValues.put("sysm_5", 0);
+            insertValues.put("enemy_1", 0);
+            insertValues.put("enemy_2", 0);
+            insertValues.put("enemy_3", 0);
+            insertValues.put("enemy_4", 0);
+            insertValues.put("enemy_5", 0);
+            insertValues.put("enemy_6", 0);
+            insertValues.put("enemy_7", 0);
+            insertValues.put("enemy_8", 0);
+            insertValues.put("enemy_9", 0);
+            insertValues.put("enemy_10", 0);
+            insertValues.put("enemy_11", 0);
+            insertValues.put("enemy_12", 0);
+            insertValues.put("enemy_13", 0);
+            insertValues.put("enemy_14", 0);
+            insertValues.put("enemy_15", 0);
+            insertValues.put("boss_1", 0);
+            insertValues.put("boss_2", 0);
+            insertValues.put("boss_3", 0);
+            insertValues.put("boss_4", 0);
+            insertValues.put("boss_5", 0);
+            insertValues.put("boss_6", 0);
+            insertValues.put("boss_7", 0);
+            insertValues.put("boss_8", 0);
+            insertValues.put("boss_9", 0);
+            insertValues.put("boss_10", 0);
             try {
                 ret = db.insert("appinfo", null, insertValues);
             } finally {
@@ -1027,7 +1116,8 @@ public class MainActivity extends AppCompatActivity {
             }
             db_isopen = 1;
             db_level = 1;
-            db_stamina = 100;
+            db_damage = 5;
+            db_critical = 5;
             /*
             if (ret == -1) {
                 Toast.makeText(this, "DataBase Create.... ERROR", Toast.LENGTH_SHORT).show();
@@ -1050,26 +1140,45 @@ public class MainActivity extends AppCompatActivity {
         ContentValues insertValues = new ContentValues();
         insertValues.put("isopen", db_isopen);
         insertValues.put("level", db_level);
-        insertValues.put("stamina", db_stamina);
-        insertValues.put("money", db_money);
-        insertValues.put("coin", db_coin);
-        insertValues.put("gold", db_gold);
-        insertValues.put("silver", db_silver);
-        insertValues.put("bronze", db_bronze);
-        insertValues.put("stage", db_stage);
-        insertValues.put("scoop", db_scoop);
-        insertValues.put("goggles", db_goggles);
-        insertValues.put("ore_1", db_ore_1);
-        insertValues.put("ore_2", db_ore_2);
-        insertValues.put("ore_3", db_ore_3);
-        insertValues.put("item_1", db_item_1);
-        insertValues.put("item_2", db_item_2);
-        insertValues.put("item_3", db_item_3);
-        insertValues.put("syssw_1", db_syssw_1);
-        insertValues.put("syssw_2", db_syssw_2);
-        insertValues.put("syssw_3", db_syssw_3);
-        insertValues.put("syssw_4", db_syssw_4);
-        insertValues.put("syssw_5", db_syssw_5);
+        insertValues.put("damage", db_damage);
+        insertValues.put("critical", db_critical);
+        insertValues.put("status_1", db_status_1);
+        insertValues.put("status_2", db_status_2);
+        insertValues.put("status_3", db_status_3);
+        insertValues.put("status_4", db_status_4);
+        insertValues.put("status_5", db_status_5);
+        insertValues.put("map", db_map);
+        insertValues.put("jpoint", db_jpoint);
+        insertValues.put("sysm_1", db_sysm_1);
+        insertValues.put("sysm_2", db_sysm_2);
+        insertValues.put("sysm_3", db_sysm_3);
+        insertValues.put("sysm_4", db_sysm_4);
+        insertValues.put("sysm_5", db_sysm_5);
+        insertValues.put("enemy_1", db_enemy_1);
+        insertValues.put("enemy_2", db_enemy_2);
+        insertValues.put("enemy_3", db_enemy_3);
+        insertValues.put("enemy_4", db_enemy_4);
+        insertValues.put("enemy_5", db_enemy_5);
+        insertValues.put("enemy_6", db_enemy_6);
+        insertValues.put("enemy_7", db_enemy_7);
+        insertValues.put("enemy_8", db_enemy_8);
+        insertValues.put("enemy_9", db_enemy_9);
+        insertValues.put("enemy_10", db_enemy_10);
+        insertValues.put("enemy_11", db_enemy_11);
+        insertValues.put("enemy_12", db_enemy_12);
+        insertValues.put("enemy_13", db_enemy_13);
+        insertValues.put("enemy_14", db_enemy_14);
+        insertValues.put("enemy_15", db_enemy_15);
+        insertValues.put("boss_1", db_boss_1);
+        insertValues.put("boss_2", db_boss_2);
+        insertValues.put("boss_3", db_boss_3);
+        insertValues.put("boss_4", db_boss_4);
+        insertValues.put("boss_5", db_boss_5);
+        insertValues.put("boss_6", db_boss_6);
+        insertValues.put("boss_7", db_boss_7);
+        insertValues.put("boss_8", db_boss_8);
+        insertValues.put("boss_9", db_boss_9);
+        insertValues.put("boss_10", db_boss_10);
         int ret;
         try {
             ret = db.update("appinfo", insertValues, null, null);

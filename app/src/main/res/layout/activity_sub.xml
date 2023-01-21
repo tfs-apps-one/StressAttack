@@ -15,18 +15,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:orientation="vertical">
 
-        <!--　ゲーム画面が lay4 動的表示の場合　-->
-        <!--
-        <LinearLayout
-            android:id="@+id/linearLayout4"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            app:layout_constraintTop_toTopOf="parent"
-            android:orientation="horizontal">
-        </LinearLayout>
-        -->
-
         <LinearLayout
             android:id="@+id/linearLayout4"
             android:layout_width="match_parent"
@@ -41,8 +29,8 @@
             app:layout_constraintTop_toTopOf="parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/text_enemy_name"
+            <LinearLayout
+                android:id="@+id/linearLayout42"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginStart="5dp"
@@ -50,10 +38,54 @@
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:text=""
-                android:textColor="@color/white" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_submap_name"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/white" />
+
+                <ImageView
+                    android:id="@+id/img_submap"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/map00"
+                    android:textColor="@color/white"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/text_enemy_name"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:textStyle="bold"
+                    android:gravity="center|left"
+                    android:text=""
+                    android:textColor="@color/white" />
+
+                <!--
+                <TextView
+                    android:id="@+id/text_enemy_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/white" />
+                    -->
+            </LinearLayout>
+
 
             <ImageView
                 android:id="@+id/img_enemy"
@@ -66,18 +98,6 @@
                 android:layout_weight="8"
                 android:textColor="@color/white"
                 android:gravity="center"/>
-
-            <!--
-            <ImageView
-                android:id="@+id/img_effect"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-
-                android:src="@drawable/enemy1"
-
-                />
-            -->
 
             <LinearLayout
                 android:id="@+id/linearLayout41"
