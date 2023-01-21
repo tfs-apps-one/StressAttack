@@ -174,6 +174,15 @@ public class MainActivity extends AppCompatActivity {
     final int B_TYPE_10 = 60;
     final String B_NAME_10 = "＊＊＊＊　";
 
+    final int EFFECT_1 = 0;
+    final int EFFECT_2 = 50;
+    final int EFFECT_3 = 100;
+    final int EFFECT_4 = 200;
+    final int EFFECT_5 = 3000;
+    final int EFFECT_6 = 6000;
+    final int EFFECT_7 = 10000;
+    final int EFFECT_8 = 99999;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -713,50 +722,82 @@ public class MainActivity extends AppCompatActivity {
 
         total.setText("累計浄化ポイント:"+db_jpoint);
 
-        flag = true;
-        if (flag)   buf = get_after  + 10;
-        else        buf = get_before + 10;
+        flag = GetEffectLevel(1);
+        if (flag)   buf = get_after  + EFFECT_1;
+        else        buf = get_before + EFFECT_1;
         l11.setText(buf);
 
-        flag = true;
-        if (flag)   buf = get_after  + 20;
-        else        buf = get_before + 20;
+        flag = GetEffectLevel(2);
+        if (flag)   buf = get_after  + EFFECT_2;
+        else        buf = get_before + EFFECT_2;
         l21.setText(buf);
 
-        flag = true;
-        if (flag)   buf = get_after  + 30;
-        else        buf = get_before + 30;
+        flag = GetEffectLevel(3);
+        if (flag)   buf = get_after  + EFFECT_3;
+        else        buf = get_before + EFFECT_3;
         l31.setText(buf);
 
-        flag = true;
-        if (flag)   buf = get_after  + 40;
-        else        buf = get_before + 40;
+        flag = GetEffectLevel(4);
+        if (flag)   buf = get_after  + EFFECT_4;
+        else        buf = get_before + EFFECT_4;
         l41.setText(buf);
 
-        flag = false;
-        if (flag)   buf = get_after  + 100;
-        else        buf = get_before + 100;
+        flag = GetEffectLevel(5);
+        if (flag)   buf = get_after  + EFFECT_5;
+        else        buf = get_before + EFFECT_5;
         l12.setText(buf);
 
-        flag = false;
-        if (flag)   buf = get_after  + 200;
-        else        buf = get_before + 200;
+        flag = GetEffectLevel(6);
+        if (flag)   buf = get_after  + EFFECT_6;
+        else        buf = get_before + EFFECT_6;
         l22.setText(buf);
 
-        flag = false;
-        if (flag)   buf = get_after  + 3000;
-        else        buf = get_before + 3000;
+        flag = GetEffectLevel(7);
+        if (flag)   buf = get_after  + EFFECT_7;
+        else        buf = get_before + EFFECT_7;
         l32.setText(buf);
 
-        flag = false;
-        if (flag)   buf = get_after  + 99999;
-        else        buf = get_before + 99999;
+        flag = GetEffectLevel(8);
+        if (flag)   buf = get_after  + EFFECT_8;
+        else        buf = get_before + EFFECT_8;
         l42.setText(buf);
 
     }
     public void onBackList(View v) {
         setContentView(R.layout.activity_main);
         BgmStart(1);
+    }
+
+    public boolean GetEffectLevel(int type){
+        boolean ret = false;
+
+        switch (type){
+            case 1: if (db_jpoint >= EFFECT_1)  ret = true;
+                    else                        ret = false;
+                    break;
+            case 2: if (db_jpoint >= EFFECT_2)  ret = true;
+                    else                        ret = false;
+                    break;
+            case 3: if (db_jpoint >= EFFECT_3)  ret = true;
+                    else                        ret = false;
+                    break;
+            case 4: if (db_jpoint >= EFFECT_4)  ret = true;
+                    else                        ret = false;
+                    break;
+            case 5: if (db_jpoint >= EFFECT_5)  ret = true;
+                    else                        ret = false;
+                    break;
+            case 6: if (db_jpoint >= EFFECT_6)  ret = true;
+                    else                        ret = false;
+                    break;
+            case 7: if (db_jpoint >= EFFECT_7)  ret = true;
+                    else                        ret = false;
+                    break;
+            case 8: if (db_jpoint >= EFFECT_8)  ret = true;
+                    else                        ret = false;
+                    break;
+        }
+        return ret;
     }
 
     /************************************************
@@ -778,14 +819,16 @@ public class MainActivity extends AppCompatActivity {
         TextView now = (TextView) findViewById(R.id.text_nowprog);
         String mapsta = "";
         mapsta += "　浄化率："+ db_jrate + "％";
-        if (db_jrate <25) {
+        if (db_jrate < 10 ) {
+            mapsta += "\n　ストレスが充満している";
+        }else if (db_jrate < 25){
             mapsta += "\n　少しストレスが減ってきた";
         }else if (db_jrate < 50){
-
+            mapsta += "\n　ストレスが減ってきた";
         }else if (db_jrate < 75){
-
+            mapsta += "\n　少しリラックスできる";
         }else{
-
+            mapsta += "\n　楽しい気分になった";
         }
         now.setText(mapsta);
 
