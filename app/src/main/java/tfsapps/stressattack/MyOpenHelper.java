@@ -28,6 +28,7 @@ public class MyOpenHelper extends SQLiteOpenHelper
                 + "status_4 integer,"       //勇者の能力：予備４
                 + "status_5 integer,"       //勇者の能力：予備５
                 + "map integer,"            //システム：マップ（ステージ）
+                + "jrate integer,"          //システム：浄化率
                 + "jpoint integer,"         //システム：浄化ポイント
                 + "sysm_1 integer,"         //システム：予備１
                 + "sysm_2 integer,"         //システム：予備２

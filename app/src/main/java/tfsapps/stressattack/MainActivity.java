@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import java.util.Random;
 
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private int db_status_5 = 0;            //DB
 
     private int db_map = 0;                 //DB　システム
+    private int db_jrate = 0;               //DB
     private int db_jpoint = 0;              //DB
     private int db_sysm_1 = 0;              //DB
     private int db_sysm_2 = 0;              //DB
@@ -134,11 +136,43 @@ public class MainActivity extends AppCompatActivity {
     final String E_NAME_1 = "オーガ　　";
     final int E_TYPE_2 = 2;
     final String E_NAME_2 = "ミイラ　　";
+    final int E_TYPE_3 = 3;
+    final String E_NAME_3 = "＊＊＊　　";
+    final int E_TYPE_4 = 4;
+    final String E_NAME_4 = "＊＊＊　　";
+    final int E_TYPE_5 = 5;
+    final String E_NAME_5 = "＊＊＊　　";
+    final int E_TYPE_6 = 6;
+    final String E_NAME_6 = "＊＊＊　　";
+    final int E_TYPE_7 = 7;
+    final String E_NAME_7 = "＊＊＊　　";
+    final int E_TYPE_8 = 8;
+    final String E_NAME_8 = "＊＊＊　　";
+    final int E_TYPE_9 = 9;
+    final String E_NAME_9 = "＊＊＊　　";
+    final int E_TYPE_10 = 10;
+    final String E_NAME_10 = "＊＊＊　　";
 
-    final int B_TYPE_1 = 11;
+    final int B_TYPE_1 = 51;
     final String B_NAME_1 = "ゴーレム　";
-    final int B_TYPE_2 = 12;
+    final int B_TYPE_2 = 52;
     final String B_NAME_2 = "闇ドラゴン";
+    final int B_TYPE_3 = 53;
+    final String B_NAME_3 = "＊＊＊＊　";
+    final int B_TYPE_4 = 54;
+    final String B_NAME_4 = "＊＊＊＊　";
+    final int B_TYPE_5 = 55;
+    final String B_NAME_5 = "＊＊＊＊　";
+    final int B_TYPE_6 = 56;
+    final String B_NAME_6 = "＊＊＊＊　";
+    final int B_TYPE_7 = 57;
+    final String B_NAME_7 = "＊＊＊＊　";
+    final int B_TYPE_8 = 58;
+    final String B_NAME_8 = "＊＊＊＊　";
+    final int B_TYPE_9 = 59;
+    final String B_NAME_9 = "＊＊＊＊　";
+    final int B_TYPE_10 = 60;
+    final String B_NAME_10 = "＊＊＊＊　";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -257,22 +291,22 @@ public class MainActivity extends AppCompatActivity {
         game_step = G_INIT;     //ゲーム進行
         if (en_type < 50){
             if ((en_type % 2) == 0){
-                enemy_type = 1;         //敵通常
+                enemy_type = E_TYPE_1;         //敵通常
             }
             else{
-                enemy_type = 2;         //敵通常
+                enemy_type = E_TYPE_2;         //敵通常
             }
-            enemy_hp = 100;             //敵ＨＰ
+            enemy_hp = 100;                    //敵ＨＰ
             BgmStart(2);
         }
         else{
             if ((boss_type % 2) == 0) {
-                enemy_type = 11;         //敵BOSS
+                enemy_type = B_TYPE_1;         //敵BOSS
             }
             else{
-                enemy_type = 12;        //敵BOSS
+                enemy_type = B_TYPE_2;        //敵BOSS
             }
-            enemy_hp = 200;             //敵ＨＰ
+            enemy_hp = 200;                   //敵ＨＰ
             BgmStart(3);
         }
         prog.setMin(0);
@@ -312,6 +346,8 @@ public class MainActivity extends AppCompatActivity {
      ゲーム表示（バトル結果）
      ****************************************************/
     public void GameResultView() {
+        int tmp_level = db_level;
+        db_level += GetEnemyPoint(1);
         //敵イメージ
         EnemyDisp(99);
         //ダメージバー
@@ -323,11 +359,17 @@ public class MainActivity extends AppCompatActivity {
         gamestr =   "　勇者のストレスが解消された\n" +
                     "　ストレスの森が少し浄化した\n\n" +
                     "　〜戦闘結果〜\n" +
+                    "　勇者のＬｖが " + tmp_level + " ▶︎ " + db_level + " 上がった\n" +
                     "　" + GetEnemyName(false) + "を倒した\n" +
                     "　" + GetEnemyName(false) + "の欠片を手に入れた\n"+
-                    "　浄化ポイント "+GetEnemyPoint()+" を手に入れた！！\n";
+                    "　浄化ポイント "+GetEnemyPoint(0)+" を手に入れた！！\n";
         story.setText(gamestr);
         display_hold = TIME_PROG_HI_LONG;
+
+        db_jrate += GetEnemyPoint(2);
+        db_jpoint += GetEnemyPoint(0);
+        SetEnemyKillPoint();
+
         GameNextStep();
     }
     /****************************************************
@@ -381,8 +423,8 @@ public class MainActivity extends AppCompatActivity {
 
         TextView mystatus = (TextView) findViewById(R.id.text_mystatus);
         String buf = "";
-        buf += "　勇者のＬｖ："+99;
-        buf += "\n　累計浄化ポイント："+12345678;
+        buf += "　勇者のＬｖ："+db_level;
+        buf += "\n　累計浄化ポイント："+db_jpoint;
         mystatus.setText(buf);
 
         if (display_hold > 0) {
@@ -419,20 +461,21 @@ public class MainActivity extends AppCompatActivity {
 
         int at_rand = rand.nextInt(100);
         int sp_rand = rand.nextInt(100);
+        int chit = (100 - db_critical); // 現在の必殺が出る確率
         int at_type = 0;
         String at_str = "";
 
         // 攻撃エフェクト  斬撃
         if (at_rand <= 50){
             at_type = 1;
-            if (sp_rand >75){   //雷　斬撃
+            if (sp_rand > chit){   //雷　斬撃
                 at_type =3;
             }
         }
         //  打撃
         else{
             at_type = 2;
-            if (sp_rand >75){   //爆発
+            if (sp_rand > chit){   //爆発
                 at_type =4;
             }
         }
@@ -444,22 +487,22 @@ public class MainActivity extends AppCompatActivity {
             default:
             case 1:
                 at_str = "斬撃で ";
-                damege = 5;
+                damege = db_damage;
                 display_hold = TIME_EFFECT_SHORT;
                 break;
             case 2:
                 at_str = "打撃で ";
-                damege = 5;
+                damege = db_damage;
                 display_hold = TIME_EFFECT_SHORT;
                 break;
             case 3:
                 at_str = "鋭い雷撃で ";
-                damege = 15;
+                damege = (db_damage * 3);
                 display_hold = TIME_EFFECT;
                 break;
             case 4:
                 at_str = "大爆発で ";
-                damege = 15;
+                damege = (db_damage * 3);
                 display_hold = TIME_EFFECT;
                 break;
         }
@@ -668,7 +711,7 @@ public class MainActivity extends AppCompatActivity {
         boolean flag = true;
         int _color = 0;
 
-        total.setText("累計浄化ポイント:12345678");
+        total.setText("累計浄化ポイント:"+db_jpoint);
 
         flag = true;
         if (flag)   buf = get_after  + 10;
@@ -733,23 +776,49 @@ public class MainActivity extends AppCompatActivity {
         map.setText("〜　ストレスの草原　状態　〜");
 
         TextView now = (TextView) findViewById(R.id.text_nowprog);
-        now.setText("　浄化率:19％\n　少しストレスが減ってきた");
+        String mapsta = "";
+        mapsta += "　浄化率："+ db_jrate + "％";
+        if (db_jrate <25) {
+            mapsta += "\n　少しストレスが減ってきた";
+        }else if (db_jrate < 50){
+
+        }else if (db_jrate < 75){
+
+        }else{
+
+        }
+        now.setText(mapsta);
 
         ProgressBar map_bar = (ProgressBar) findViewById(R.id.map_progress);
         map_bar.setMin(0);
         map_bar.setMax(100);
-        map_bar.setProgress(10);
-
-        int para = 10;
+        map_bar.setProgress(db_jrate);
 
         TextView history = (TextView) findViewById(R.id.text_history);
-        tmp += "　〜　戦歴モンスター　〜 \n"
-                + "　" + E_NAME_1 + "の討伐数：" + para + " \n"
-                + "　" + E_NAME_2 + "の討伐数：" + para + " \n"
+        tmp += "\n　〜　勇者ステータス　〜 \n"
+                + "　Ｌｖ　　　　：" + db_level + "\n"
+                + "　必殺発生確率：" + (db_critical) + "％\n"
+                + "　通常ダメージ：" + db_damage + "\n"
+                + "　必殺ダメージ：" + (db_damage*3) + "\n";
+
+        tmp += "\n　〜　戦歴モンスター　〜 \n"
+                + "　" + E_NAME_1 + "の討伐数：" + db_enemy_1 + " \n"
+                + "　" + E_NAME_2 + "の討伐数：" + db_enemy_2 + " \n"
+                + "　" + E_NAME_3 + "の討伐数：" + db_enemy_3 + " \n"
+                + "　" + E_NAME_4 + "の討伐数：" + db_enemy_4 + " \n"
+                + "　" + E_NAME_5 + "の討伐数：" + db_enemy_5 + " \n"
+                + "　" + E_NAME_6 + "の討伐数：" + db_enemy_6 + " \n"
+                + "　" + E_NAME_7 + "の討伐数：" + db_enemy_7 + " \n"
+                + "　" + E_NAME_8 + "の討伐数：" + db_enemy_8 + " \n"
+                + "　" + E_NAME_9 + "の討伐数：" + db_enemy_9 + " \n"
+                + "　" + E_NAME_10 + "の討伐数：" + db_enemy_10 + " \n"
                 + "\n"
                 + "　〜　戦歴BOSS　〜 \n"
-                + "　" + B_NAME_1 + "の討伐数：" + para + " \n"
-                + "　" + B_NAME_2 + "の討伐数：" + para + " \n"
+                + "　" + B_NAME_1 + "の討伐数：" + db_boss_1 + " \n"
+                + "　" + B_NAME_2 + "の討伐数：" + db_boss_2 + " \n"
+                + "　" + B_NAME_3 + "の討伐数：" + db_boss_3 + " \n"
+                + "　" + B_NAME_4 + "の討伐数：" + db_boss_4 + " \n"
+                + "　" + B_NAME_5 + "の討伐数：" + db_boss_5 + " \n"
         ;
         history.setText(tmp);
     }
@@ -781,19 +850,77 @@ public class MainActivity extends AppCompatActivity {
     /**
         モンスターの討伐後の経験値
      **/
-    public int GetEnemyPoint(){
+    public int GetEnemyPoint(int pointype){
         int point = 0;
+        int level = 0;
+        int rate = 0;
         switch (enemy_type) {
             case E_TYPE_1:
             case E_TYPE_2:
+            case E_TYPE_3:
+            case E_TYPE_4:
+            case E_TYPE_5:
+            case E_TYPE_6:
+            case E_TYPE_7:
+            case E_TYPE_8:
+            case E_TYPE_9:
+            case E_TYPE_10:
                 point = 10;
+                level = 1;
+                rate = 1;
                 break;
             case B_TYPE_1:
             case B_TYPE_2:
+            case B_TYPE_3:
+            case B_TYPE_4:
+            case B_TYPE_5:
+            case B_TYPE_6:
+            case B_TYPE_7:
+            case B_TYPE_8:
+            case B_TYPE_9:
+            case B_TYPE_10:
                 point = 50;
+                level = 5;
+                rate = 3;
                 break;
         }
-        return point;
+        switch (pointype)
+        {
+            case 0: return point;
+            case 1: return level;
+            case 2: return rate;
+        }
+        return 0;
+    }
+    /**
+        モンスターの討伐数の更新
+     **/
+    public void SetEnemyKillPoint(){
+        switch (enemy_type) {
+            case E_TYPE_1:      db_enemy_1++;   break;
+            case E_TYPE_2:      db_enemy_2++;   break;
+            case E_TYPE_3:      db_enemy_3++;   break;
+            case E_TYPE_4:      db_enemy_4++;   break;
+            case E_TYPE_5:      db_enemy_5++;   break;
+            case E_TYPE_6:      db_enemy_6++;   break;
+            case E_TYPE_7:      db_enemy_7++;   break;
+            case E_TYPE_8:      db_enemy_8++;   break;
+            case E_TYPE_9:      db_enemy_9++;   break;
+            case E_TYPE_10:     db_enemy_10++;  break;
+
+            case B_TYPE_1:      db_boss_1++;    break;
+            case B_TYPE_2:      db_boss_2++;    break;
+            case B_TYPE_3:      db_boss_3++;    break;
+            case B_TYPE_4:      db_boss_4++;    break;
+            case B_TYPE_5:      db_boss_5++;    break;
+            case B_TYPE_6:      db_boss_6++;    break;
+            case B_TYPE_7:      db_boss_7++;    break;
+            case B_TYPE_8:      db_boss_8++;    break;
+            case B_TYPE_9:      db_boss_9++;    break;
+            case B_TYPE_10:     db_boss_10++;   break;
+
+            default: break;
+        }
     }
 
     /**
@@ -980,6 +1107,7 @@ public class MainActivity extends AppCompatActivity {
         sql.append(" ,status_4");
         sql.append(" ,status_5");
         sql.append(" ,map");
+        sql.append(" ,jrate");
         sql.append(" ,jpoint");
         sql.append(" ,sysm_1");
         sql.append(" ,sysm_2");
@@ -1027,37 +1155,38 @@ public class MainActivity extends AppCompatActivity {
                 db_status_4 = cursor.getInt(7);
                 db_status_5 = cursor.getInt(8);
                 db_map = cursor.getInt(9);
-                db_jpoint = cursor.getInt(10);
-                db_sysm_1 = cursor.getInt(11);
-                db_sysm_2 = cursor.getInt(12);
-                db_sysm_3 = cursor.getInt(13);
-                db_sysm_4 = cursor.getInt(14);
-                db_sysm_5 = cursor.getInt(15);
-                db_enemy_1 = cursor.getInt(16);
-                db_enemy_2 = cursor.getInt(17);
-                db_enemy_3 = cursor.getInt(18);
-                db_enemy_4 = cursor.getInt(19);
-                db_enemy_5 = cursor.getInt(20);
-                db_enemy_6 = cursor.getInt(21);
-                db_enemy_7 = cursor.getInt(22);
-                db_enemy_8 = cursor.getInt(23);
-                db_enemy_9 = cursor.getInt(24);
-                db_enemy_10 = cursor.getInt(25);
-                db_enemy_11 = cursor.getInt(26);
-                db_enemy_12 = cursor.getInt(27);
-                db_enemy_13 = cursor.getInt(28);
-                db_enemy_14 = cursor.getInt(29);
-                db_enemy_15 = cursor.getInt(30);
-                db_boss_1 = cursor.getInt(31);
-                db_boss_2 = cursor.getInt(32);
-                db_boss_3 = cursor.getInt(33);
-                db_boss_4 = cursor.getInt(34);
-                db_boss_5 = cursor.getInt(35);
-                db_boss_6 = cursor.getInt(36);
-                db_boss_7 = cursor.getInt(37);
-                db_boss_8 = cursor.getInt(38);
-                db_boss_9 = cursor.getInt(39);
-                db_boss_10 = cursor.getInt(40);
+                db_jrate = cursor.getInt(10);
+                db_jpoint = cursor.getInt(11);
+                db_sysm_1 = cursor.getInt(12);
+                db_sysm_2 = cursor.getInt(13);
+                db_sysm_3 = cursor.getInt(14);
+                db_sysm_4 = cursor.getInt(15);
+                db_sysm_5 = cursor.getInt(16);
+                db_enemy_1 = cursor.getInt(17);
+                db_enemy_2 = cursor.getInt(18);
+                db_enemy_3 = cursor.getInt(19);
+                db_enemy_4 = cursor.getInt(20);
+                db_enemy_5 = cursor.getInt(21);
+                db_enemy_6 = cursor.getInt(22);
+                db_enemy_7 = cursor.getInt(23);
+                db_enemy_8 = cursor.getInt(24);
+                db_enemy_9 = cursor.getInt(25);
+                db_enemy_10 = cursor.getInt(26);
+                db_enemy_11 = cursor.getInt(27);
+                db_enemy_12 = cursor.getInt(28);
+                db_enemy_13 = cursor.getInt(29);
+                db_enemy_14 = cursor.getInt(30);
+                db_enemy_15 = cursor.getInt(31);
+                db_boss_1 = cursor.getInt(32);
+                db_boss_2 = cursor.getInt(33);
+                db_boss_3 = cursor.getInt(34);
+                db_boss_4 = cursor.getInt(35);
+                db_boss_5 = cursor.getInt(36);
+                db_boss_6 = cursor.getInt(37);
+                db_boss_7 = cursor.getInt(38);
+                db_boss_8 = cursor.getInt(39);
+                db_boss_9 = cursor.getInt(40);
+                db_boss_10 = cursor.getInt(41);
             }
         } finally {
             db.close();
@@ -1078,6 +1207,7 @@ public class MainActivity extends AppCompatActivity {
             insertValues.put("status_4", 0);
             insertValues.put("status_5", 0);
             insertValues.put("map", 0);
+            insertValues.put("jrate", 0);
             insertValues.put("jpoint", 0);
             insertValues.put("sysm_1", 0);
             insertValues.put("sysm_2", 0);
@@ -1148,6 +1278,7 @@ public class MainActivity extends AppCompatActivity {
         insertValues.put("status_4", db_status_4);
         insertValues.put("status_5", db_status_5);
         insertValues.put("map", db_map);
+        insertValues.put("jrate", db_jrate);
         insertValues.put("jpoint", db_jpoint);
         insertValues.put("sysm_1", db_sysm_1);
         insertValues.put("sysm_2", db_sysm_2);
