@@ -118,11 +118,14 @@ public class MainActivity extends AppCompatActivity {
     private AudioManager am;
     private int start_volume;
 
+    private int ebgm_index = 1;
+    private MediaPlayer ebgm = null;
     private int bgm_index = 1;
     private MediaPlayer bgm = null;
     private MediaPlayer s_menu = null;
     private MediaPlayer bs_normal = null;
     private MediaPlayer bs_boss = null;
+    /*
     private MediaPlayer efs_11 = null;
     private MediaPlayer efs_12 = null;
     private MediaPlayer efs_21 = null;
@@ -131,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
     private MediaPlayer efs_32 = null;
     private MediaPlayer efs_41 = null;
     private MediaPlayer efs_42 = null;
+    */
 
     final int E_TYPE_1 = 1;
     final String E_NAME_1 = "オーガ　　";
@@ -177,10 +181,14 @@ public class MainActivity extends AppCompatActivity {
     final int EFFECT_1 = 0;
     final int EFFECT_2 = 50;
     final int EFFECT_3 = 100;
-    final int EFFECT_4 = 200;
-    final int EFFECT_5 = 3000;
-    final int EFFECT_6 = 6000;
-    final int EFFECT_7 = 10000;
+    //test
+//    final int EFFECT_4 = 1000;
+//    final int EFFECT_5 = 6000;
+//    final int EFFECT_6 = 10000;
+    final int EFFECT_4 = 100;
+    final int EFFECT_5 = 100;
+    final int EFFECT_6 = 100;
+    final int EFFECT_7 = 50000;
     final int EFFECT_8 = 99999;
 
     @Override
@@ -470,10 +478,13 @@ public class MainActivity extends AppCompatActivity {
 
         int at_rand = rand.nextInt(100);
         int sp_rand = rand.nextInt(100);
+        int sp2_rand = rand.nextInt(100);
         int chit = (100 - db_critical); // 現在の必殺が出る確率
         int at_type = 0;
         String at_str = "";
 
+        //test
+        chit = 30;
         // 攻撃エフェクト  斬撃
         if (at_rand <= 50){
             at_type = 1;
@@ -488,9 +499,23 @@ public class MainActivity extends AppCompatActivity {
                 at_type =4;
             }
         }
+        //特別必殺
+        if (at_type >= 3){
+            if (sp2_rand > 70) {
+                at_type = 5;
+                if (sp2_rand > 90){
+                    at_type = 6;
+                }
+            }
+        }
 
+        //エフェクトが取得できているか？
+        if (GetEffectLevel(at_type) == false){
+            at_type = 1;
+        }
         EnemyDisp(at_type);         //モンスター画像
-        EffectSoundStart(at_type);  //エフェクト音
+        EffectBgmStart(at_type);
+        //EffectSoundStart(at_type);  //エフェクト音
 
         switch (at_type){
             default:
@@ -512,6 +537,16 @@ public class MainActivity extends AppCompatActivity {
             case 4:
                 at_str = "大爆発で ";
                 damege = (db_damage * 3);
+                display_hold = TIME_EFFECT;
+                break;
+            case 5:
+                at_str = "一閃で ";
+                damege = (db_damage * 5);
+                display_hold = TIME_EFFECT;
+                break;
+            case 6:
+                at_str = "空間裂き ";
+                damege = (db_damage * 6);
                 display_hold = TIME_EFFECT;
                 break;
         }
@@ -573,8 +608,12 @@ public class MainActivity extends AppCompatActivity {
         if (bgm == null){
             bgm = (MediaPlayer) MediaPlayer.create(this, R.raw.menu);
         }
+        if (ebgm == null){
+            ebgm = (MediaPlayer) MediaPlayer.create(this, R.raw.s_11);
+        }
 
         //以下攻撃エフェクト
+        /*
         if (efs_11 == null){
             efs_11 = (MediaPlayer) MediaPlayer.create(this, R.raw.s_11);
         }
@@ -602,7 +641,7 @@ public class MainActivity extends AppCompatActivity {
         if (efs_42 == null){
             efs_42 = (MediaPlayer) MediaPlayer.create(this, R.raw.s_14);
         }
-
+        */
     }
 
     public void SoundStop() {
@@ -610,7 +649,11 @@ public class MainActivity extends AppCompatActivity {
         if (bgm != null){
             bgm.stop();     bgm.release();      bgm = null;
         }
+        if (ebgm != null){
+            ebgm.stop();    ebgm.release();     ebgm = null;
+        }
 
+        /*
         if (efs_11 != null){
             efs_11.stop();  efs_11.release();   efs_11 = null;
         }
@@ -635,6 +678,7 @@ public class MainActivity extends AppCompatActivity {
         if (efs_42 != null){
             efs_42.stop();  efs_42.release();   efs_42 = null;
         }
+         */
     }
     /***************************************************
         音源処理
@@ -680,6 +724,62 @@ public class MainActivity extends AppCompatActivity {
         if (bgm.isPlaying() == false) {
             bgm.setLooping(true);
             bgm.start();
+        }
+
+    }
+    /***************************************************
+        エフェクト音源処理
+     ****************************************************/
+    public void EffectBgmStart(int index){
+
+        if (ebgm == null){
+            return;
+        }
+        else{
+//            if (ebgm_index != index) {
+                ebgm.stop();
+                ebgm.release();
+                ebgm = null;
+//            }
+        }
+        ebgm_index = index;
+
+        switch (index){
+            default:
+            case 1:
+                if (ebgm == null){
+                    ebgm = (MediaPlayer) MediaPlayer.create(this, R.raw.s_11);
+                }
+                break;
+            case 2:
+                if (ebgm == null){
+                    ebgm = (MediaPlayer) MediaPlayer.create(this, R.raw.s_12);
+                }
+                break;
+            case 3:
+                if (ebgm == null){
+                    ebgm = (MediaPlayer) MediaPlayer.create(this, R.raw.s_13);
+                }
+                break;
+            case 4:
+                if (ebgm == null){
+                    ebgm = (MediaPlayer) MediaPlayer.create(this, R.raw.s_14);
+                }
+                break;
+            case 5:
+                if (ebgm == null){
+                    ebgm = (MediaPlayer) MediaPlayer.create(this, R.raw.s_15);
+                }
+                break;
+            case 6:
+                if (ebgm == null){
+                    ebgm = (MediaPlayer) MediaPlayer.create(this, R.raw.s_16);
+                }
+                break;
+        }
+
+        if (ebgm.isPlaying() == false) {
+            ebgm.start();
         }
 
     }
@@ -923,7 +1023,7 @@ public class MainActivity extends AppCompatActivity {
             case B_TYPE_9:
             case B_TYPE_10:
                 point = 50;
-                level = 5;
+                level = 3;
                 rate = 3;
                 break;
         }
@@ -1025,6 +1125,15 @@ public class MainActivity extends AppCompatActivity {
                     enemy.setImageResource(R.drawable.e_14);
                     enemy.setBackgroundResource(R.drawable.bak_14);
                     break;
+                case 5:
+                    enemy.setImageResource(R.drawable.e_15);
+                    enemy.setBackgroundResource(R.drawable.bak_15);
+                    break;
+                case 6:
+                    enemy.setImageResource(R.drawable.e_16);
+                    enemy.setBackgroundResource(R.drawable.bak_16);
+                    break;
+
             }
         }
         if (enemy_type == E_TYPE_2) {
@@ -1048,6 +1157,14 @@ public class MainActivity extends AppCompatActivity {
                 case 4:
                     enemy.setImageResource(R.drawable.e_24);
                     enemy.setBackgroundResource(R.drawable.bak_14);
+                    break;
+                case 5:
+                    enemy.setImageResource(R.drawable.e_25);
+                    enemy.setBackgroundResource(R.drawable.bak_15);
+                    break;
+                case 6:
+                    enemy.setImageResource(R.drawable.e_26);
+                    enemy.setBackgroundResource(R.drawable.bak_16);
                     break;
             }
         }
@@ -1073,6 +1190,14 @@ public class MainActivity extends AppCompatActivity {
                     enemy.setImageResource(R.drawable.b_14);
                     enemy.setBackgroundResource(R.drawable.bak_14);
                     break;
+                case 5:
+                    enemy.setImageResource(R.drawable.b_15);
+                    enemy.setBackgroundResource(R.drawable.bak_15);
+                    break;
+                case 6:
+                    enemy.setImageResource(R.drawable.b_16);
+                    enemy.setBackgroundResource(R.drawable.bak_16);
+                    break;
             }
         }
         else if(enemy_type == B_TYPE_2){
@@ -1097,13 +1222,22 @@ public class MainActivity extends AppCompatActivity {
                     enemy.setImageResource(R.drawable.b_24);
                     enemy.setBackgroundResource(R.drawable.bak_14);
                     break;
+                case 5:
+                    enemy.setImageResource(R.drawable.b_25);
+                    enemy.setBackgroundResource(R.drawable.bak_15);
+                    break;
+                case 6:
+                    enemy.setImageResource(R.drawable.b_26);
+                    enemy.setBackgroundResource(R.drawable.bak_16);
+                    break;
             }
         }
     }
 
     /****************************************************
-     モンスター表示
+        モンスター表示
      ****************************************************/
+    /*
     public void EffectSoundStart(int at_type) {
 
         switch (at_type) {
@@ -1126,8 +1260,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-
-
+    */
 
     /***************************************************
      　↓↓↓ 以下、DB関連処理　↓↓↓

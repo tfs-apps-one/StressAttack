@@ -237,7 +237,6 @@
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
                     android:layout_weight="3"
-                    android:src="@drawable/effect7"
                     android:background="@color/white"
                     android:gravity="center"/>
 
@@ -264,7 +263,6 @@
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
                     android:layout_weight="3"
-                    android:src="@drawable/effect8"
                     android:background="@color/white"
                     android:gravity="center"/>
 
