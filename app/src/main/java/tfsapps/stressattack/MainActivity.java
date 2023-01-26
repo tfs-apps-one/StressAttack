@@ -137,46 +137,46 @@ public class MainActivity extends AppCompatActivity {
     */
 
     final int E_TYPE_1 = 1;
-    final String E_NAME_1 = "オーガ　　";
+    final String E_NAME_1 = "オーガ　　　　";
     final int E_TYPE_2 = 2;
-    final String E_NAME_2 = "ミイラ　　";
+    final String E_NAME_2 = "ミイラ　　　　";
     final int E_TYPE_3 = 3;
-    final String E_NAME_3 = "＊＊＊　　";
+    final String E_NAME_3 = "バッファロー　";
     final int E_TYPE_4 = 4;
-    final String E_NAME_4 = "＊＊＊　　";
+    final String E_NAME_4 = "さまよう剣士　";
     final int E_TYPE_5 = 5;
-    final String E_NAME_5 = "＊＊＊　　";
+    final String E_NAME_5 = "シャドー　　　";
     final int E_TYPE_6 = 6;
-    final String E_NAME_6 = "＊＊＊　　";
+    final String E_NAME_6 = "ゴーレム　　　";
     final int E_TYPE_7 = 7;
-    final String E_NAME_7 = "＊＊＊　　";
+    final String E_NAME_7 = "トロル　　　　";
     final int E_TYPE_8 = 8;
-    final String E_NAME_8 = "＊＊＊　　";
+    final String E_NAME_8 = "＊＊＊　　　　";
     final int E_TYPE_9 = 9;
-    final String E_NAME_9 = "＊＊＊　　";
+    final String E_NAME_9 = "＊＊＊　　　　";
     final int E_TYPE_10 = 10;
-    final String E_NAME_10 = "＊＊＊　　";
+    final String E_NAME_10 = "＊＊＊　　　　";
 
     final int B_TYPE_1 = 51;
-    final String B_NAME_1 = "ゴーレム　";
+    final String B_NAME_1 = "土ドラゴン　　";
     final int B_TYPE_2 = 52;
-    final String B_NAME_2 = "闇ドラゴン";
+    final String B_NAME_2 = "闇ドラゴン　　";
     final int B_TYPE_3 = 53;
-    final String B_NAME_3 = "＊＊＊＊　";
+    final String B_NAME_3 = "＊＊＊＊　　　";
     final int B_TYPE_4 = 54;
-    final String B_NAME_4 = "＊＊＊＊　";
+    final String B_NAME_4 = "＊＊＊＊　　　";
     final int B_TYPE_5 = 55;
-    final String B_NAME_5 = "＊＊＊＊　";
+    final String B_NAME_5 = "＊＊＊＊　　　";
     final int B_TYPE_6 = 56;
-    final String B_NAME_6 = "＊＊＊＊　";
+    final String B_NAME_6 = "＊＊＊＊　　　";
     final int B_TYPE_7 = 57;
-    final String B_NAME_7 = "＊＊＊＊　";
+    final String B_NAME_7 = "＊＊＊＊　　　";
     final int B_TYPE_8 = 58;
-    final String B_NAME_8 = "＊＊＊＊　";
+    final String B_NAME_8 = "＊＊＊＊　　　";
     final int B_TYPE_9 = 59;
-    final String B_NAME_9 = "＊＊＊＊　";
+    final String B_NAME_9 = "＊＊＊＊　　　";
     final int B_TYPE_10 = 60;
-    final String B_NAME_10 = "＊＊＊＊　";
+    final String B_NAME_10 = "＊＊＊＊　　";
 
     final int EFFECT_1 = 0;
     final int EFFECT_2 = 50;
@@ -306,6 +306,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         game_step = G_INIT;     //ゲーム進行
+
+        SetEnemyType();
+        /*
         if (en_type < 50){
             if ((en_type % 2) == 0){
                 enemy_type = E_TYPE_1;         //敵通常
@@ -326,6 +329,8 @@ public class MainActivity extends AppCompatActivity {
             enemy_hp = 200;                   //敵ＨＰ
             BgmStart(3);
         }
+
+         */
         prog.setMin(0);
         prog.setMax(enemy_hp);
 
@@ -991,6 +996,41 @@ public class MainActivity extends AppCompatActivity {
      ***************************************************/
 
     /**
+     モンスターの遭遇
+     **/
+    public void SetEnemyType() {
+        int btype = rand.nextInt(10);  //ボスの検索
+        int etype = rand.nextInt(10);  //通常モンスターの検索
+        int ttype = rand.nextInt(100);  //通常orボスの確率
+
+        // 通常モンスター　約７割
+        if (ttype < 70){
+            BgmStart(2);
+
+            switch (etype){
+                default:
+                case 1: enemy_type = E_TYPE_1;  enemy_hp = 100; break;
+                case 2: enemy_type = E_TYPE_2;  enemy_hp = 110; break;
+                case 3: enemy_type = E_TYPE_3;  enemy_hp = 120; break;
+                case 4: enemy_type = E_TYPE_4;  enemy_hp = 150; break;
+                case 5: enemy_type = E_TYPE_5;  enemy_hp = 200; break;
+                case 6: enemy_type = E_TYPE_6;  enemy_hp = 200; break;
+                case 7: enemy_type = E_TYPE_7;  enemy_hp = 300; break;
+            }
+        }
+        // ボス　約３割
+        else{
+            BgmStart(3);
+
+            switch (etype){
+                default:
+                case 1: enemy_type = B_TYPE_1;  enemy_hp = 500; break;
+                case 2: enemy_type = B_TYPE_2;  enemy_hp = 600; break;
+            }
+        }
+    }
+
+    /**
         モンスターの討伐後の経験値
      **/
     public int GetEnemyPoint(int pointype){
@@ -1078,8 +1118,18 @@ public class MainActivity extends AppCompatActivity {
                 tmp +=  "オーガ";          break;
             case E_TYPE_2:
                 tmp +=  "ミイラ";          break;
+            case E_TYPE_3:
+                tmp +=  "バッファロー";     break;
+            case E_TYPE_4:
+                tmp +=  "さまよう剣士";     break;
+            case E_TYPE_5:
+                tmp +=  "シャドー";        break;
+            case E_TYPE_6:
+                tmp +=  "ゴーレム";        break;
+            case E_TYPE_7:
+                tmp +=  "トロル";          break;
             case B_TYPE_1:
-                tmp +=  "BOSS:ゴーレム";    break;
+                tmp +=  "BOSS:土ドラゴン";  break;
             case B_TYPE_2:
                 tmp +=  "BOSS:闇ドラゴン";  break;
 
@@ -1103,6 +1153,9 @@ public class MainActivity extends AppCompatActivity {
 
         enemynamestr = GetEnemyName(true);
         // 以下モンスターごとに表示
+        /**
+         * 通常モンスターの表示
+         **/
         if (enemy_type == E_TYPE_1) {
             switch (at_type) {
                 case 0:
@@ -1136,7 +1189,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
-        if (enemy_type == E_TYPE_2) {
+        else if (enemy_type == E_TYPE_2) {
             switch (at_type) {
                 case 0:
                     enemy.setImageResource(R.drawable.e_20);
@@ -1168,6 +1221,169 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         }
+        else if (enemy_type == E_TYPE_3) {
+            switch (at_type) {
+                case 0:
+                    enemy.setImageResource(R.drawable.e_30);
+                    enemy.setBackgroundResource(R.drawable.bak_11);
+                    break;
+                case 1:
+                    enemy.setImageResource(R.drawable.e_31);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 2:
+                    enemy.setImageResource(R.drawable.e_32);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 3:
+                    enemy.setImageResource(R.drawable.e_33);
+                    enemy.setBackgroundResource(R.drawable.bak_13);
+                    break;
+                case 4:
+                    enemy.setImageResource(R.drawable.e_34);
+                    enemy.setBackgroundResource(R.drawable.bak_14);
+                    break;
+                case 5:
+                    enemy.setImageResource(R.drawable.e_35);
+                    enemy.setBackgroundResource(R.drawable.bak_15);
+                    break;
+                case 6:
+                    enemy.setImageResource(R.drawable.e_36);
+                    enemy.setBackgroundResource(R.drawable.bak_16);
+                    break;
+            }
+        }
+        else if (enemy_type == E_TYPE_4) {
+            switch (at_type) {
+                case 0:
+                    enemy.setImageResource(R.drawable.e_40);
+                    enemy.setBackgroundResource(R.drawable.bak_11);
+                    break;
+                case 1:
+                    enemy.setImageResource(R.drawable.e_41);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 2:
+                    enemy.setImageResource(R.drawable.e_42);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 3:
+                    enemy.setImageResource(R.drawable.e_43);
+                    enemy.setBackgroundResource(R.drawable.bak_13);
+                    break;
+                case 4:
+                    enemy.setImageResource(R.drawable.e_44);
+                    enemy.setBackgroundResource(R.drawable.bak_14);
+                    break;
+                case 5:
+                    enemy.setImageResource(R.drawable.e_45);
+                    enemy.setBackgroundResource(R.drawable.bak_15);
+                    break;
+                case 6:
+                    enemy.setImageResource(R.drawable.e_46);
+                    enemy.setBackgroundResource(R.drawable.bak_16);
+                    break;
+            }
+        }
+        else if (enemy_type == E_TYPE_5) {
+            switch (at_type) {
+                case 0:
+                    enemy.setImageResource(R.drawable.e_50);
+                    enemy.setBackgroundResource(R.drawable.bak_11);
+                    break;
+                case 1:
+                    enemy.setImageResource(R.drawable.e_51);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 2:
+                    enemy.setImageResource(R.drawable.e_52);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 3:
+                    enemy.setImageResource(R.drawable.e_53);
+                    enemy.setBackgroundResource(R.drawable.bak_13);
+                    break;
+                case 4:
+                    enemy.setImageResource(R.drawable.e_54);
+                    enemy.setBackgroundResource(R.drawable.bak_14);
+                    break;
+                case 5:
+                    enemy.setImageResource(R.drawable.e_55);
+                    enemy.setBackgroundResource(R.drawable.bak_15);
+                    break;
+                case 6:
+                    enemy.setImageResource(R.drawable.e_56);
+                    enemy.setBackgroundResource(R.drawable.bak_16);
+                    break;
+            }
+        }
+        else if (enemy_type == E_TYPE_6) {
+            switch (at_type) {
+                case 0:
+                    enemy.setImageResource(R.drawable.e_60);
+                    enemy.setBackgroundResource(R.drawable.bak_11);
+                    break;
+                case 1:
+                    enemy.setImageResource(R.drawable.e_61);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 2:
+                    enemy.setImageResource(R.drawable.e_62);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 3:
+                    enemy.setImageResource(R.drawable.e_63);
+                    enemy.setBackgroundResource(R.drawable.bak_13);
+                    break;
+                case 4:
+                    enemy.setImageResource(R.drawable.e_64);
+                    enemy.setBackgroundResource(R.drawable.bak_14);
+                    break;
+                case 5:
+                    enemy.setImageResource(R.drawable.e_65);
+                    enemy.setBackgroundResource(R.drawable.bak_15);
+                    break;
+                case 6:
+                    enemy.setImageResource(R.drawable.e_66);
+                    enemy.setBackgroundResource(R.drawable.bak_16);
+                    break;
+            }
+        }
+        else if (enemy_type == E_TYPE_7) {
+            switch (at_type) {
+                case 0:
+                    enemy.setImageResource(R.drawable.e_70);
+                    enemy.setBackgroundResource(R.drawable.bak_11);
+                    break;
+                case 1:
+                    enemy.setImageResource(R.drawable.e_71);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 2:
+                    enemy.setImageResource(R.drawable.e_72);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 3:
+                    enemy.setImageResource(R.drawable.e_73);
+                    enemy.setBackgroundResource(R.drawable.bak_13);
+                    break;
+                case 4:
+                    enemy.setImageResource(R.drawable.e_74);
+                    enemy.setBackgroundResource(R.drawable.bak_14);
+                    break;
+                case 5:
+                    enemy.setImageResource(R.drawable.e_75);
+                    enemy.setBackgroundResource(R.drawable.bak_15);
+                    break;
+                case 6:
+                    enemy.setImageResource(R.drawable.e_76);
+                    enemy.setBackgroundResource(R.drawable.bak_16);
+                    break;
+            }
+        }
+        /**
+         * ボスの表示
+        **/
         else if(enemy_type == B_TYPE_1){
             switch (at_type) {
                 case 0:
@@ -1232,6 +1448,105 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         }
+        /*
+        else if(enemy_type == B_TYPE_3){
+            switch (at_type) {
+                case 0:
+                    enemy.setImageResource(R.drawable.b_30);
+                    enemy.setBackgroundResource(R.drawable.bak_11);
+                    break;
+                case 1:
+                    enemy.setImageResource(R.drawable.b_31);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 2:
+                    enemy.setImageResource(R.drawable.b_32);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 3:
+                    enemy.setImageResource(R.drawable.b_33);
+                    enemy.setBackgroundResource(R.drawable.bak_13);
+                    break;
+                case 4:
+                    enemy.setImageResource(R.drawable.b_34);
+                    enemy.setBackgroundResource(R.drawable.bak_14);
+                    break;
+                case 5:
+                    enemy.setImageResource(R.drawable.b_35);
+                    enemy.setBackgroundResource(R.drawable.bak_15);
+                    break;
+                case 6:
+                    enemy.setImageResource(R.drawable.b_36);
+                    enemy.setBackgroundResource(R.drawable.bak_16);
+                    break;
+            }
+        }
+        else if(enemy_type == B_TYPE_4){
+            switch (at_type) {
+                case 0:
+                    enemy.setImageResource(R.drawable.b_40);
+                    enemy.setBackgroundResource(R.drawable.bak_11);
+                    break;
+                case 1:
+                    enemy.setImageResource(R.drawable.b_41);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 2:
+                    enemy.setImageResource(R.drawable.b_42);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 3:
+                    enemy.setImageResource(R.drawable.b_43);
+                    enemy.setBackgroundResource(R.drawable.bak_13);
+                    break;
+                case 4:
+                    enemy.setImageResource(R.drawable.b_44);
+                    enemy.setBackgroundResource(R.drawable.bak_14);
+                    break;
+                case 5:
+                    enemy.setImageResource(R.drawable.b_45);
+                    enemy.setBackgroundResource(R.drawable.bak_15);
+                    break;
+                case 6:
+                    enemy.setImageResource(R.drawable.b_46);
+                    enemy.setBackgroundResource(R.drawable.bak_16);
+                    break;
+            }
+        }
+        else if(enemy_type == B_TYPE_5){
+            switch (at_type) {
+                case 0:
+                    enemy.setImageResource(R.drawable.b_50);
+                    enemy.setBackgroundResource(R.drawable.bak_11);
+                    break;
+                case 1:
+                    enemy.setImageResource(R.drawable.b_51);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 2:
+                    enemy.setImageResource(R.drawable.b_52);
+                    enemy.setBackgroundResource(R.drawable.bak_12);
+                    break;
+                case 3:
+                    enemy.setImageResource(R.drawable.b_53);
+                    enemy.setBackgroundResource(R.drawable.bak_13);
+                    break;
+                case 4:
+                    enemy.setImageResource(R.drawable.b_54);
+                    enemy.setBackgroundResource(R.drawable.bak_14);
+                    break;
+                case 5:
+                    enemy.setImageResource(R.drawable.b_55);
+                    enemy.setBackgroundResource(R.drawable.bak_15);
+                    break;
+                case 6:
+                    enemy.setImageResource(R.drawable.b_56);
+                    enemy.setBackgroundResource(R.drawable.bak_16);
+                    break;
+            }
+        }
+        */
+
     }
 
     /****************************************************
