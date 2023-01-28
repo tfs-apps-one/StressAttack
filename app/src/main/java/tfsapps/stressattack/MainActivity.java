@@ -25,7 +25,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
-//public class MainActivity extends AppCompatActivity  implements Game.Callback{
 
     private final Random rand = new Random(System.currentTimeMillis());
 
@@ -162,11 +161,11 @@ public class MainActivity extends AppCompatActivity {
     final int B_TYPE_2 = 52;
     final String B_NAME_2 = "闇ドラゴン　　";
     final int B_TYPE_3 = 53;
-    final String B_NAME_3 = "＊＊＊＊　　　";
+    final String B_NAME_3 = "風ドラゴン　　";
     final int B_TYPE_4 = 54;
-    final String B_NAME_4 = "＊＊＊＊　　　";
+    final String B_NAME_4 = "水ドラゴン　　";
     final int B_TYPE_5 = 55;
-    final String B_NAME_5 = "＊＊＊＊　　　";
+    final String B_NAME_5 = "火ドラゴン　　";
     final int B_TYPE_6 = 56;
     final String B_NAME_6 = "＊＊＊＊　　　";
     final int B_TYPE_7 = 57;
@@ -429,6 +428,7 @@ public class MainActivity extends AppCompatActivity {
                     "　【タップ】してストレスを倒せ！！";
         story.setText(gamestr);
         display_hold = TIME_PROG_LONG;
+        GetHeroPara(0); GetHeroPara(1);
         GameNextStep();
     }
     /****************************************************
@@ -489,7 +489,7 @@ public class MainActivity extends AppCompatActivity {
         String at_str = "";
 
         //test
-        chit = 30;
+        //chit = 30;
         // 攻撃エフェクト  斬撃
         if (at_rand <= 50){
             at_type = 1;
@@ -909,6 +909,7 @@ public class MainActivity extends AppCompatActivity {
          戦　歴
      ************************************************/
     public void onStatus(View v){
+        GetHeroPara(0); GetHeroPara(1);
         setContentView(R.layout.activity_his);
         HistoryDisp();
     }
@@ -990,6 +991,25 @@ public class MainActivity extends AppCompatActivity {
         BgmStart(1);
     }
 
+    /**
+     * @param type
+     * @return
+     */
+    public int GetHeroPara(int type) {
+        int tmp_damage = db_damage;
+        int tmp_critical = db_critical;
+
+        if (type == 0){
+            tmp_damage = 5 + (db_level / 10);
+            db_damage = tmp_damage;
+            return tmp_damage;
+        }
+        else{
+            tmp_critical = (db_level);
+            db_critical = tmp_critical;
+            return tmp_critical;
+        }
+    }
 
     /***************************************************
      　↓↓↓ 以下、モンスター表示関連　↓↓↓
@@ -999,8 +1019,8 @@ public class MainActivity extends AppCompatActivity {
      モンスターの遭遇
      **/
     public void SetEnemyType() {
-        int btype = rand.nextInt(10);  //ボスの検索
-        int etype = rand.nextInt(10);  //通常モンスターの検索
+        int btype = rand.nextInt(7);  //ボスの検索
+        int etype = rand.nextInt(5);  //通常モンスターの検索
         int ttype = rand.nextInt(100);  //通常orボスの確率
 
         // 通常モンスター　約７割
@@ -1026,6 +1046,9 @@ public class MainActivity extends AppCompatActivity {
                 default:
                 case 1: enemy_type = B_TYPE_1;  enemy_hp = 500; break;
                 case 2: enemy_type = B_TYPE_2;  enemy_hp = 600; break;
+                case 3: enemy_type = B_TYPE_3;  enemy_hp = 600; break;
+                case 4: enemy_type = B_TYPE_4;  enemy_hp = 600; break;
+                case 5: enemy_type = B_TYPE_5;  enemy_hp = 600; break;
             }
         }
     }
@@ -1132,6 +1155,12 @@ public class MainActivity extends AppCompatActivity {
                 tmp +=  "BOSS:土ドラゴン";  break;
             case B_TYPE_2:
                 tmp +=  "BOSS:闇ドラゴン";  break;
+            case B_TYPE_3:
+                tmp +=  "BOSS:風ドラゴン";  break;
+            case B_TYPE_4:
+                tmp +=  "BOSS:水ドラゴン";  break;
+            case B_TYPE_5:
+                tmp +=  "BOSS:火ドラゴン";  break;
 
         }
         return tmp;
@@ -1448,7 +1477,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         }
-        /*
+
         else if(enemy_type == B_TYPE_3){
             switch (at_type) {
                 case 0:
@@ -1545,8 +1574,6 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         }
-        */
-
     }
 
     /****************************************************
