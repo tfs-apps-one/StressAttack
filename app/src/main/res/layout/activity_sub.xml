@@ -199,7 +199,7 @@
                     app:backgroundTint="@null"
                     android:background="@drawable/bak_1"
                     android:onClick="onBack"
-                    android:text="戻る"
+                    android:text="退却"
                     android:textColor="@color/white"
                     android:textSize="20dp"
                     android:textStyle="bold"

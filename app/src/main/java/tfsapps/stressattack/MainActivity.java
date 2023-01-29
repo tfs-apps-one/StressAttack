@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -104,14 +107,17 @@ public class MainActivity extends AppCompatActivity {
     final int G_INIT = 0;
     final int G_STORY = 1;
     final int G_BATTLE = 2;
-    final int G_RESULT = 3;
-    final int G_ENDING = 4;
+    final int G_BATTLE_ENEMY = 3;
+    final int G_RESULT = 4;
+    final int G_ENDING = 5;
     //インターバル時間
     final int TIME_EFFECT_SHORT = 2;
     final int TIME_EFFECT = 4;
+    final int TIME_PROG_VERY_SHORT = 5;
     final int TIME_PROG_SHORT = 15;
     final int TIME_PROG_LONG = 20;
     final int TIME_PROG_HI_LONG = 50;
+    final int TIME_PROG_FOREVER = 9000;
 
     //サウンド関係
     private AudioManager am;
@@ -190,6 +196,9 @@ public class MainActivity extends AppCompatActivity {
     final int EFFECT_7 = 50000;
     final int EFFECT_8 = 99999;
 
+    private int popdispcount = 0;
+    private boolean last_map = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -240,26 +249,64 @@ public class MainActivity extends AppCompatActivity {
         SoundStop();
     }
 
-    /* タッチイベント（タップ処理）自機移動 */
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-//                if (enemy_hp == 0 || display_hold > 0){
+    /****************************************************
+         ゲーム進行　文言取得
+     ****************************************************/
+    public String GetStoryString(){
+        String tmpstr = "";
 
-                if (display_hold > 0) {
-                    ;
-                }
-                else {
-                    if (game_step == G_BATTLE) {
-                        EventGameView();
-                    }
-                }
-                break;
+        if (last_map == false){
+            tmpstr =    "\n\n\n" +
+                        "　ストレスが世界を覆っている・・\n" +
+                        "　勇者（あなた）は勇敢に立ち上がった・・\n\n\n" +
+                        "　さぁストレスを浄化する旅へ！！\n" +
+                        "　ストレスの平原を浄化[100%]しよう♪" +
+                        "　\n\n\n";
         }
-        return super.onTouchEvent(event);
+        else{
+            tmpstr =    "\n\n\n" +
+                        "　ストレスの源になっている城へ・・\n" +
+                        "　BOSSをすべて倒して世界を解放へ・・\n\n\n" +
+                        "　強敵が待っている準備はできているか？\n" +
+                        "　ストレスの城を浄化[100%]しよう♪" +
+                        "　\n\n\n";
+        }
+
+        return tmpstr;
     }
 
+    /****************************************************
+         ゲーム進行　ポップアップ表示
+     ****************************************************/
+    public void GameStoryPopup() {
+        AlertDialog.Builder guide = new AlertDialog.Builder(this);
+        TextView vmessage = new TextView(this);
+        if (popdispcount > 1){
+            display_hold = 0;
+            GameNextStep();
+            GameView();
+            return;
+        }
+        //メッセージ
+        vmessage.setText( GetStoryString() );
+        vmessage.setBackgroundColor(getResources().getColor(R.color.gray));
+        vmessage.setTextColor(getResources().getColor(R.color.white));
+        vmessage.setTypeface(Typeface.DEFAULT_BOLD);
+
+        guide.setTitle(" 物語チェック ");
+        guide.setIcon(R.drawable.book2);
+        guide.setView(vmessage);
+        guide.setPositiveButton("次へ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                popdispcount++;
+                GameStoryPopup();
+            }
+        });
+        guide.create();
+        guide.show();
+        display_hold = TIME_PROG_FOREVER;
+    }
     /****************************************************
      ゲーム進行ステップのセット
      ****************************************************/
@@ -272,6 +319,7 @@ public class MainActivity extends AppCompatActivity {
                 game_step = G_BATTLE;
                 break;
             case G_BATTLE:
+            case G_BATTLE_ENEMY:
                 game_step = G_RESULT;
                 break;
             case G_RESULT:
@@ -281,6 +329,9 @@ public class MainActivity extends AppCompatActivity {
                 game_step = G_INIT;
                 break;
         }
+    }
+    public void SetGameStep(int step) {
+        game_step = step;
     }
 
     /****************************************************
@@ -307,29 +358,6 @@ public class MainActivity extends AppCompatActivity {
         game_step = G_INIT;     //ゲーム進行
 
         SetEnemyType();
-        /*
-        if (en_type < 50){
-            if ((en_type % 2) == 0){
-                enemy_type = E_TYPE_1;         //敵通常
-            }
-            else{
-                enemy_type = E_TYPE_2;         //敵通常
-            }
-            enemy_hp = 100;                    //敵ＨＰ
-            BgmStart(2);
-        }
-        else{
-            if ((boss_type % 2) == 0) {
-                enemy_type = B_TYPE_1;         //敵BOSS
-            }
-            else{
-                enemy_type = B_TYPE_2;        //敵BOSS
-            }
-            enemy_hp = 200;                   //敵ＨＰ
-            BgmStart(3);
-        }
-
-         */
         prog.setMin(0);
         prog.setMax(enemy_hp);
 
@@ -360,6 +388,7 @@ public class MainActivity extends AppCompatActivity {
         gamestr =   "　勇者はストレスのない週末を\n" +
                     "　しばらくの間・・・過ごすことにした";
         story.setText(gamestr);
+        story.setTextColor(getResources().getColor(R.color.white));
         display_hold = TIME_PROG_HI_LONG;
         GameNextStep();
     }
@@ -385,6 +414,7 @@ public class MainActivity extends AppCompatActivity {
                     "　" + GetEnemyName(false) + "の欠片を手に入れた\n"+
                     "　浄化ポイント "+GetEnemyPoint(0)+" を手に入れた！！\n";
         story.setText(gamestr);
+        story.setTextColor(getResources().getColor(R.color.white));
         display_hold = TIME_PROG_HI_LONG;
 
         db_jrate += GetEnemyPoint(2);
@@ -392,6 +422,40 @@ public class MainActivity extends AppCompatActivity {
         SetEnemyKillPoint();
 
         GameNextStep();
+    }
+    /****************************************************
+     ゲーム表示（バトル中）敵ターン
+     ****************************************************/
+    public void GameButtleEnemyView(){
+
+        int tmp_point = db_jpoint;
+        db_jpoint = (db_jpoint - GetEnemyPoint(3));
+        if (db_jpoint <= 0){
+            db_jpoint = 0;
+        }
+        //敵イメージ
+        if(enemy_hp == 0) {
+            EnemyDisp(99);
+        }
+        else{
+            EnemyDisp(0);
+        }
+        //ダメージバー
+        prog.setProgress(enemy_hp);
+        //敵名前
+        ename.setText(enemynamestr);
+        //ストリー
+        if (enemy_hp == 0) {
+            ;
+        } else {
+            gamestr =
+                    "　" + GetEnemyName(false) + "の攻撃！！\n" +
+                    "　勇者のストレスが増えて、敵が活性した。\n\n" +
+                    "　浄化ポイントが " + tmp_point + " ▶︎ " + db_jpoint + " に減った";
+            story.setText(gamestr);
+            story.setTextColor(getResources().getColor(R.color.red));
+        }
+        SetGameStep(G_BATTLE);
     }
     /****************************************************
         ゲーム表示（バトル中）
@@ -410,6 +474,7 @@ public class MainActivity extends AppCompatActivity {
         ename.setText(enemynamestr);
         //ストリー
         story.setText(gamestr);
+        story.setTextColor(getResources().getColor(R.color.white));
     }
     /****************************************************
      ゲーム表示（ストーリー）
@@ -427,6 +492,7 @@ public class MainActivity extends AppCompatActivity {
                     "　なんと・・・！？\n\n" + "　ストレス（" + GetEnemyName(false) + "）が現れた！！\n"+
                     "　【タップ】してストレスを倒せ！！";
         story.setText(gamestr);
+        story.setTextColor(getResources().getColor(R.color.white));
         display_hold = TIME_PROG_LONG;
         GetHeroPara(0); GetHeroPara(1);
         GameNextStep();
@@ -436,17 +502,29 @@ public class MainActivity extends AppCompatActivity {
      ****************************************************/
     public void GameView() {
 
-        /* タイトル部の表示 */
         TextView summap = (TextView) findViewById(R.id.text_submap_name);
-        summap.setText("草原");
-
         ImageView submap = (ImageView) findViewById(R.id.img_submap);
-        submap.setImageResource(R.drawable.map00);
+
+        /* タイトル部の表示 */
+        if (last_map == false) {
+            summap.setText("草原");
+
+            if (db_jrate < 10) submap.setImageResource(R.drawable.map00);
+            else if (db_jrate < 25) submap.setImageResource(R.drawable.map25);
+            else if (db_jrate < 50) submap.setImageResource(R.drawable.map50);
+            else if (db_jrate < 75) submap.setImageResource(R.drawable.map75);
+            else submap.setImageResource(R.drawable.map99);
+        }
+        else{
+            summap.setText("城");
+            submap.setImageResource(R.drawable.map_last);
+        }
+
 
         TextView mystatus = (TextView) findViewById(R.id.text_mystatus);
         String buf = "";
         buf += "　勇者のＬｖ："+db_level;
-        buf += "\n　累計浄化ポイント："+db_jpoint;
+        buf += "\n　浄化率　　："+db_jrate + "％";
         mystatus.setText(buf);
 
         if (display_hold > 0) {
@@ -458,13 +536,17 @@ public class MainActivity extends AppCompatActivity {
             default:
             case G_INIT:
                 GameParaInit();
-                GameNextStep();
+                GameStoryPopup();
+//                GameNextStep();
                 break;
             case G_STORY:
                 GameStoryView();
                 break;
             case G_BATTLE:
                 GameButtleView();
+                break;
+            case G_BATTLE_ENEMY:
+                GameButtleEnemyView();
                 break;
             case G_RESULT:
                 GameResultView();
@@ -578,6 +660,36 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /* タッチイベント（タップ処理）自機移動 */
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        int enemy_at = rand.nextInt(100);
+
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+//                if (enemy_hp == 0 || display_hold > 0){
+
+                if (display_hold > 0) {
+                    ;
+                }
+                else {
+                    if (game_step == G_BATTLE) {
+                        if (enemy_at > 95){
+                            EffectBgmStart(10);
+                            display_hold = TIME_PROG_VERY_SHORT;
+                            GameButtleEnemyView();
+                        }
+                        else {
+                            EventGameView();
+                        }
+                    }
+                }
+                break;
+        }
+        return super.onTouchEvent(event);
+    }
+
     /* ゲーム中のイベントタイマー */
     public void GameStart(){
         setContentView(R.layout.activity_sub);
@@ -616,37 +728,6 @@ public class MainActivity extends AppCompatActivity {
         if (ebgm == null){
             ebgm = (MediaPlayer) MediaPlayer.create(this, R.raw.s_11);
         }
-
-        //以下攻撃エフェクト
-        /*
-        if (efs_11 == null){
-            efs_11 = (MediaPlayer) MediaPlayer.create(this, R.raw.s_11);
-        }
-        if (efs_12 == null){
-            efs_12 = (MediaPlayer) MediaPlayer.create(this, R.raw.s_11);
-        }
-
-        if (efs_21 == null){
-            efs_21 = (MediaPlayer) MediaPlayer.create(this, R.raw.s_12);
-        }
-        if (efs_22 == null){
-            efs_22 = (MediaPlayer) MediaPlayer.create(this, R.raw.s_12);
-        }
-
-        if (efs_31 == null){
-            efs_31 = (MediaPlayer) MediaPlayer.create(this, R.raw.s_13);
-        }
-        if (efs_32 == null){
-            efs_32 = (MediaPlayer) MediaPlayer.create(this, R.raw.s_13);
-        }
-
-        if (efs_41 == null){
-            efs_41 = (MediaPlayer) MediaPlayer.create(this, R.raw.s_14);
-        }
-        if (efs_42 == null){
-            efs_42 = (MediaPlayer) MediaPlayer.create(this, R.raw.s_14);
-        }
-        */
     }
 
     public void SoundStop() {
@@ -657,33 +738,6 @@ public class MainActivity extends AppCompatActivity {
         if (ebgm != null){
             ebgm.stop();    ebgm.release();     ebgm = null;
         }
-
-        /*
-        if (efs_11 != null){
-            efs_11.stop();  efs_11.release();   efs_11 = null;
-        }
-        if (efs_12 != null){
-            efs_12.stop();  efs_12.release();   efs_12 = null;
-        }
-        if (efs_21 != null){
-            efs_21.stop();  efs_21.release();   efs_21 = null;
-        }
-        if (efs_22 != null){
-            efs_22.stop();  efs_22.release();   efs_22 = null;
-        }
-        if (efs_31 != null){
-            efs_31.stop();  efs_31.release();   efs_31 = null;
-        }
-        if (efs_32 != null){
-            efs_32.stop();  efs_32.release();   efs_32 = null;
-        }
-        if (efs_41 != null){
-            efs_41.stop();  efs_41.release();   efs_41 = null;
-        }
-        if (efs_42 != null){
-            efs_42.stop();  efs_42.release();   efs_42 = null;
-        }
-         */
     }
     /***************************************************
         音源処理
@@ -741,11 +795,9 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         else{
-//            if (ebgm_index != index) {
-                ebgm.stop();
-                ebgm.release();
-                ebgm = null;
-//            }
+            ebgm.stop();
+            ebgm.release();
+            ebgm = null;
         }
         ebgm_index = index;
 
@@ -781,6 +833,11 @@ public class MainActivity extends AppCompatActivity {
                     ebgm = (MediaPlayer) MediaPlayer.create(this, R.raw.s_16);
                 }
                 break;
+            case 10:
+                if (ebgm == null){
+                    ebgm = (MediaPlayer) MediaPlayer.create(this, R.raw.hit);
+                }
+                break;
         }
 
         if (ebgm.isPlaying() == false) {
@@ -789,14 +846,56 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     /************************************************
         ゲームスタート
      ************************************************/
     public void onGameScreen(View v){
+
+        last_map = false;
         /* ゲームスタート */
         GameStart();
     }
+    /************************************************
+        ゲームスタート（ラスボス戦）
+     ************************************************/
+    public void onGameLastMap(View v){
+
+        AlertDialog.Builder guide = new AlertDialog.Builder(this);
+        TextView vmessage = new TextView(this);
+
+
+        if (false) {
+//        if (db_map == 0) {
+            //メッセージ
+            String tmpstr = "";
+            tmpstr =    "\n\n\n"+
+                        "　ラスボスへの挑戦が出来ません\n"+
+                        "　ストレスの平原の浄化率をあげて下さい\n\n"+
+                        "　浄化率[100%]にする必要があります\n"+
+                        "\n\n\n";
+            vmessage.setText(tmpstr);
+            vmessage.setBackgroundColor(getResources().getColor(R.color.gray));
+            vmessage.setTextColor(getResources().getColor(R.color.white));
+            vmessage.setTypeface(Typeface.DEFAULT_BOLD);
+            guide.setTitle(" 物語チェック ");
+            guide.setIcon(R.drawable.book2);
+            guide.setView(vmessage);
+            guide.setPositiveButton("次へ", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ;
+                }
+            });
+            guide.create();
+            guide.show();
+        }
+        else{
+            last_map = true;
+            /* ゲームスタート */
+            GameStart();
+        }
+    }
+
     /************************************************
         買い物（攻撃）
      ************************************************/
@@ -918,6 +1017,8 @@ public class MainActivity extends AppCompatActivity {
         BgmStart(1);
     }
     public void HistoryDisp() {
+        ImageView imgmap = (ImageView) findViewById(R.id.img_map);
+
         String tmp = "";
         TextView map = (TextView) findViewById(R.id.text_map_name);
         map.setText("〜　ストレスの草原　状態　〜");
@@ -927,16 +1028,22 @@ public class MainActivity extends AppCompatActivity {
         mapsta += "　浄化率："+ db_jrate + "％";
         if (db_jrate < 10 ) {
             mapsta += "\n　ストレスが充満している";
+            imgmap.setImageResource(R.drawable.map00);
         }else if (db_jrate < 25){
             mapsta += "\n　少しストレスが減ってきた";
+            imgmap.setImageResource(R.drawable.map25);
         }else if (db_jrate < 50){
             mapsta += "\n　ストレスが減ってきた";
+            imgmap.setImageResource(R.drawable.map50);
         }else if (db_jrate < 75){
             mapsta += "\n　少しリラックスできる";
+            imgmap.setImageResource(R.drawable.map75);
         }else{
             mapsta += "\n　楽しい気分になった";
+            imgmap.setImageResource(R.drawable.map99);
         }
         now.setText(mapsta);
+        now.setTextColor(getResources().getColor(R.color.teal_200));
 
         ProgressBar map_bar = (ProgressBar) findViewById(R.id.map_progress);
         map_bar.setMin(0);
@@ -944,6 +1051,7 @@ public class MainActivity extends AppCompatActivity {
         map_bar.setProgress(db_jrate);
 
         TextView history = (TextView) findViewById(R.id.text_history);
+
         tmp += "\n　〜　勇者ステータス　〜 \n"
                 + "　Ｌｖ　　　　：" + db_level + "\n"
                 + "　必殺発生確率：" + (db_critical) + "％\n"
@@ -982,6 +1090,7 @@ public class MainActivity extends AppCompatActivity {
         prog = null;
         ename = null;
         story = null;
+        popdispcount = 0;
 
         SoundStop();
         setContentView(R.layout.activity_main);
@@ -992,6 +1101,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * 勇者のパラメータ取得　攻撃力、必殺確率
      * @param type
      * @return
      */
@@ -1019,36 +1129,47 @@ public class MainActivity extends AppCompatActivity {
      モンスターの遭遇
      **/
     public void SetEnemyType() {
-        int btype = rand.nextInt(7);  //ボスの検索
-        int etype = rand.nextInt(5);  //通常モンスターの検索
         int ttype = rand.nextInt(100);  //通常orボスの確率
 
-        // 通常モンスター　約７割
-        if (ttype < 70){
-            BgmStart(2);
+        if (last_map == false){
+            int btype = rand.nextInt(3);    //ボスの検索
+            int etype = rand.nextInt(8);    //通常モンスターの検索
 
-            switch (etype){
-                default:
-                case 1: enemy_type = E_TYPE_1;  enemy_hp = 100; break;
-                case 2: enemy_type = E_TYPE_2;  enemy_hp = 110; break;
-                case 3: enemy_type = E_TYPE_3;  enemy_hp = 120; break;
-                case 4: enemy_type = E_TYPE_4;  enemy_hp = 150; break;
-                case 5: enemy_type = E_TYPE_5;  enemy_hp = 200; break;
-                case 6: enemy_type = E_TYPE_6;  enemy_hp = 200; break;
-                case 7: enemy_type = E_TYPE_7;  enemy_hp = 300; break;
+            // 通常モンスター　約７割
+            if (ttype < 70){
+                BgmStart(2);
+
+                switch (etype){
+                    default:
+                    case 1: enemy_type = E_TYPE_1;  enemy_hp = 100; break;
+                    case 2: enemy_type = E_TYPE_2;  enemy_hp = 150; break;
+                    case 3: enemy_type = E_TYPE_3;  enemy_hp = 200; break;
+                    case 4: enemy_type = E_TYPE_4;  enemy_hp = 250; break;
+                    case 5: enemy_type = E_TYPE_5;  enemy_hp = 250; break;
+                    case 6: enemy_type = E_TYPE_6;  enemy_hp = 300; break;
+                    case 7: enemy_type = E_TYPE_7;  enemy_hp = 300; break;
+                }
+            }
+            // ボス　約３割
+            else{
+                BgmStart(3);
+
+                switch (btype){
+                    default:
+                    case 1: enemy_type = B_TYPE_1;  enemy_hp = 500; break;
+                    case 2: enemy_type = B_TYPE_2;  enemy_hp = 600; break;
+                }
             }
         }
-        // ボス　約３割
         else{
-            BgmStart(3);
+            int btype = rand.nextInt(4);    //ボスの検索
 
-            switch (etype){
+            BgmStart(3);
+            switch (btype){
                 default:
-                case 1: enemy_type = B_TYPE_1;  enemy_hp = 500; break;
-                case 2: enemy_type = B_TYPE_2;  enemy_hp = 600; break;
-                case 3: enemy_type = B_TYPE_3;  enemy_hp = 600; break;
-                case 4: enemy_type = B_TYPE_4;  enemy_hp = 600; break;
-                case 5: enemy_type = B_TYPE_5;  enemy_hp = 600; break;
+                case 1: enemy_type = B_TYPE_3;  enemy_hp = 750; break;
+                case 2: enemy_type = B_TYPE_4;  enemy_hp = 750; break;
+                case 3: enemy_type = B_TYPE_5;  enemy_hp = 850; break;
             }
         }
     }
@@ -1060,23 +1181,35 @@ public class MainActivity extends AppCompatActivity {
         int point = 0;
         int level = 0;
         int rate = 0;
+        int minus_point = 0;
         switch (enemy_type) {
             case E_TYPE_1:
             case E_TYPE_2:
             case E_TYPE_3:
             case E_TYPE_4:
             case E_TYPE_5:
+                point = 10;
+                level = 1;
+                rate = 1;
+                minus_point = 1;
+                break;
             case E_TYPE_6:
             case E_TYPE_7:
             case E_TYPE_8:
             case E_TYPE_9:
             case E_TYPE_10:
-                point = 10;
+                point = 20;
                 level = 1;
                 rate = 1;
+                minus_point = 3;
                 break;
             case B_TYPE_1:
             case B_TYPE_2:
+                point = 50;
+                level = 3;
+                rate = 3;
+                minus_point = 10;
+                break;
             case B_TYPE_3:
             case B_TYPE_4:
             case B_TYPE_5:
@@ -1085,16 +1218,18 @@ public class MainActivity extends AppCompatActivity {
             case B_TYPE_8:
             case B_TYPE_9:
             case B_TYPE_10:
-                point = 50;
-                level = 3;
-                rate = 3;
+                point = 100;
+                level = 5;
+                rate = 5;
+                minus_point = 25;
                 break;
         }
         switch (pointype)
         {
-            case 0: return point;
-            case 1: return level;
-            case 2: return rate;
+            case 0: return point;           //浄化ポイント
+            case 1: return level;           //レベルアップ分
+            case 2: return rate;            //浄化率
+            case 3: return minus_point;     //被浄化ポイント
         }
         return 0;
     }
