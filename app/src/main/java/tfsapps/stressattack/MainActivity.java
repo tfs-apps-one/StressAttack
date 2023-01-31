@@ -928,53 +928,70 @@ public class MainActivity extends AppCompatActivity {
 
         TextView total = (TextView) findViewById(R.id.text_list_total);
 
-        String get_after  = "[済] 浄化ポイント:";
-        String get_before = "[　] 浄化ポイント:";
+        String get_after  = "[済] ";
+        String get_before = "[　] ";
+        String get_attack = " 攻撃";
         String buf = "";
         boolean flag = true;
         int _color = 0;
 
-        total.setText("累計浄化ポイント:"+db_jpoint);
+        total.setText("ポイント累計:"+db_jpoint);
 
         flag = GetEffectLevel(1);
-        if (flag)   buf = get_after  + EFFECT_1;
-        else        buf = get_before + EFFECT_1;
+        if (flag)   buf = get_after  + get_attack + "１ ：" + EFFECT_1;
+        else        buf = get_before + get_attack + "１ ：" + EFFECT_1;
         l11.setText(buf);
+        if (flag)   l11.setTextColor(getResources().getColor(R.color.white));
+        else        l11.setTextColor(getResources().getColor(R.color.gray));
 
         flag = GetEffectLevel(2);
-        if (flag)   buf = get_after  + EFFECT_2;
-        else        buf = get_before + EFFECT_2;
+        if (flag)   buf = get_after  + get_attack + "２ ：" + EFFECT_2;
+        else        buf = get_before + get_attack + "２ ：" + EFFECT_2;
         l21.setText(buf);
+        if (flag)   l21.setTextColor(getResources().getColor(R.color.white));
+        else        l21.setTextColor(getResources().getColor(R.color.gray));
 
         flag = GetEffectLevel(3);
-        if (flag)   buf = get_after  + EFFECT_3;
-        else        buf = get_before + EFFECT_3;
+        if (flag)   buf = get_after  + get_attack + "３ ：" + EFFECT_3;
+        else        buf = get_before + get_attack + "３ ：" + EFFECT_3;
         l31.setText(buf);
+        if (flag)   l31.setTextColor(getResources().getColor(R.color.white));
+        else        l31.setTextColor(getResources().getColor(R.color.gray));
 
         flag = GetEffectLevel(4);
-        if (flag)   buf = get_after  + EFFECT_4;
-        else        buf = get_before + EFFECT_4;
+        if (flag)   buf = get_after  + get_attack + "４ ：" + EFFECT_4;
+        else        buf = get_before + get_attack + "４ ：" + EFFECT_4;
         l41.setText(buf);
+        if (flag)   l41.setTextColor(getResources().getColor(R.color.white));
+        else        l41.setTextColor(getResources().getColor(R.color.gray));
 
         flag = GetEffectLevel(5);
-        if (flag)   buf = get_after  + EFFECT_5;
-        else        buf = get_before + EFFECT_5;
+        if (flag)   buf = get_after  + get_attack + "５ ：" + EFFECT_5;
+        else        buf = get_before + get_attack + "５ ：" + EFFECT_5;
         l12.setText(buf);
+        if (flag)   l12.setTextColor(getResources().getColor(R.color.white));
+        else        l12.setTextColor(getResources().getColor(R.color.gray));
 
         flag = GetEffectLevel(6);
-        if (flag)   buf = get_after  + EFFECT_6;
-        else        buf = get_before + EFFECT_6;
+        if (flag)   buf = get_after  + get_attack + "６ ：" + EFFECT_6;
+        else        buf = get_before + get_attack + "６ ：" + EFFECT_6;
         l22.setText(buf);
+        if (flag)   l22.setTextColor(getResources().getColor(R.color.white));
+        else        l22.setTextColor(getResources().getColor(R.color.gray));
 
         flag = GetEffectLevel(7);
-        if (flag)   buf = get_after  + EFFECT_7;
-        else        buf = get_before + EFFECT_7;
+        if (flag)   buf = get_after  + get_attack + "７ ：" + EFFECT_7;
+        else        buf = get_before + get_attack + "７ ：" + EFFECT_7;
         l32.setText(buf);
+        if (flag)   l32.setTextColor(getResources().getColor(R.color.white));
+        else        l32.setTextColor(getResources().getColor(R.color.gray));
 
         flag = GetEffectLevel(8);
-        if (flag)   buf = get_after  + EFFECT_8;
-        else        buf = get_before + EFFECT_8;
+        if (flag)   buf = get_after  + get_attack + "８ ：" + EFFECT_8;
+        else        buf = get_before + get_attack + "８ ：" + EFFECT_8;
         l42.setText(buf);
+        if (flag)   l42.setTextColor(getResources().getColor(R.color.white));
+        else        l42.setTextColor(getResources().getColor(R.color.gray));
 
     }
     public void onBackList(View v) {
@@ -1173,6 +1190,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             int btype;
+            //test
             if (db_jrate < 110) {
                 btype = rand.nextInt(4);    //ボスの検索
                 BgmStart(5);
