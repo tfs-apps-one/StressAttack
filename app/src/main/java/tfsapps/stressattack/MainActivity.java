@@ -865,6 +865,32 @@ public class MainActivity extends AppCompatActivity {
         /* ゲームスタート */
         GameStart();
     }
+
+    public void DialogDisplay(String title, String message, int next_btn){
+        AlertDialog.Builder guide = new AlertDialog.Builder(this);
+        TextView vmessage = new TextView(this);
+
+        vmessage.setText(message);
+        vmessage.setBackgroundColor(getResources().getColor(R.color.gray));
+        vmessage.setTextColor(getResources().getColor(R.color.white));
+        vmessage.setTypeface(Typeface.DEFAULT_BOLD);
+        guide.setTitle(title);
+        guide.setIcon(R.drawable.book2);
+        guide.setView(vmessage);
+        guide.setPositiveButton("次へ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (next_btn){
+                    default:
+                    case 0:                 break;
+                    case 1: guidePage2();   break;
+                }
+            }
+        });
+        guide.create();
+        guide.show();
+    }
+
     /************************************************
         ゲームスタート（ラスボス戦）
      ************************************************/
@@ -873,31 +899,17 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder guide = new AlertDialog.Builder(this);
         TextView vmessage = new TextView(this);
 
-
         if (false) {
 //        if (db_map == 0) {
             //メッセージ
+            String tmptitle = "　物語チェック　";
             String tmpstr = "";
             tmpstr =    "\n\n\n"+
                         "　ラスボスへの挑戦が出来ません\n"+
                         "　ストレスの平原の浄化率をあげて下さい\n\n"+
                         "　浄化率[100%]にする必要があります\n"+
                         "\n\n\n";
-            vmessage.setText(tmpstr);
-            vmessage.setBackgroundColor(getResources().getColor(R.color.gray));
-            vmessage.setTextColor(getResources().getColor(R.color.white));
-            vmessage.setTypeface(Typeface.DEFAULT_BOLD);
-            guide.setTitle(" 物語チェック ");
-            guide.setIcon(R.drawable.book2);
-            guide.setView(vmessage);
-            guide.setPositiveButton("次へ", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    ;
-                }
-            });
-            guide.create();
-            guide.show();
+            DialogDisplay(tmptitle,tmpstr,0);
         }
         else{
             last_map = true;
@@ -935,65 +947,115 @@ public class MainActivity extends AppCompatActivity {
         boolean flag = true;
         int _color = 0;
 
-        total.setText("ポイント累計:"+db_jpoint);
+        total.setText("　入手累計："+db_jpoint);
 
         flag = GetEffectLevel(1);
-        if (flag)   buf = get_after  + get_attack + "１ ：" + EFFECT_1;
-        else        buf = get_before + get_attack + "１ ：" + EFFECT_1;
+        if (flag)   buf = get_after  + get_attack + "　１";
+        else        buf = get_before + get_attack + "　１";
         l11.setText(buf);
         if (flag)   l11.setTextColor(getResources().getColor(R.color.white));
         else        l11.setTextColor(getResources().getColor(R.color.gray));
 
         flag = GetEffectLevel(2);
-        if (flag)   buf = get_after  + get_attack + "２ ：" + EFFECT_2;
-        else        buf = get_before + get_attack + "２ ：" + EFFECT_2;
+        if (flag)   buf = get_after  + get_attack + "　２";
+        else        buf = get_before + get_attack + "　２";
         l21.setText(buf);
         if (flag)   l21.setTextColor(getResources().getColor(R.color.white));
         else        l21.setTextColor(getResources().getColor(R.color.gray));
 
         flag = GetEffectLevel(3);
-        if (flag)   buf = get_after  + get_attack + "３ ：" + EFFECT_3;
-        else        buf = get_before + get_attack + "３ ：" + EFFECT_3;
+        if (flag)   buf = get_after  + get_attack + "　３";
+        else        buf = get_before + get_attack + "　３";
         l31.setText(buf);
         if (flag)   l31.setTextColor(getResources().getColor(R.color.white));
         else        l31.setTextColor(getResources().getColor(R.color.gray));
 
         flag = GetEffectLevel(4);
-        if (flag)   buf = get_after  + get_attack + "４ ：" + EFFECT_4;
-        else        buf = get_before + get_attack + "４ ：" + EFFECT_4;
+        if (flag)   buf = get_after  + get_attack + "　４";
+        else        buf = get_before + get_attack + "　４";
         l41.setText(buf);
         if (flag)   l41.setTextColor(getResources().getColor(R.color.white));
         else        l41.setTextColor(getResources().getColor(R.color.gray));
 
         flag = GetEffectLevel(5);
-        if (flag)   buf = get_after  + get_attack + "５ ：" + EFFECT_5;
-        else        buf = get_before + get_attack + "５ ：" + EFFECT_5;
+        if (flag)   buf = get_after  + get_attack + "　５";
+        else        buf = get_before + get_attack + "　５";
         l12.setText(buf);
         if (flag)   l12.setTextColor(getResources().getColor(R.color.white));
         else        l12.setTextColor(getResources().getColor(R.color.gray));
 
         flag = GetEffectLevel(6);
-        if (flag)   buf = get_after  + get_attack + "６ ：" + EFFECT_6;
-        else        buf = get_before + get_attack + "６ ：" + EFFECT_6;
+        if (flag)   buf = get_after  + get_attack + "　６";
+        else        buf = get_before + get_attack + "　６";
         l22.setText(buf);
         if (flag)   l22.setTextColor(getResources().getColor(R.color.white));
         else        l22.setTextColor(getResources().getColor(R.color.gray));
 
         flag = GetEffectLevel(7);
-        if (flag)   buf = get_after  + get_attack + "７ ：" + EFFECT_7;
-        else        buf = get_before + get_attack + "７ ：" + EFFECT_7;
+        if (flag)   buf = get_after  + get_attack + "　７";
+        else        buf = get_before + get_attack + "　７";
         l32.setText(buf);
         if (flag)   l32.setTextColor(getResources().getColor(R.color.white));
         else        l32.setTextColor(getResources().getColor(R.color.gray));
 
         flag = GetEffectLevel(8);
-        if (flag)   buf = get_after  + get_attack + "８ ：" + EFFECT_8;
-        else        buf = get_before + get_attack + "８ ：" + EFFECT_8;
+        if (flag)   buf = get_after  + get_attack + "　８";
+        else        buf = get_before + get_attack + "　８";
         l42.setText(buf);
         if (flag)   l42.setTextColor(getResources().getColor(R.color.white));
         else        l42.setTextColor(getResources().getColor(R.color.gray));
 
     }
+    public void guidePage2() {
+        String tmptitle = "　攻撃エフェクト　";
+        String tmpstr = "";
+        tmpstr ="\n\n"+
+                "　攻撃　５：通常ダメージ ｘ 5.0 \n"+
+                "　入手条件：ポイント ▶ ︎" + EFFECT_5 + "\n"+
+                "　入手条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "\n"+
+                "　攻撃　６：通常ダメージ ｘ 6.0 \n"+
+                "　入手条件：ポイント ▶ ︎" + EFFECT_6 + "\n"+
+                "　入手条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "\n"+
+                "　攻撃　７：通常ダメージ ｘ ???? \n"+
+                "　入手条件：ポイント ▶ ︎" + EFFECT_7 + "\n"+
+                "　入手条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "\n"+
+                "　攻撃　８：通常ダメージ ｘ ???? \n"+
+                "　入手条件：ポイント ▶ ︎" + EFFECT_8 + "\n"+
+                "　入手条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                " \n\n";
+
+        DialogDisplay(tmptitle,tmpstr,0);
+    }
+    public void guidePage1() {
+        String tmptitle = "　攻撃エフェクト　";
+        String tmpstr = "";
+        tmpstr ="\n\n"+
+                "　攻撃　１：通常ダメージ ｘ 1.0 \n"+
+                "　入手条件：ポイント ▶ ︎" + EFFECT_1 + "\n"+
+                "　入手条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "\n"+
+                "　攻撃　２：通常ダメージ ｘ 1.0 \n"+
+                "　入手条件：ポイント ▶ ︎" + EFFECT_2 + "\n"+
+                "　入手条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "\n"+
+                "　攻撃　３：通常ダメージ ｘ 3.0 \n"+
+                "　入手条件：ポイント ▶ ︎" + EFFECT_3 + "\n"+
+                "　入手条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "\n"+
+                "　攻撃　４：通常ダメージ ｘ 3.0 \n"+
+                "　入手条件：ポイント ▶ ︎" + EFFECT_4 + "\n"+
+                "　入手条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                " \n\n";
+
+        DialogDisplay(tmptitle,tmpstr,1);
+    }
+    public void onGuide(View v) {
+        guidePage1();
+    }
+
     public void onBackList(View v) {
         setContentView(R.layout.activity_main);
         BgmStart(1);
