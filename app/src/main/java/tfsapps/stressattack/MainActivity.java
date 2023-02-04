@@ -80,6 +80,12 @@ public class MainActivity extends AppCompatActivity {
     private int db_boss_9 = 0;              //DB　
     private int db_boss_10 = 0;             //DB　
 
+    private int db_lastboss = 0;            //DB　ラストボス挑戦　
+    private int db_brate = 0;               //DB　ラストダンジョン浄化率
+    private int db_bpoint = 0;              //DB　ラストダンジョン浄化ポイント　
+    private int db_present_a = 0;           //DB　プレゼント（攻撃）　
+    private int db_present_b = 0;           //DB　プレゼント（BOSS）
+
     private boolean taskrun = false;
     private ImageView enemy = null;
 
@@ -281,12 +287,14 @@ public class MainActivity extends AppCompatActivity {
     public void GameStoryPopup() {
         AlertDialog.Builder guide = new AlertDialog.Builder(this);
         TextView vmessage = new TextView(this);
+        /*
         if (popdispcount > 1){
             display_hold = 0;
             GameNextStep();
             GameView();
             return;
-        }
+        }*/
+
         //メッセージ
         vmessage.setText( GetStoryString() );
         vmessage.setBackgroundColor(getResources().getColor(R.color.gray));
@@ -300,9 +308,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 popdispcount++;
-                GameStoryPopup();
+                display_hold = 0;
+                GameNextStep();
+                GameView();
+                return;
+//              GameStoryPopup();
             }
         });
+        guide.setCancelable(false);
         guide.create();
         guide.show();
         display_hold = TIME_PROG_FOREVER;
@@ -875,6 +888,7 @@ public class MainActivity extends AppCompatActivity {
         vmessage.setTextColor(getResources().getColor(R.color.white));
         vmessage.setTypeface(Typeface.DEFAULT_BOLD);
         guide.setTitle(title);
+        guide.setCancelable(false);
         guide.setIcon(R.drawable.book2);
         guide.setView(vmessage);
         guide.setPositiveButton("次へ", new DialogInterface.OnClickListener() {
@@ -2105,6 +2119,11 @@ public class MainActivity extends AppCompatActivity {
         sql.append(" ,boss_8");
         sql.append(" ,boss_9");
         sql.append(" ,boss_10");
+        sql.append(" ,lastboss");
+        sql.append(" ,brate");
+        sql.append(" ,bpoint");
+        sql.append(" ,present_a");
+        sql.append(" ,present_b");
         sql.append(" FROM appinfo;");
         try {
             Cursor cursor = db.rawQuery(sql.toString(), null);
@@ -2153,6 +2172,11 @@ public class MainActivity extends AppCompatActivity {
                 db_boss_8 = cursor.getInt(39);
                 db_boss_9 = cursor.getInt(40);
                 db_boss_10 = cursor.getInt(41);
+                db_lastboss = cursor.getInt(42);
+                db_brate = cursor.getInt(43);
+                db_bpoint = cursor.getInt(44);
+                db_present_a = cursor.getInt(45);
+                db_present_b = cursor.getInt(46);
             }
         } finally {
             db.close();
@@ -2205,6 +2229,11 @@ public class MainActivity extends AppCompatActivity {
             insertValues.put("boss_8", 0);
             insertValues.put("boss_9", 0);
             insertValues.put("boss_10", 0);
+            insertValues.put("lastboss", 0);
+            insertValues.put("brate", 0);
+            insertValues.put("bpoint", 0);
+            insertValues.put("present_a", 0);
+            insertValues.put("present_b", 0);
             try {
                 ret = db.insert("appinfo", null, insertValues);
             } finally {
@@ -2276,6 +2305,12 @@ public class MainActivity extends AppCompatActivity {
         insertValues.put("boss_8", db_boss_8);
         insertValues.put("boss_9", db_boss_9);
         insertValues.put("boss_10", db_boss_10);
+        insertValues.put("lastboss", db_lastboss);
+        insertValues.put("brate", db_brate);
+        insertValues.put("bpoint", db_bpoint);
+        insertValues.put("present_a", db_present_a);
+        insertValues.put("present_b", db_present_b);
+
         int ret;
         try {
             ret = db.update("appinfo", insertValues, null, null);

@@ -59,7 +59,12 @@ public class MyOpenHelper extends SQLiteOpenHelper
                 + "boss_7 integer,"         //ボス７
                 + "boss_8 integer,"         //ボス８
                 + "boss_9 integer,"         //ボス９
-                + "boss_10 integer);");     //ボス１０
+                + "boss_10 integer,"        //ボス１０
+                + "lastboss integer,"       //システム：ラスボス
+                + "brate integer,"          //システム：ラストダンジョン浄化率
+                + "bpoint integer,"         //システム：ラストダンジョン浄化ポイント
+                + "present_a integer,"      //システム：プレゼントポイント（攻撃エフェクト）
+                + "present_b integer);");   //システム：プレゼントポイント（BOSS）
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
