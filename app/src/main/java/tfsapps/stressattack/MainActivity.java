@@ -613,7 +613,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 2:
                 at_str = "打撃で ";
-                damege = db_damage;
+                damege = (db_damage * 110) / 100;
                 display_hold = TIME_EFFECT_SHORT;
                 break;
             case 3:
@@ -623,7 +623,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 4:
                 at_str = "大爆発で ";
-                damege = (db_damage * 3);
+                damege = (db_damage * 330) / 100;
                 display_hold = TIME_EFFECT;
                 break;
             case 5:
@@ -884,6 +884,7 @@ public class MainActivity extends AppCompatActivity {
                     default:
                     case 0:                 break;
                     case 1: guidePage2();   break;
+                    case 2: bguidePage2();  break;
                 }
             }
         });
@@ -1037,7 +1038,7 @@ public class MainActivity extends AppCompatActivity {
                 "　入手条件：ポイント ▶ ︎" + EFFECT_1 + "\n"+
                 "　入手条件：必要素材 ▶ ︎" + "なし" + "\n"+
                 "\n"+
-                "　攻撃　２：通常ダメージ ｘ 1.0 \n"+
+                "　攻撃　２：通常ダメージ ｘ 1.1 \n"+
                 "　入手条件：ポイント ▶ ︎" + EFFECT_2 + "\n"+
                 "　入手条件：必要素材 ▶ ︎" + "なし" + "\n"+
                 "\n"+
@@ -1045,7 +1046,7 @@ public class MainActivity extends AppCompatActivity {
                 "　入手条件：ポイント ▶ ︎" + EFFECT_3 + "\n"+
                 "　入手条件：必要素材 ▶ ︎" + "なし" + "\n"+
                 "\n"+
-                "　攻撃　４：通常ダメージ ｘ 3.0 \n"+
+                "　攻撃　４：通常ダメージ ｘ 3.3 \n"+
                 "　入手条件：ポイント ▶ ︎" + EFFECT_4 + "\n"+
                 "　入手条件：必要素材 ▶ ︎" + "なし" + "\n"+
                 " \n\n";
@@ -1092,6 +1093,180 @@ public class MainActivity extends AppCompatActivity {
         }
         return ret;
     }
+
+
+    /************************************************
+        ボス一覧
+     ************************************************/
+    public void onBoss(View v){
+        /* エフェクト入手状況 */
+        setContentView(R.layout.activity_blist);
+        BossListDisp();
+    }
+    public void BossListDisp(){
+        /* 左列 */
+        TextView l11 = (TextView) findViewById(R.id.text_listb11);
+        TextView l21 = (TextView) findViewById(R.id.text_listb21);
+        TextView l31 = (TextView) findViewById(R.id.text_listb31);
+        TextView l41 = (TextView) findViewById(R.id.text_listb41);
+        /* 右列 */
+        TextView l12 = (TextView) findViewById(R.id.text_listb12);
+        TextView l22 = (TextView) findViewById(R.id.text_listb22);
+        TextView l32 = (TextView) findViewById(R.id.text_listb32);
+        TextView l42 = (TextView) findViewById(R.id.text_listb42);
+
+        TextView total = (TextView) findViewById(R.id.text_blist_total);
+
+        String get_after  = "[戦闘済] ";
+        String get_before = "[　　　] ";
+        String buf = "";
+        boolean flag = true;
+        int _color = 0;
+
+        total.setText("");
+
+        flag = GetBossBattle(1);
+        if (flag)   buf = get_after  + B_NAME_1;
+        else        buf = get_before + B_NAME_1;
+        l11.setText(buf);
+        if (flag)   l11.setTextColor(getResources().getColor(R.color.white));
+        else        l11.setTextColor(getResources().getColor(R.color.gray));
+
+        flag = GetBossBattle(2);
+        if (flag)   buf = get_after  + B_NAME_2;
+        else        buf = get_before + B_NAME_2;
+        l21.setText(buf);
+        if (flag)   l21.setTextColor(getResources().getColor(R.color.white));
+        else        l21.setTextColor(getResources().getColor(R.color.gray));
+
+        flag = GetBossBattle(3);
+        if (flag)   buf = get_after  + B_NAME_3;
+        else        buf = get_before + B_NAME_3;
+        l31.setText(buf);
+        if (flag)   l31.setTextColor(getResources().getColor(R.color.white));
+        else        l31.setTextColor(getResources().getColor(R.color.gray));
+
+        flag = GetBossBattle(4);
+        if (flag)   buf = get_after  + B_NAME_4;
+        else        buf = get_before + B_NAME_4;
+        l41.setText(buf);
+        if (flag)   l41.setTextColor(getResources().getColor(R.color.white));
+        else        l41.setTextColor(getResources().getColor(R.color.gray));
+
+        flag = GetBossBattle(5);
+        if (flag)   buf = get_after  + B_NAME_5;
+        else        buf = get_before + B_NAME_5;
+        l12.setText(buf);
+        if (flag)   l12.setTextColor(getResources().getColor(R.color.white));
+        else        l12.setTextColor(getResources().getColor(R.color.gray));
+
+        flag = GetBossBattle(6);
+        if (flag)   buf = get_after  + B_NAME_6;
+        else        buf = get_before + B_NAME_6;
+        l22.setText(buf);
+        if (flag)   l22.setTextColor(getResources().getColor(R.color.white));
+        else        l22.setTextColor(getResources().getColor(R.color.gray));
+
+        flag = GetBossBattle(7);
+        if (flag)   buf = get_after  + B_NAME_7;
+        else        buf = get_before + B_NAME_7;
+        l32.setText(buf);
+        if (flag)   l32.setTextColor(getResources().getColor(R.color.white));
+        else        l32.setTextColor(getResources().getColor(R.color.gray));
+
+        flag = GetBossBattle(8);
+        if (flag)   buf = get_after  + B_NAME_8;
+        else        buf = get_before + B_NAME_8;
+        l42.setText(buf);
+        if (flag)   l42.setTextColor(getResources().getColor(R.color.white));
+        else        l42.setTextColor(getResources().getColor(R.color.gray));
+    }
+    public boolean GetBossBattle(int type){
+        boolean ret = false;
+
+        switch (type){
+            case 1: if (db_boss_1 > 0)  ret = true;
+            else                        ret = false;
+                break;
+            case 2: if (db_boss_2 > 0)  ret = true;
+            else                        ret = false;
+                break;
+            case 3: if (db_boss_3 > 0)  ret = true;
+            else                        ret = false;
+                break;
+            case 4: if (db_boss_4 > 0)  ret = true;
+            else                        ret = false;
+                break;
+            case 5: if (db_boss_5 > 0)  ret = true;
+            else                        ret = false;
+                break;
+            case 6: if (db_boss_6 > 0)  ret = true;
+            else                        ret = false;
+                break;
+            case 7: if (db_boss_7 > 0)  ret = true;
+            else                        ret = false;
+                break;
+            case 8: if (db_boss_8 > 0)  ret = true;
+            else                        ret = false;
+                break;
+        }
+        return ret;
+    }
+    public void bguidePage2() {
+        String tmptitle = "　ＢＯＳＳ説明　";
+        String tmpstr = "";
+        tmpstr ="\n\n"+
+                "　" + B_NAME_5 + "\n"+
+                "　遭遇条件：ポイント ▶ ︎" + 999 + "\n"+
+                "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "\n"+
+                "　" + B_NAME_6 + "\n"+
+                "　遭遇条件：ポイント ▶ ︎" + 999 + "\n"+
+                "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "\n"+
+                "　" + B_NAME_7 + "\n"+
+                "　遭遇条件：ポイント ▶ ︎" + 999 + "\n"+
+                "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "\n"+
+                "　" + B_NAME_8 + "\n"+
+                "　遭遇条件：ポイント ▶ ︎" + 999 + "\n"+
+                "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                " \n\n";
+
+        DialogDisplay(tmptitle,tmpstr,0);
+    }
+    public void bguidePage1() {
+        String tmptitle = "　ＢＯＳＳ説明　";
+        String tmpstr = "";
+        tmpstr ="\n\n"+
+                "　" + B_NAME_1 + "\n"+
+                "　遭遇条件：ポイント ▶ ︎" + 999 + "\n"+
+                "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "\n"+
+                "　" + B_NAME_2 + "\n"+
+                "　遭遇条件：ポイント ▶ ︎" + 999 + "\n"+
+                "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "\n"+
+                "　" + B_NAME_3 + "\n"+
+                "　遭遇条件：ポイント ▶ ︎" + 999 + "\n"+
+                "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "\n"+
+                "　" + B_NAME_4 + "\n"+
+                "　遭遇条件：ポイント ▶ ︎" + 999 + "\n"+
+                "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                " \n\n";
+
+        DialogDisplay(tmptitle,tmpstr,2);
+    }
+
+    public void onbGuide(View v) {
+        bguidePage1();
+    }
+    public void onBackbList(View v) {
+        setContentView(R.layout.activity_main);
+        BgmStart(1);
+    }
+
 
     /************************************************
          戦　歴

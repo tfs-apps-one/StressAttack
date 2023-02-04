@@ -84,6 +84,24 @@
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         <Button
+            android:id="@+id/btn_boss"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            app:backgroundTint="@null"
+            android:background="@drawable/bak_1"
+            android:text="ＢＯＳＳ図鑑"
+            android:textColor="@color/white"
+            android:onClick="onBoss"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+        <Button
             android:id="@+id/btn_status"
             android:layout_width="match_parent"
             android:layout_height="0dp"
