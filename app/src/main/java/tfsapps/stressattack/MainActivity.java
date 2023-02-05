@@ -197,8 +197,8 @@ public class MainActivity extends AppCompatActivity {
 //    final int EFFECT_5 = 6000;
 //    final int EFFECT_6 = 10000;
     final int EFFECT_4 = 100;
-    final int EFFECT_5 = 100;
-    final int EFFECT_6 = 100;
+    final int EFFECT_5 = 500;
+    final int EFFECT_6 = 1000;
     final int EFFECT_7 = 50000;
     final int EFFECT_8 = 99999;
 
@@ -225,6 +225,9 @@ public class MainActivity extends AppCompatActivity {
         /* サウンド */
         SoundInit();
         BgmStart(1);
+
+        //test
+        db_present_a = 200;
     }
     @Override
     public void onResume() {
@@ -287,13 +290,13 @@ public class MainActivity extends AppCompatActivity {
     public void GameStoryPopup() {
         AlertDialog.Builder guide = new AlertDialog.Builder(this);
         TextView vmessage = new TextView(this);
-        /*
-        if (popdispcount > 1){
+
+        if (popdispcount >= 1){
             display_hold = 0;
             GameNextStep();
             GameView();
             return;
-        }*/
+        }
 
         //メッセージ
         vmessage.setText( GetStoryString() );
@@ -399,7 +402,12 @@ public class MainActivity extends AppCompatActivity {
         ename.setText(enemynamestr);
         //ストリー
         gamestr =   "　勇者はストレスのない週末を\n" +
-                    "　しばらくの間・・・過ごすことにした";
+                    "　しばらくの間・・・過ごすことにした\n";
+
+        if (last_map == false && db_lastboss > 0){
+            gamestr += "\n　平原は [ストレス] から解放された\n";
+        }
+
         story.setText(gamestr);
         story.setTextColor(getResources().getColor(R.color.white));
         display_hold = TIME_PROG_HI_LONG;
@@ -430,10 +438,19 @@ public class MainActivity extends AppCompatActivity {
         story.setTextColor(getResources().getColor(R.color.white));
         display_hold = TIME_PROG_HI_LONG;
 
-        db_jrate += GetEnemyPoint(2);
-        db_jpoint += GetEnemyPoint(0);
-        SetEnemyKillPoint();
+        if (last_map) {
+            db_brate += GetEnemyPoint(2);
+            db_jpoint += GetEnemyPoint(0);
+        }
+        else{
+            db_jrate += GetEnemyPoint(2);
+            db_jpoint += GetEnemyPoint(0);
+            if (db_jrate >= 100) {
+                db_lastboss = 1;
+            }
+        }
 
+        SetEnemyKillPoint();
         GameNextStep();
     }
     /****************************************************
@@ -441,11 +458,33 @@ public class MainActivity extends AppCompatActivity {
      ****************************************************/
     public void GameButtleEnemyView(){
 
-        int tmp_point = db_jpoint;
+        int tmp_point = 0;
+        int aft_point = 0;
+
+        /*
+        if (last_map) {
+            tmp_point = db_bpoint;
+            db_bpoint = (db_bpoint - GetEnemyPoint(3));
+            if (db_bpoint <= 0) {
+                db_bpoint = 0;
+            }
+            aft_point = db_bpoint;
+        }else{
+            tmp_point = db_jpoint;
+            db_jpoint = (db_jpoint - GetEnemyPoint(3));
+            if (db_jpoint <= 0) {
+                db_jpoint = 0;
+            }
+            aft_point = db_jpoint;
+        }
+         */
+        tmp_point = db_jpoint;
         db_jpoint = (db_jpoint - GetEnemyPoint(3));
-        if (db_jpoint <= 0){
+        if (db_jpoint <= 0) {
             db_jpoint = 0;
         }
+        aft_point = db_jpoint;
+
         //敵イメージ
         if(enemy_hp == 0) {
             EnemyDisp(99);
@@ -464,7 +503,7 @@ public class MainActivity extends AppCompatActivity {
             gamestr =
                     "　" + GetEnemyName(false) + "の攻撃！！\n" +
                     "　勇者のストレスが増えて、敵が活性した。\n\n" +
-                    "　浄化ポイントが " + tmp_point + " ▶︎ " + db_jpoint + " に減った";
+                    "　浄化ポイントが " + tmp_point + " ▶︎ " + aft_point + " に減った";
             story.setText(gamestr);
             story.setTextColor(getResources().getColor(R.color.red));
         }
@@ -500,9 +539,10 @@ public class MainActivity extends AppCompatActivity {
         //敵名前
         enemynamestr = "";
         ename.setText(enemynamestr);
+        if (last_map == false)  gamestr = "　勇者がストレスの草原を歩いていると・・・\n";
+        else                    gamestr = "　勇者がボスの城を歩いていると・・・\n";
         //ストリー
-        gamestr =   "　勇者がストレスの草原を歩いていると・・・\n" +
-                    "　なんと・・・！？\n\n" + "　ストレス（" + GetEnemyName(false) + "）が現れた！！\n"+
+        gamestr +=  "　なんと・・・！？\n\n" + "　ストレス（" + GetEnemyName(false) + "）が現れた！！\n"+
                     "　【タップ】してストレスを倒せ！！";
         story.setText(gamestr);
         story.setTextColor(getResources().getColor(R.color.white));
@@ -517,6 +557,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView summap = (TextView) findViewById(R.id.text_submap_name);
         ImageView submap = (ImageView) findViewById(R.id.img_submap);
+        int _rate = 0;
 
         /* タイトル部の表示 */
         if (last_map == false) {
@@ -537,7 +578,9 @@ public class MainActivity extends AppCompatActivity {
         TextView mystatus = (TextView) findViewById(R.id.text_mystatus);
         String buf = "";
         buf += "　勇者のＬｖ："+db_level;
-        buf += "\n　浄化率　　："+db_jrate + "％";
+        if (last_map)   _rate = db_brate;
+        else            _rate = db_jrate;
+        buf += "\n　浄化率　　："+ _rate + "％";
         mystatus.setText(buf);
 
         if (display_hold > 0) {
@@ -582,6 +625,8 @@ public class MainActivity extends AppCompatActivity {
         int chit = (100 - db_critical); // 現在の必殺が出る確率
         int at_type = 0;
         String at_str = "";
+        String _title = "";
+        String _message = "";
 
         //test
         //chit = 30;
@@ -671,6 +716,17 @@ public class MainActivity extends AppCompatActivity {
             gamestr += bak4_gamestr;
             gamestr += bak5_gamestr;
         }
+        /* 50ターン以上は退却 */
+        if (seqno > 50){
+            _title = "　〜　退　却　〜　";
+            _message =    "\n\n\n"+
+                    "　勇者はストレスが強いため\n"+
+                    "　一旦、退却して逃げることにした\n\n"+
+                    "　（戦闘を中断します）\n"+
+                    "\n\n\n";
+            DialogDisplay(_title,_message,3);
+            return;
+        }
     }
 
     /* タッチイベント（タップ処理）自機移動 */
@@ -688,7 +744,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     if (game_step == G_BATTLE) {
-                        if (enemy_at > 95){
+                        if (enemy_at > 90){
                             EffectBgmStart(10);
                             display_hold = TIME_PROG_VERY_SHORT;
                             GameButtleEnemyView();
@@ -726,6 +782,42 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    /************************************************
+        メイン画面へ戻る
+     ************************************************/
+    public void onBack(View v){
+
+        String _title = "";
+        String _message = "";
+
+        if (game_step == G_BATTLE || game_step == G_BATTLE_ENEMY) {
+            _title = "　〜　退　却　〜　";
+            _message = "\n\n\n" +
+                    "　勇者はストレスが強いため\n" +
+                    "　一旦、退却して逃げることにした\n\n" +
+                    "　（戦闘を中断します）\n" +
+                    "\n\n\n";
+            DialogDisplay(_title, _message, 0);
+        }
+
+        if (GameTimer != null) {
+            GameTimer.cancel();
+        }
+        GameTimer = null;
+        enemy = null;
+        prog = null;
+        ename = null;
+        story = null;
+        popdispcount = 0;
+
+        SoundStop();
+        setContentView(R.layout.activity_main);
+
+        /* サウンド */
+        SoundInit();
+        BgmStart(1);
     }
 
     public void SoundInit(){
@@ -899,6 +991,7 @@ public class MainActivity extends AppCompatActivity {
                     case 0:                 break;
                     case 1: guidePage2();   break;
                     case 2: bguidePage2();  break;
+                    case 3: SetGameStep(G_ENDING); break;
                 }
             }
         });
@@ -911,11 +1004,7 @@ public class MainActivity extends AppCompatActivity {
      ************************************************/
     public void onGameLastMap(View v){
 
-        AlertDialog.Builder guide = new AlertDialog.Builder(this);
-        TextView vmessage = new TextView(this);
-
-        if (false) {
-//        if (db_map == 0) {
+        if (db_lastboss <= 0) {
             //メッセージ
             String tmptitle = "　物語チェック　";
             String tmpstr = "";
@@ -958,6 +1047,7 @@ public class MainActivity extends AppCompatActivity {
         String get_after  = "[済] ";
         String get_before = "[　] ";
         String get_attack = " 攻撃";
+        String get_attack2 = " 攻撃 必殺技 ";
         String buf = "";
         boolean flag = true;
         int _color = 0;
@@ -979,43 +1069,43 @@ public class MainActivity extends AppCompatActivity {
         else        l21.setTextColor(getResources().getColor(R.color.gray));
 
         flag = GetEffectLevel(3);
-        if (flag)   buf = get_after  + get_attack + "　３";
-        else        buf = get_before + get_attack + "　３";
+        if (flag)   buf = get_after  + get_attack2 + "　３";
+        else        buf = get_before + get_attack2 + "　３";
         l31.setText(buf);
         if (flag)   l31.setTextColor(getResources().getColor(R.color.white));
         else        l31.setTextColor(getResources().getColor(R.color.gray));
 
         flag = GetEffectLevel(4);
-        if (flag)   buf = get_after  + get_attack + "　４";
-        else        buf = get_before + get_attack + "　４";
+        if (flag)   buf = get_after  + get_attack2 + "　４";
+        else        buf = get_before + get_attack2 + "　４";
         l41.setText(buf);
         if (flag)   l41.setTextColor(getResources().getColor(R.color.white));
         else        l41.setTextColor(getResources().getColor(R.color.gray));
 
         flag = GetEffectLevel(5);
-        if (flag)   buf = get_after  + get_attack + "　５";
-        else        buf = get_before + get_attack + "　５";
+        if (flag)   buf = get_after  + get_attack2 + "　５";
+        else        buf = get_before + get_attack2 + "　５";
         l12.setText(buf);
         if (flag)   l12.setTextColor(getResources().getColor(R.color.white));
         else        l12.setTextColor(getResources().getColor(R.color.gray));
 
         flag = GetEffectLevel(6);
-        if (flag)   buf = get_after  + get_attack + "　６";
-        else        buf = get_before + get_attack + "　６";
+        if (flag)   buf = get_after  + get_attack2 + "　６";
+        else        buf = get_before + get_attack2 + "　６";
         l22.setText(buf);
         if (flag)   l22.setTextColor(getResources().getColor(R.color.white));
         else        l22.setTextColor(getResources().getColor(R.color.gray));
 
         flag = GetEffectLevel(7);
-        if (flag)   buf = get_after  + get_attack + "　７";
-        else        buf = get_before + get_attack + "　７";
+        if (flag)   buf = get_after  + get_attack2 + "　７";
+        else        buf = get_before + get_attack2 + "　７";
         l32.setText(buf);
         if (flag)   l32.setTextColor(getResources().getColor(R.color.white));
         else        l32.setTextColor(getResources().getColor(R.color.gray));
 
         flag = GetEffectLevel(8);
-        if (flag)   buf = get_after  + get_attack + "　８";
-        else        buf = get_before + get_attack + "　８";
+        if (flag)   buf = get_after  + get_attack2 + "　８";
+        else        buf = get_before + get_attack2 + "　８";
         l42.setText(buf);
         if (flag)   l42.setTextColor(getResources().getColor(R.color.white));
         else        l42.setTextColor(getResources().getColor(R.color.gray));
@@ -1027,11 +1117,11 @@ public class MainActivity extends AppCompatActivity {
         tmpstr ="\n\n"+
                 "　攻撃　５：通常ダメージ ｘ 5.0 \n"+
                 "　入手条件：ポイント ▶ ︎" + EFFECT_5 + "\n"+
-                "　入手条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "　入手条件：必要素材 ▶ ︎" + "リラックスの結晶 x 30" + "\n"+
                 "\n"+
                 "　攻撃　６：通常ダメージ ｘ 6.0 \n"+
                 "　入手条件：ポイント ▶ ︎" + EFFECT_6 + "\n"+
-                "　入手条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "　入手条件：必要素材 ▶ ︎" + "リラックスの結晶 x 100" + "\n"+
                 "\n"+
                 "　攻撃　７：通常ダメージ ｘ ???? \n"+
                 "　入手条件：ポイント ▶ ︎" + EFFECT_7 + "\n"+
@@ -1062,7 +1152,7 @@ public class MainActivity extends AppCompatActivity {
                 "\n"+
                 "　攻撃　４：通常ダメージ ｘ 3.3 \n"+
                 "　入手条件：ポイント ▶ ︎" + EFFECT_4 + "\n"+
-                "　入手条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "　入手条件：必要素材 ▶ ︎" + "闇ドラゴンの欠片 x 1" + "\n"+
                 " \n\n";
 
         DialogDisplay(tmptitle,tmpstr,1);
@@ -1089,14 +1179,26 @@ public class MainActivity extends AppCompatActivity {
             case 3: if (db_jpoint >= EFFECT_3)  ret = true;
                     else                        ret = false;
                     break;
-            case 4: if (db_jpoint >= EFFECT_4)  ret = true;
-                    else                        ret = false;
+            case 4: if (db_jpoint >= EFFECT_4 && db_boss_2 >= 1){
+                        ret = true;
+                    }
+                    else{
+                        ret = false;
+                    }
                     break;
-            case 5: if (db_jpoint >= EFFECT_5)  ret = true;
-                    else                        ret = false;
+            case 5: if (db_jpoint >= EFFECT_5 && db_present_a >= 30) {
+                        ret = true;
+                     }
+                    else{
+                        ret = false;
+                    }
                     break;
-            case 6: if (db_jpoint >= EFFECT_6)  ret = true;
-                    else                        ret = false;
+            case 6: if (db_jpoint >= EFFECT_6 && db_present_a >= 100) {
+                        ret = true;
+                    }
+                    else{
+                        ret = false;
+                    }
                     break;
             case 7: if (db_jpoint >= EFFECT_7)  ret = true;
                     else                        ret = false;
@@ -1131,7 +1233,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView total = (TextView) findViewById(R.id.text_blist_total);
 
-        String get_after  = "[戦闘済] ";
+        String get_after  = "[討伐済] ";
         String get_before = "[　　　] ";
         String buf = "";
         boolean flag = true;
@@ -1330,11 +1432,17 @@ public class MainActivity extends AppCompatActivity {
 
         TextView history = (TextView) findViewById(R.id.text_history);
 
+        tmp += "\n　〜　ストーリー　〜 \n"
+                + "　平原　浄化率　　：" + db_jrate + "％\n"
+                + "　城　　浄化率　　：" + db_brate + "％\n"
+                + "　リラックスの結晶：" + db_present_a + "個\n";
+
+
         tmp += "\n　〜　勇者ステータス　〜 \n"
-                + "　Ｌｖ　　　　：" + db_level + "\n"
-                + "　必殺発生確率：" + (db_critical) + "％\n"
-                + "　通常ダメージ：" + db_damage + "\n"
-                + "　必殺ダメージ：" + (db_damage*3) + "\n";
+                + "　Ｌｖ　　　　　　：" + db_level + "\n"
+                + "　必殺発生確率　　：" + (db_critical) + "％\n"
+                + "　通常ダメージ　　：" + db_damage + "\n"
+                + "　必殺ダメージ　　：" + (db_damage*3) + "\n";
 
         tmp += "\n　〜　戦歴モンスター　〜 \n"
                 + "　" + E_NAME_1 + "の討伐数：" + db_enemy_1 + " \n"
@@ -1354,28 +1462,9 @@ public class MainActivity extends AppCompatActivity {
                 + "　" + B_NAME_3 + "の討伐数：" + db_boss_3 + " \n"
                 + "　" + B_NAME_4 + "の討伐数：" + db_boss_4 + " \n"
                 + "　" + B_NAME_5 + "の討伐数：" + db_boss_5 + " \n"
+                + "　" + B_NAME_6 + "の討伐数：" + db_boss_6 + " \n"
         ;
         history.setText(tmp);
-    }
-
-
-    /************************************************
-         メイン画面へ戻る
-     ************************************************/
-    public void onBack(View v){
-        GameTimer.cancel(); GameTimer = null;
-        enemy = null;
-        prog = null;
-        ename = null;
-        story = null;
-        popdispcount = 0;
-
-        SoundStop();
-        setContentView(R.layout.activity_main);
-
-        /* サウンド */
-        SoundInit();
-        BgmStart(1);
     }
 
     /**
@@ -1420,9 +1509,9 @@ public class MainActivity extends AppCompatActivity {
                 switch (etype){
                     default:
                     case 1: enemy_type = E_TYPE_1;  enemy_hp = 100; break;
-                    case 2: enemy_type = E_TYPE_2;  enemy_hp = 150; break;
-                    case 3: enemy_type = E_TYPE_3;  enemy_hp = 200; break;
-                    case 4: enemy_type = E_TYPE_4;  enemy_hp = 250; break;
+                    case 2: enemy_type = E_TYPE_2;  enemy_hp = 120; break;
+                    case 3: enemy_type = E_TYPE_3;  enemy_hp = 150; break;
+                    case 4: enemy_type = E_TYPE_4;  enemy_hp = 200; break;
                     case 5: enemy_type = E_TYPE_5;  enemy_hp = 250; break;
                     case 6: enemy_type = E_TYPE_6;  enemy_hp = 300; break;
                     case 7: enemy_type = E_TYPE_7;  enemy_hp = 300; break;
@@ -1441,8 +1530,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             int btype;
-            //test
-            if (db_jrate < 110) {
+            if (db_brate < 70) {
                 btype = rand.nextInt(4);    //ボスの検索
                 BgmStart(5);
                 switch (btype){
@@ -1451,12 +1539,23 @@ public class MainActivity extends AppCompatActivity {
                     case 2: enemy_type = B_TYPE_4;  enemy_hp = 750; break;
                     case 3: enemy_type = B_TYPE_5;  enemy_hp = 850; break;
                 }
-
             }
             else{
                 btype = rand.nextInt(5);    //ボスの検索
-                BgmStart(6);
-                enemy_type = B_TYPE_6;  enemy_hp = 3000;
+
+                switch (btype){
+                    default:
+                    case 1: enemy_type = B_TYPE_3;  enemy_hp = 750; break;
+                    case 2: enemy_type = B_TYPE_4;  enemy_hp = 750; break;
+                    case 3: enemy_type = B_TYPE_5;  enemy_hp = 850; break;
+                    case 4: enemy_type = B_TYPE_6;  enemy_hp = 3300;break;
+                }
+                if (enemy_type == B_TYPE_6){
+                    BgmStart(6);
+                }
+                else{
+                    BgmStart(5);
+                }
             }
         }
     }
@@ -1486,24 +1585,39 @@ public class MainActivity extends AppCompatActivity {
             case E_TYPE_9:
             case E_TYPE_10:
                 point = 20;
-                level = 1;
-                rate = 1;
+                level = 2;
+                rate = 2;
                 minus_point = 3;
                 break;
             case B_TYPE_1:
-            case B_TYPE_2:
                 point = 50;
                 level = 3;
                 rate = 3;
                 minus_point = 10;
                 break;
+            case B_TYPE_2:
+                point = 60;
+                level = 4;
+                rate = 4;
+                minus_point = 15;
+                break;
             case B_TYPE_3:
-            case B_TYPE_4:
-            case B_TYPE_5:
                 point = 100;
                 level = 5;
                 rate = 5;
                 minus_point = 25;
+                break;
+            case B_TYPE_4:
+                point = 115;
+                level = 5;
+                rate = 8;
+                minus_point = 25;
+                break;
+            case B_TYPE_5:
+                point = 130;
+                level = 5;
+                rate = 10;
+                minus_point = 30;
                 break;
             case B_TYPE_6:
             case B_TYPE_7:
