@@ -752,6 +752,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onTouchEvent(MotionEvent event) {
 
         int enemy_at = rand.nextInt(100);
+        int value = 90;
+        if (last_map){
+            value = 85;
+        }
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -762,7 +766,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     if (game_step == G_BATTLE) {
-                        if (enemy_at > 90){
+                        if (enemy_at > value){
                             EffectBgmStart(10);
                             display_hold = TIME_PROG_VERY_SHORT;
                             GameButtleEnemyView();
@@ -1355,19 +1359,19 @@ public class MainActivity extends AppCompatActivity {
         String tmpstr = "";
         tmpstr ="\n\n"+
                 "　" + B_NAME_5 + "\n"+
-                "　遭遇条件：ポイント ▶ ︎" + 999 + "\n"+
+                "　遭遇条件：ステージ ▶ ︎" + "城" + "\n"+
                 "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
                 "\n"+
                 "　" + B_NAME_6 + "\n"+
-                "　遭遇条件：ポイント ▶ ︎" + 999 + "\n"+
+                "　遭遇条件：ステージ ▶ ︎" + "城" + "\n"+
                 "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
                 "\n"+
                 "　" + B_NAME_7 + "\n"+
-                "　遭遇条件：ポイント ▶ ︎" + 999 + "\n"+
+                "　遭遇条件：ステージ ▶ ︎" + "不明" + "\n"+
                 "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
                 "\n"+
                 "　" + B_NAME_8 + "\n"+
-                "　遭遇条件：ポイント ▶ ︎" + 999 + "\n"+
+                "　遭遇条件：ステージ ▶ ︎" + "不明" + "\n"+
                 "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
                 " \n\n";
 
@@ -1378,19 +1382,19 @@ public class MainActivity extends AppCompatActivity {
         String tmpstr = "";
         tmpstr ="\n\n"+
                 "　" + B_NAME_1 + "\n"+
-                "　遭遇条件：ポイント ▶ ︎" + 999 + "\n"+
+                "　遭遇条件：ステージ ▶ ︎" + "草原" + "\n"+
                 "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
                 "\n"+
                 "　" + B_NAME_2 + "\n"+
-                "　遭遇条件：ポイント ▶ ︎" + 999 + "\n"+
+                "　遭遇条件：ステージ ▶ ︎" + "平原" + "\n"+
                 "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
                 "\n"+
                 "　" + B_NAME_3 + "\n"+
-                "　遭遇条件：ポイント ▶ ︎" + 999 + "\n"+
+                "　遭遇条件：ステージ ▶ ︎" + "城" + "\n"+
                 "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
                 "\n"+
                 "　" + B_NAME_4 + "\n"+
-                "　遭遇条件：ポイント ▶ ︎" + 999 + "\n"+
+                "　遭遇条件：ステージ ▶ ︎" + "城" + "\n"+
                 "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
                 " \n\n";
 
