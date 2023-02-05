@@ -431,6 +431,7 @@ public class MainActivity extends AppCompatActivity {
      ****************************************************/
     public void GameResultView() {
         int tmp_level = db_level;
+        int _refpoint = 0;
         db_level += GetEnemyPoint(1);
         if (db_level > 200){
             db_level = 200;
@@ -447,9 +448,16 @@ public class MainActivity extends AppCompatActivity {
                     "　ストレスの森が少し浄化した\n\n" +
                     "　〜戦闘結果〜\n" +
                     "　勇者のＬｖが " + tmp_level + " ▶︎ " + db_level + " 上がった\n" +
-                    "　" + GetEnemyName(false) + "を倒した\n" +
-                    "　" + GetEnemyName(false) + "の欠片を手に入れた\n"+
-                    "　浄化ポイント "+GetEnemyPoint(0)+" を手に入れた！！\n";
+                    "　" + GetEnemyName(false) + "を倒した、欠片 x1 を入手\n" +
+//                  "　" + GetEnemyName(false) + "の欠片を手に入れた\n"+
+                    "　浄化ポイント "+GetEnemyPoint(0)+" を入手！！\n";
+
+        _refpoint = GetEnemyPoint(4);
+        if (_refpoint > 0){
+            db_present_a += _refpoint;
+            gamestr += "　リフレッシュの結晶 x" + _refpoint + " を入手";
+        }
+
         story.setText(gamestr);
         story.setTextColor(getResources().getColor(R.color.white));
         display_hold = TIME_PROG_HI_LONG;
@@ -1585,6 +1593,15 @@ public class MainActivity extends AppCompatActivity {
         int level = 0;
         int rate = 0;
         int minus_point = 0;
+        int refpoint = 0;
+        int refrand = rand.nextInt(100);
+
+        if (enemy_type >= B_TYPE_1){
+            if (refrand > 95){
+                refpoint = 1;
+            }
+        }
+
         switch (enemy_type) {
             case E_TYPE_1:
             case E_TYPE_2:
@@ -1653,6 +1670,7 @@ public class MainActivity extends AppCompatActivity {
             case 1: return level;           //レベルアップ分
             case 2: return rate;            //浄化率
             case 3: return minus_point;     //被浄化ポイント
+            case 4: return refpoint;
         }
         return 0;
     }
