@@ -106,6 +106,10 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar prog = null;
     private TextView story = null;
     private TextView ename = null;
+    private ImageView gameimg = null;
+    private TextView gamettl = null;
+    private TextView gamesta = null;
+
     private int seqno = 0;
     private int display_hold = 0;
     private int game_step = 0;
@@ -370,6 +374,15 @@ public class MainActivity extends AppCompatActivity {
         if (story == null){
             story = (TextView) findViewById(R.id.text_story);
         }
+        if (gameimg == null){
+            gameimg = (ImageView) findViewById(R.id.img_submap);
+        }
+        if (gamettl == null) {
+            gamettl = (TextView) findViewById(R.id.text_submap_name);
+        }
+        if (gamesta == null){
+            gamesta = (TextView) findViewById(R.id.text_mystatus);
+        }
 
         game_step = G_INIT;     //ゲーム進行
 
@@ -419,6 +432,9 @@ public class MainActivity extends AppCompatActivity {
     public void GameResultView() {
         int tmp_level = db_level;
         db_level += GetEnemyPoint(1);
+        if (db_level > 200){
+            db_level = 200;
+        }
         //敵イメージ
         EnemyDisp(99);
         //ダメージバー
@@ -554,34 +570,28 @@ public class MainActivity extends AppCompatActivity {
      ゲーム表示（メイン）
      ****************************************************/
     public void GameView() {
-
-        TextView summap = (TextView) findViewById(R.id.text_submap_name);
-        ImageView submap = (ImageView) findViewById(R.id.img_submap);
         int _rate = 0;
 
         /* タイトル部の表示 */
         if (last_map == false) {
-            summap.setText("草原");
-
-            if (db_jrate < 10) submap.setImageResource(R.drawable.map00);
-            else if (db_jrate < 25) submap.setImageResource(R.drawable.map25);
-            else if (db_jrate < 50) submap.setImageResource(R.drawable.map50);
-            else if (db_jrate < 75) submap.setImageResource(R.drawable.map75);
-            else submap.setImageResource(R.drawable.map99);
+            gamettl.setText("草原");
+            if (db_jrate < 10) gameimg.setImageResource(R.drawable.map00);
+            else if (db_jrate < 25) gameimg.setImageResource(R.drawable.map25);
+            else if (db_jrate < 50) gameimg.setImageResource(R.drawable.map50);
+            else if (db_jrate < 75) gameimg.setImageResource(R.drawable.map75);
+            else gameimg.setImageResource(R.drawable.map99);
         }
         else{
-            summap.setText("城");
-            submap.setImageResource(R.drawable.map_last);
+            gamettl.setText("城");
+            gameimg.setImageResource(R.drawable.map_last);
         }
 
-
-        TextView mystatus = (TextView) findViewById(R.id.text_mystatus);
         String buf = "";
         buf += "　勇者のＬｖ："+db_level;
         if (last_map)   _rate = db_brate;
         else            _rate = db_jrate;
-        buf += "\n　浄化率　　："+ _rate + "％";
-        mystatus.setText(buf);
+        buf += "\n　浄化率："+ _rate + "％（" + db_jpoint + "）";
+        gamesta.setText(buf);
 
         if (display_hold > 0) {
             display_hold--;
@@ -792,6 +802,27 @@ public class MainActivity extends AppCompatActivity {
         String _title = "";
         String _message = "";
 
+        if (GameTimer != null) {
+            GameTimer.cancel();
+        }
+        GameTimer = null;
+
+        enemy = null;
+        prog = null;
+        ename = null;
+        story = null;
+        gameimg = null;
+        gamettl = null;
+        gamesta = null;
+        popdispcount = 0;
+
+        SoundStop();
+        setContentView(R.layout.activity_main);
+
+        /* サウンド */
+        SoundInit();
+        BgmStart(1);
+
         if (game_step == G_BATTLE || game_step == G_BATTLE_ENEMY) {
             _title = "　〜　退　却　〜　";
             _message = "\n\n\n" +
@@ -801,23 +832,6 @@ public class MainActivity extends AppCompatActivity {
                     "\n\n\n";
             DialogDisplay(_title, _message, 0);
         }
-
-        if (GameTimer != null) {
-            GameTimer.cancel();
-        }
-        GameTimer = null;
-        enemy = null;
-        prog = null;
-        ename = null;
-        story = null;
-        popdispcount = 0;
-
-        SoundStop();
-        setContentView(R.layout.activity_main);
-
-        /* サウンド */
-        SoundInit();
-        BgmStart(1);
     }
 
     public void SoundInit(){
@@ -1484,6 +1498,9 @@ public class MainActivity extends AppCompatActivity {
         else{
             tmp_critical = (db_level);
             db_critical = tmp_critical;
+            if (db_critical > 99){
+                db_critical = 99;
+            }
             return tmp_critical;
         }
     }
@@ -1703,7 +1720,7 @@ public class MainActivity extends AppCompatActivity {
             case B_TYPE_5:
                 tmp +=  "BOSS:火ドラゴン";  break;
             case B_TYPE_6:
-                tmp +=  "BOSS:ストレス";    break;
+                tmp +=  "ラスボス:ストレス"; break;
 
         }
         return tmp;
