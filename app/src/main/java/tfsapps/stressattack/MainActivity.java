@@ -231,6 +231,7 @@ public class MainActivity extends AppCompatActivity {
         BgmStart(1);
 
         //test
+        db_boss_6 = 0;
         db_present_a = 200;
     }
     @Override
@@ -277,12 +278,22 @@ public class MainActivity extends AppCompatActivity {
                         "　\n\n\n";
         }
         else{
-            tmpstr =    "\n\n\n" +
+            if (db_boss_6 == 1) {
+                tmpstr = "\n\n\n" +
+                        "　勇者のストレスを克服する物語は\n" +
+                        "　これで終了です\n\n\n" +
+                        "　さらなる強敵が待つ追加コンテンツを\n" +
+                        "　お待ち下さい" +
+                        "　\n\n\n";
+            }
+            else{
+                tmpstr = "\n\n\n" +
                         "　ストレスの源になっている城へ・・\n" +
                         "　BOSSをすべて倒して世界を解放へ・・\n\n\n" +
                         "　強敵が待っている準備はできているか？\n" +
                         "　ストレスの城を浄化[100%]しよう♪" +
                         "　\n\n\n";
+            }
         }
 
         return tmpstr;
@@ -417,8 +428,20 @@ public class MainActivity extends AppCompatActivity {
         gamestr =   "　勇者はストレスのない週末を\n" +
                     "　しばらくの間・・・過ごすことにした\n";
 
+        /* 平原の浄化率が100％達成 */
         if (last_map == false && db_lastboss > 0){
             gamestr += "\n　平原は [ストレス] から解放された\n";
+        }
+        /* ラスボスを討伐した時 */
+        if (last_map == true && enemy_type == B_TYPE_6){
+            if (enemy_hp <= 0 && seqno > 0){
+                if (db_boss_6 == 1) {
+                    popdispcount = 0;
+                }
+                gamestr =   "　勇者はストレスを克服した\n\n" +
+                            "　勇者はこれからの困難にも負けない\n"+
+                            "　真の強さを手に入れた！！";
+            }
         }
 
         story.setText(gamestr);
@@ -752,9 +775,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onTouchEvent(MotionEvent event) {
 
         int enemy_at = rand.nextInt(100);
-        int value = 90;
+        int value = 90; //ステージ「平原」の被弾率
         if (last_map){
-            value = 85;
+            value = 85; //ステージ「城」の被弾率
         }
 
         switch (event.getAction()) {
@@ -1150,11 +1173,11 @@ public class MainActivity extends AppCompatActivity {
                 "　入手条件：必要素材 ▶ ︎" + "リラックスの結晶 x 100" + "\n"+
                 "\n"+
                 "　攻撃　７：通常ダメージ ｘ ???? \n"+
-                "　入手条件：ポイント ▶ ︎" + EFFECT_7 + "\n"+
+                "　入手条件：ポイント ▶ ︎" + "????" + "\n"+
                 "　入手条件：必要素材 ▶ ︎" + "なし" + "\n"+
                 "\n"+
                 "　攻撃　８：通常ダメージ ｘ ???? \n"+
-                "　入手条件：ポイント ▶ ︎" + EFFECT_8 + "\n"+
+                "　入手条件：ポイント ▶ ︎" + "????" + "\n"+
                 "　入手条件：必要素材 ▶ ︎" + "なし" + "\n"+
                 " \n\n";
 
@@ -1601,8 +1624,8 @@ public class MainActivity extends AppCompatActivity {
         int refrand = rand.nextInt(100);
 
         if (enemy_type >= B_TYPE_1){
-            if (refrand > 95){
-                refpoint = 1;
+            if (refrand > 65){  //35%　リフレッシュの結晶の入手確率
+                refpoint = 2;
             }
         }
 
@@ -1662,7 +1685,7 @@ public class MainActivity extends AppCompatActivity {
             case B_TYPE_8:
             case B_TYPE_9:
             case B_TYPE_10:
-                point = 110;
+                point = 220;
                 level = 5;
                 rate = 5;
                 minus_point = 30;
