@@ -22,12 +22,21 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+
 import java.util.Random;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RewardedVideoAdListener {
+//public class MainActivity extends AppCompatActivity {
 
     private final Random rand = new Random(System.currentTimeMillis());
 
@@ -209,10 +218,29 @@ public class MainActivity extends AppCompatActivity {
     private int popdispcount = 0;
     private boolean last_map = false;
 
+    // 広告
+    private boolean isAdLoad = false;
+    private RewardedVideoAd mRewardedVideoAd;
+
+    // テストID
+//    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/5224354917";
+    // 本物ID
+    private static final String AD_UNIT_ID = "ca-app-pub-4924620089567925/5983300287";
+
+    // テストID(APPは本物でOK)
+    private static final String APP_ID = "ca-app-pub-4924620089567925~4407043472";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // リワード広告
+        MobileAds.initialize(this, APP_ID);
+        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+        mRewardedVideoAd.setRewardedVideoAdListener(this);
+        loadRewardedVideoAd();
     }
 
     /**
@@ -257,6 +285,54 @@ public class MainActivity extends AppCompatActivity {
         AppDBUpdated();
         //  サウンド
         SoundStop();
+    }
+
+    /**
+     リワード広告処理
+     */
+    private void loadRewardedVideoAd() {
+        mRewardedVideoAd.loadAd(AD_UNIT_ID,new AdRequest.Builder().build());
+    }
+
+    @Override
+    public void onRewardedVideoAdLoaded() {
+        Toast.makeText(this, "報酬動画の準備完了", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoAdOpened() {
+        //Toast.makeText(this, "onRewardedVideoAdOpened", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoStarted() {
+        //Toast.makeText(this, "onRewardedVideoStarted", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoAdClosed() {
+        //Toast.makeText(this, "onRewardedVideoAdClosed", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewarded(RewardItem rewardItem) {
+        GetPresent();
+        AppDBUpdated();
+    }
+
+    @Override
+    public void onRewardedVideoAdLeftApplication() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdFailedToLoad(int i) {
+        Toast.makeText(this, "報酬動画の準備エラー ERR="+i, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoCompleted() {
+
     }
 
     /****************************************************
@@ -1630,7 +1706,10 @@ public class MainActivity extends AppCompatActivity {
         guide.setPositiveButton("視聴", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                GetPresent();
+                // TODO リワード処理
+                if (mRewardedVideoAd.isLoaded()) {
+                    mRewardedVideoAd.show();
+                }
                 return;
             }
         });
