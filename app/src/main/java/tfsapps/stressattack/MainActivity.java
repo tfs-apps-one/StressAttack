@@ -1004,6 +1004,11 @@ public class MainActivity extends AppCompatActivity {
                     ebgm = (MediaPlayer) MediaPlayer.create(this, R.raw.hit);
                 }
                 break;
+            case 20:
+                if (ebgm == null){
+                    ebgm = (MediaPlayer) MediaPlayer.create(this, R.raw.levelup);
+                }
+                break;
         }
 
         if (ebgm.isPlaying() == false) {
@@ -1518,8 +1523,25 @@ public class MainActivity extends AppCompatActivity {
         history.setText(tmp);
     }
     /************************************************
-         勇者のレベル５０、浄化ポイント１００にする
+         レベルアップ
      ************************************************/
+    public void GetLevelUp(){
+        String tmptitle = "　Level UP！！　";
+        String tmpstr = "";
+        int tmp_a = db_level;
+        db_level = 50;
+        int tmp_b = db_jpoint;
+        db_jpoint = 150;
+        tmpstr =    "\n\n\n"+
+                "　勇者のLv（ " + tmp_a + " ▶︎ " + db_level + " ）が上がった\n"+
+                "　浄化ポイント（ " + tmp_b + " ▶︎ " + db_jpoint + " ）を入手\n"+
+                "  \n\n"+
+                "　\n\n"+
+                "\n\n\n";
+        DialogDisplay(tmptitle,tmpstr,0);
+        EffectBgmStart(20);
+    }
+
     public void onLevel(View v){
         AlertDialog.Builder guide = new AlertDialog.Builder(this);
         TextView vmessage = new TextView(this);
@@ -1538,8 +1560,8 @@ public class MainActivity extends AppCompatActivity {
         else {
             //メッセージ
             tmpstr =    "\n\n\n"+
-                    "　勇者を覚醒して [ Lv50 ] しますか？\n"+
-                    "　加えて浄化ポイントを [ 150 ] にします\n\n"+
+                    "　勇者を覚醒して【 Lv50 】しますか？\n"+
+                    "　加えて浄化ポイントを【 150 】にします\n\n"+
                     "　\n"+
                     "\n\n\n";
 
@@ -1555,8 +1577,7 @@ public class MainActivity extends AppCompatActivity {
             guide.setPositiveButton("実行", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    db_level = 50;
-                    db_jpoint = 150;
+                    GetLevelUp();
                 }
             });
             guide.setNegativeButton("中止", new DialogInterface.OnClickListener() {
@@ -1568,6 +1589,62 @@ public class MainActivity extends AppCompatActivity {
         guide.create();
         guide.show();
     }
+
+    /************************************************
+        宝箱
+     ************************************************/
+    public void GetPresent(){
+        String tmptitle = "　宝GET！！　";
+        String tmpstr = "";
+        int tmp_present = db_present_a;
+        db_present_a += 3;
+
+        tmpstr =    "\n\n\n"+
+                "　リフレッシュの結晶（ " + tmp_present + " ▶︎ " + db_present_a + " ）を入手\n"+
+                "  \n\n"+
+                "　\n\n"+
+                "\n\n\n";
+        DialogDisplay(tmptitle,tmpstr,0);
+    }
+    public void onPresent(View v){
+        AlertDialog.Builder guide = new AlertDialog.Builder(this);
+        TextView vmessage = new TextView(this);
+        String tmptitle = "　宝箱チェック　";
+        String tmpstr = "";
+        int tmp = db_present_a;
+
+        //メッセージ
+        tmpstr =    "\n\n\n"+
+                "　広告動画を視聴して宝箱を手に入れますか？\n\n"+
+                "　【 リフレッシュの結晶 】が入手できます\n　（新たな攻撃エフェクトの入手に必要）\n"+
+                "　\n"+
+                "\n\n\n";
+        vmessage.setText(tmpstr);
+        vmessage.setBackgroundColor(getResources().getColor(R.color.gray));
+        vmessage.setTextColor(getResources().getColor(R.color.white));
+        vmessage.setTypeface(Typeface.DEFAULT_BOLD);
+        guide.setTitle(tmptitle);
+        guide.setCancelable(false);
+        guide.setIcon(R.drawable.treasure);
+        guide.setView(vmessage);
+        guide.setPositiveButton("視聴", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                GetPresent();
+                return;
+            }
+        });
+        guide.setNegativeButton("中止", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                return;
+            }
+        });
+
+        guide.create();
+        guide.show();
+    }
+
 
     /**
      * 勇者のパラメータ取得　攻撃力、必殺確率
