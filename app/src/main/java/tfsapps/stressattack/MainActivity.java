@@ -229,10 +229,6 @@ public class MainActivity extends AppCompatActivity {
         /* サウンド */
         SoundInit();
         BgmStart(1);
-
-        //test
-        db_boss_6 = 0;
-        db_present_a = 200;
     }
     @Override
     public void onResume() {
@@ -709,31 +705,37 @@ public class MainActivity extends AppCompatActivity {
                 at_str = "斬撃で ";
                 damege = db_damage;
                 display_hold = TIME_EFFECT_SHORT;
+//                display_hold = 200;
                 break;
             case 2:
                 at_str = "打撃で ";
                 damege = (db_damage * 110) / 100;
                 display_hold = TIME_EFFECT_SHORT;
+//                display_hold = 200;
                 break;
             case 3:
                 at_str = "鋭い雷撃で ";
                 damege = (db_damage * 3);
                 display_hold = TIME_EFFECT;
+//                display_hold = 200;
                 break;
             case 4:
                 at_str = "大爆発で ";
                 damege = (db_damage * 330) / 100;
                 display_hold = TIME_EFFECT;
+//                display_hold = 200;
                 break;
             case 5:
                 at_str = "一閃で ";
                 damege = (db_damage * 5);
                 display_hold = TIME_EFFECT;
+//                display_hold = 200;
                 break;
             case 6:
                 at_str = "空間裂き ";
                 damege = (db_damage * 6);
                 display_hold = TIME_EFFECT;
+//                display_hold = 200;
                 break;
         }
         enemy_hp -= damege;
