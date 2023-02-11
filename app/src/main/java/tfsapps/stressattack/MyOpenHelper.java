@@ -11,9 +11,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class MyOpenHelper extends SQLiteOpenHelper
 {
-    private static final String TABLE = "appinfo";
+    private static final String TABLE = "appinfo2";
     public MyOpenHelper(Context context) {
-        super(context, "AppDB", null, 1);
+        super(context, "AppDB2", null, 1);
     }
     @Override
     public void onCreate(SQLiteDatabase db) {

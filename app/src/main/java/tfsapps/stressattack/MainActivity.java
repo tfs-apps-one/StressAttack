@@ -1517,6 +1517,57 @@ public class MainActivity extends AppCompatActivity {
         ;
         history.setText(tmp);
     }
+    /************************************************
+         勇者のレベル５０、浄化ポイント１００にする
+     ************************************************/
+    public void onLevel(View v){
+        AlertDialog.Builder guide = new AlertDialog.Builder(this);
+        TextView vmessage = new TextView(this);
+        String tmptitle = "　覚醒チェック　";
+        String tmpstr = "";
+
+        if (db_level >= 50) {
+            tmpstr =    "\n\n\n"+
+                    "　覚醒する必要はありません\n"+
+                    "　あなたはストレスに強くなっています\n\n"+
+                    "　\n"+
+                    "\n\n\n";
+            DialogDisplay(tmptitle,tmpstr,0);
+            return;
+        }
+        else {
+            //メッセージ
+            tmpstr =    "\n\n\n"+
+                    "　勇者を覚醒して [ Lv50 ] しますか？\n"+
+                    "　加えて浄化ポイントを [ 150 ] にします\n\n"+
+                    "　\n"+
+                    "\n\n\n";
+
+            vmessage.setText(tmpstr);
+            vmessage.setBackgroundColor(getResources().getColor(R.color.gray));
+            vmessage.setTextColor(getResources().getColor(R.color.white));
+            vmessage.setTypeface(Typeface.DEFAULT_BOLD);
+            guide.setTitle(tmptitle);
+            guide.setCancelable(false);
+            guide.setIcon(R.drawable.book2);
+            guide.setView(vmessage);
+
+            guide.setPositiveButton("実行", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    db_level = 50;
+                    db_jpoint = 150;
+                }
+            });
+            guide.setNegativeButton("中止", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+        }
+        guide.create();
+        guide.show();
+    }
 
     /**
      * 勇者のパラメータ取得　攻撃力、必殺確率
@@ -1656,13 +1707,13 @@ public class MainActivity extends AppCompatActivity {
                 point = 50;
                 level = 3;
                 rate = 3;
-                minus_point = 10;
+                minus_point = 5;
                 break;
             case B_TYPE_2:
                 point = 60;
                 level = 4;
                 rate = 4;
-                minus_point = 15;
+                minus_point = 5;
                 break;
             case B_TYPE_3:
                 point = 100;
@@ -2302,7 +2353,7 @@ public class MainActivity extends AppCompatActivity {
         sql.append(" ,bpoint");
         sql.append(" ,present_a");
         sql.append(" ,present_b");
-        sql.append(" FROM appinfo;");
+        sql.append(" FROM appinfo2;");
         try {
             Cursor cursor = db.rawQuery(sql.toString(), null);
             //TextViewに表示
@@ -2413,7 +2464,7 @@ public class MainActivity extends AppCompatActivity {
             insertValues.put("present_a", 0);
             insertValues.put("present_b", 0);
             try {
-                ret = db.insert("appinfo", null, insertValues);
+                ret = db.insert("appinfo2", null, insertValues);
             } finally {
                 db.close();
             }
@@ -2491,7 +2542,7 @@ public class MainActivity extends AppCompatActivity {
 
         int ret;
         try {
-            ret = db.update("appinfo", insertValues, null, null);
+            ret = db.update("appinfo2", insertValues, null, null);
         } finally {
             db.close();
         }

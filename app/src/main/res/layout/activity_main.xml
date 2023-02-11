@@ -119,5 +119,23 @@
             android:textStyle="bold"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
+        <Button
+            android:id="@+id/btn_levelup"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            app:backgroundTint="@null"
+            android:background="@drawable/bak_1"
+            android:text="勇者覚醒"
+            android:textColor="@color/white"
+            android:onClick="onLevel"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
