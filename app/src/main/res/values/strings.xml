@@ -19,34 +19,34 @@
 
     <string name="blist_title">BOSS LIST</string>
 
-    <string name="enemy_1_name">Orge</string>
-    <string name="enemy_2_name">Mummy</string>
-    <string name="enemy_3_name">Buffalo</string>
-    <string name="enemy_4_name">Swordsman</string>
-    <string name="enemy_5_name">Shadow</string>
-    <string name="enemy_6_name">Golem</string>
-    <string name="enemy_7_name">Troll</string>
-    <string name="enemy_8_name">＊＊＊＊</string>
-    <string name="enemy_9_name">＊＊＊＊</string>
-    <string name="enemy_10_name">＊＊＊＊</string>
+    <string name="enemy_1_name">"Orge       "</string>
+    <string name="enemy_2_name">"Mummy      "</string>
+    <string name="enemy_3_name">"Buffalo    "</string>
+    <string name="enemy_4_name">"Swordsman  "</string>
+    <string name="enemy_5_name">"Shadow     "</string>
+    <string name="enemy_6_name">"Golem      "</string>
+    <string name="enemy_7_name">"Troll      "</string>
+    <string name="enemy_8_name">"*****      "</string>
+    <string name="enemy_9_name">"*****      "</string>
+    <string name="enemy_10_name">"*****      "</string>
 
-    <string name="boss_1_name">Dirt Dragon</string>
-    <string name="boss_2_name">Darkness Dragon</string>
-    <string name="boss_3_name">Wind Dragon</string>
-    <string name="boss_4_name">Water Dragon</string>
-    <string name="boss_5_name">Fire Dragon</string>
-    <string name="boss_6_name">Stress</string>
-    <string name="boss_7_name">＊＊＊＊</string>
-    <string name="boss_8_name">＊＊＊＊</string>
-    <string name="boss_9_name">＊＊＊＊</string>
-    <string name="boss_10_name">＊＊＊＊</string>
+    <string name="boss_1_name">"Dirt Dragon  "</string>
+    <string name="boss_2_name">"Dark Dragon  "</string>
+    <string name="boss_3_name">"Wind Dragon  "</string>
+    <string name="boss_4_name">"Water Dragon "</string>
+    <string name="boss_5_name">"Fire Dragon  "</string>
+    <string name="boss_6_name">"Stress       "</string>
+    <string name="boss_7_name">"*****        "</string>
+    <string name="boss_8_name">"*****        "</string>
+    <string name="boss_9_name">"*****        "</string>
+    <string name="boss_10_name">"*****        "</string>
 
 
     <string name="present_complete">Reward video ready.</string>
     <string name="present_complete_err">Reward video preparation error=</string>
 
     <string name="mess_1_1">Stress is taking over the world...</string>
-    <string name="mess_1_2">The brave (you) stood up bravely...</string>
+    <string name="mess_1_2">Hero (you) stood up bravely...</string>
     <string name="mess_1_3">Let\'s go on a stress relieving trip.</string>
     <string name="mess_1_4">Let\'s make the plains [100%].</string>
 
@@ -77,9 +77,9 @@
     <string name="mess_7_5">went up.</string>
     <string name="mess_7_6">"defeats the enemy, obtains Fragment x1"</string>
     <string name="mess_7_7">"POINTS "</string>
-    <string name="mess_7_8">I got.</string>
+    <string name="mess_7_8">"▶︎ I got it."</string>
     <string name="mess_7_9">"CRYSRAL x"</string>
-    <string name="mess_7_10">I got.</string>
+    <string name="mess_7_10">"▶︎ I got it."</string>
 
     <string name="mess_8_1">... The brave got attacked.</string>
     <string name="mess_8_2">Stress increased, and the enemy became active.</string>

@@ -133,8 +133,8 @@
     <string name="shop_7_7">攻撃　７：通常ダメージ ｘ ???? </string>
     <string name="shop_7_8">攻撃　８：通常ダメージ ｘ ???? </string>
 
-    <string name="shop_8_1">入手条件：ポイント ▶ </string>
-    <string name="shop_8_2">入手条件：必要素材 ▶ ︎</string>
+    <string name="shop_8_1">"入手条件：ポイント ▶ "</string>
+    <string name="shop_8_2">"入手条件：必要素材 ▶ "︎</string>
 
     <string name="shop_parts_0">なし</string>
     <string name="shop_parts_1">闇ドラゴンの欠片 x 1</string>

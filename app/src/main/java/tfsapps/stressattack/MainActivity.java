@@ -30,6 +30,7 @@ import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
+import java.util.Locale;
 import java.util.Random;
 
 import java.util.Timer;
@@ -161,46 +162,46 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     */
 
     final int E_TYPE_1 = 1;
-    final String E_NAME_1 = "オーガ　　　　";
+    private String E_NAME_1 = "オーガ　　　　";
     final int E_TYPE_2 = 2;
-    final String E_NAME_2 = "ミイラ　　　　";
+    private String E_NAME_2 = "ミイラ　　　　";
     final int E_TYPE_3 = 3;
-    final String E_NAME_3 = "バッファロー　";
+    private String E_NAME_3 = "バッファロー　";
     final int E_TYPE_4 = 4;
-    final String E_NAME_4 = "さまよう剣士　";
+    private String E_NAME_4 = "さまよう剣士　";
     final int E_TYPE_5 = 5;
-    final String E_NAME_5 = "シャドー　　　";
+    private String E_NAME_5 = "シャドー　　　";
     final int E_TYPE_6 = 6;
-    final String E_NAME_6 = "ゴーレム　　　";
+    private String E_NAME_6 = "ゴーレム　　　";
     final int E_TYPE_7 = 7;
-    final String E_NAME_7 = "トロル　　　　";
+    private String E_NAME_7 = "トロル　　　　";
     final int E_TYPE_8 = 8;
-    final String E_NAME_8 = "＊＊＊　　　　";
+    private String E_NAME_8 = "＊＊＊　　　　";
     final int E_TYPE_9 = 9;
-    final String E_NAME_9 = "＊＊＊　　　　";
+    private String E_NAME_9 = "＊＊＊　　　　";
     final int E_TYPE_10 = 10;
-    final String E_NAME_10 = "＊＊＊　　　　";
+    private String E_NAME_10 = "＊＊＊　　　　";
 
     final int B_TYPE_1 = 51;
-    final String B_NAME_1 = "土ドラゴン　　";
+    private String B_NAME_1 = "土ドラゴン　　";
     final int B_TYPE_2 = 52;
-    final String B_NAME_2 = "闇ドラゴン　　";
+    private String B_NAME_2 = "闇ドラゴン　　";
     final int B_TYPE_3 = 53;
-    final String B_NAME_3 = "風ドラゴン　　";
+    private String B_NAME_3 = "風ドラゴン　　";
     final int B_TYPE_4 = 54;
-    final String B_NAME_4 = "水ドラゴン　　";
+    private String B_NAME_4 = "水ドラゴン　　";
     final int B_TYPE_5 = 55;
-    final String B_NAME_5 = "火ドラゴン　　";
+    private String B_NAME_5 = "火ドラゴン　　";
     final int B_TYPE_6 = 56;
-    final String B_NAME_6 = "ストレス　　　";
+    private String B_NAME_6 = "ストレス　　　";
     final int B_TYPE_7 = 57;
-    final String B_NAME_7 = "＊＊＊＊　　　";
+    private String B_NAME_7 = "＊＊＊＊　　　";
     final int B_TYPE_8 = 58;
-    final String B_NAME_8 = "＊＊＊＊　　　";
+    private String B_NAME_8 = "＊＊＊＊　　　";
     final int B_TYPE_9 = 59;
-    final String B_NAME_9 = "＊＊＊＊　　　";
+    private String B_NAME_9 = "＊＊＊＊　　　";
     final int B_TYPE_10 = 60;
-    final String B_NAME_10 = "＊＊＊＊　　";
+    private String B_NAME_10 = "＊＊＊＊　　";
 
     final int EFFECT_1 = 0;
     final int EFFECT_2 = 50;
@@ -230,6 +231,10 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     // テストID(APPは本物でOK)
     private static final String APP_ID = "ca-app-pub-4924620089567925~4407043472";
 
+    //  国設定
+    private Locale _local;
+    private String _language;
+    private String _country;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -241,6 +246,36 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
         mRewardedVideoAd.setRewardedVideoAdListener(this);
         loadRewardedVideoAd();
+    }
+
+    public void initEnemyNameSet() {
+        _local = Locale.getDefault();
+        _language = _local.getLanguage();
+        _country = _local.getCountry();
+
+        if (_language.equals("ja") == false) {
+            E_NAME_1 = getString(R.string.enemy_1_name);
+            E_NAME_2 = getString(R.string.enemy_2_name);
+            E_NAME_3 = getString(R.string.enemy_3_name);
+            E_NAME_4 = getString(R.string.enemy_4_name);
+            E_NAME_5 = getString(R.string.enemy_5_name);
+            E_NAME_6 = getString(R.string.enemy_6_name);
+            E_NAME_7 = getString(R.string.enemy_7_name);
+            E_NAME_8 = getString(R.string.enemy_8_name);
+            E_NAME_9 = getString(R.string.enemy_9_name);
+            E_NAME_10 = getString(R.string.enemy_10_name);
+
+            B_NAME_1 = getString(R.string.boss_1_name);
+            B_NAME_2 = getString(R.string.boss_2_name);
+            B_NAME_3 = getString(R.string.boss_3_name);
+            B_NAME_4 = getString(R.string.boss_4_name);
+            B_NAME_5 = getString(R.string.boss_5_name);
+            B_NAME_6 = getString(R.string.boss_6_name);
+            B_NAME_7 = getString(R.string.boss_7_name);
+            B_NAME_8 = getString(R.string.boss_8_name);
+            B_NAME_9 = getString(R.string.boss_9_name);
+            B_NAME_10 = getString(R.string.boss_10_name);
+        }
     }
 
     /**
@@ -257,6 +292,8 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         /* サウンド */
         SoundInit();
         BgmStart(1);
+
+        initEnemyNameSet();
     }
     @Override
     public void onResume() {
@@ -566,7 +603,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
                     "\n" +
                     "　" + GetEnemyName(false) + getString(R.string.mess_7_6)+
                     "\n" +
-                    "　" + getString(R.string.mess_7_7) + GetEnemyPoint(0) + " " + getString(R.string.mess_7_8) +
+                    "　" + getString(R.string.mess_7_7) + " " + GetEnemyPoint(0) + " " + getString(R.string.mess_7_8) +
                     "\n";
 
         _refpoint = GetEnemyPoint(4);
@@ -646,7 +683,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
                         "\n" +
                         "　" + getString(R.string.mess_8_2) +
                         "\n\n" +
-                        "　" + getString(R.string.mess_8_3) + tmp_point + " ▶︎ " + aft_point + "　" + getString(R.string.mess_8_4);
+                        "　" + getString(R.string.mess_8_3) + " " + tmp_point + " ▶︎ " + aft_point + getString(R.string.mess_8_4);
 
             story.setText(gamestr);
             story.setTextColor(getResources().getColor(R.color.red));
@@ -1537,25 +1574,25 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         String tmpstr = "";
         tmpstr ="\n\n"+
                 "　" + B_NAME_5 + "\n"+
-                "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_7) +
+                "　"  + getString(R.string.boss_menu_4) + getString(R.string.boss_menu_7) +
                 "\n"+
                 "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_0) +
                 "\n"+
                 "\n"+
                 "　" + B_NAME_6 + "\n"+
-                "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_7) +
+                "　"  + getString(R.string.boss_menu_4) + getString(R.string.boss_menu_7) +
                 "\n"+
                 "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_0) +
                 "\n"+
                 "\n"+
                 "　" + B_NAME_7 + "\n"+
-                "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_8) +
+                "　"  + getString(R.string.boss_menu_4) + getString(R.string.boss_menu_8) +
                 "\n"+
                 "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_0) +
                 "\n"+
                 "\n"+
                 "　" + B_NAME_8 + "\n"+
-                "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_8) +
+                "　"  + getString(R.string.boss_menu_4) + getString(R.string.boss_menu_8) +
                 "\n"+
                 "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_0) +
                 "\n"+
@@ -1580,13 +1617,13 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
                 "\n"+
                 "\n"+
                 "　" + B_NAME_3 + "\n"+
-                "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_7) +
+                "　"  + getString(R.string.boss_menu_4) + getString(R.string.boss_menu_7) +
                 "\n"+
                 "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_0) +
                 "\n"+
                 "\n"+
                 "　" + B_NAME_4 + "\n"+
-                "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_7) +
+                "　"  + getString(R.string.boss_menu_4) + getString(R.string.boss_menu_7) +
                 "\n"+
                 "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_0) +
                 "\n"+
@@ -2044,36 +2081,68 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     **/
     public String GetEnemyName(boolean space){
         String tmp = "";
-        if (space)  tmp += "　　　　敵：";
 
-        switch (enemy_type){
-            case E_TYPE_1:
-                tmp +=  "オーガ";          break;
-            case E_TYPE_2:
-                tmp +=  "ミイラ";          break;
-            case E_TYPE_3:
-                tmp +=  "バッファロー";     break;
-            case E_TYPE_4:
-                tmp +=  "さまよう剣士";     break;
-            case E_TYPE_5:
-                tmp +=  "シャドー";        break;
-            case E_TYPE_6:
-                tmp +=  "ゴーレム";        break;
-            case E_TYPE_7:
-                tmp +=  "トロル";          break;
-            case B_TYPE_1:
-                tmp +=  "BOSS:土ドラゴン";  break;
-            case B_TYPE_2:
-                tmp +=  "BOSS:闇ドラゴン";  break;
-            case B_TYPE_3:
-                tmp +=  "BOSS:風ドラゴン";  break;
-            case B_TYPE_4:
-                tmp +=  "BOSS:水ドラゴン";  break;
-            case B_TYPE_5:
-                tmp +=  "BOSS:火ドラゴン";  break;
-            case B_TYPE_6:
-                tmp +=  "ラスボス:ストレス"; break;
-
+        if (_language.equals("ja") == false) {
+            if (space)  tmp += "  NAME：";
+            switch (enemy_type){
+                case E_TYPE_1:
+                    tmp +=  "Orge";             break;
+                case E_TYPE_2:
+                    tmp +=  "Mummy";            break;
+                case E_TYPE_3:
+                    tmp +=  "Buffalo";          break;
+                case E_TYPE_4:
+                    tmp +=  "Swordsman";        break;
+                case E_TYPE_5:
+                    tmp +=  "Shadow";           break;
+                case E_TYPE_6:
+                    tmp +=  "Golem";            break;
+                case E_TYPE_7:
+                    tmp +=  "Troll";            break;
+                case B_TYPE_1:
+                    tmp +=  "BOSS:Dirt Dragon"; break;
+                case B_TYPE_2:
+                    tmp +=  "BOSS:Dark Dragon"; break;
+                case B_TYPE_3:
+                    tmp +=  "BOSS:Wind Dragon"; break;
+                case B_TYPE_4:
+                    tmp +=  "BOSS:Water Dragon";break;
+                case B_TYPE_5:
+                    tmp +=  "BOSS:Fire Dragon"; break;
+                case B_TYPE_6:
+                    tmp +=  "BOSS:Stress";      break;
+            }
+        }
+        else{
+            if (space)  tmp += "　　敵：";
+            switch (enemy_type){
+                case E_TYPE_1:
+                    tmp +=  "オーガ";          break;
+                case E_TYPE_2:
+                    tmp +=  "ミイラ";          break;
+                case E_TYPE_3:
+                    tmp +=  "バッファロー";     break;
+                case E_TYPE_4:
+                    tmp +=  "さまよう剣士";     break;
+                case E_TYPE_5:
+                    tmp +=  "シャドー";        break;
+                case E_TYPE_6:
+                    tmp +=  "ゴーレム";        break;
+                case E_TYPE_7:
+                    tmp +=  "トロル";          break;
+                case B_TYPE_1:
+                    tmp +=  "BOSS:土ドラゴン";  break;
+                case B_TYPE_2:
+                    tmp +=  "BOSS:闇ドラゴン";  break;
+                case B_TYPE_3:
+                    tmp +=  "BOSS:風ドラゴン";  break;
+                case B_TYPE_4:
+                    tmp +=  "BOSS:水ドラゴン";  break;
+                case B_TYPE_5:
+                    tmp +=  "BOSS:火ドラゴン";  break;
+                case B_TYPE_6:
+                    tmp +=  "ラスボス:ストレス"; break;
+            }
         }
         return tmp;
     }
