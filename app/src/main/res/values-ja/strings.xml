@@ -108,7 +108,7 @@
     <string name="mess_11_9">敵に</string>
     <string name="mess_11_10"> のダメージ</string>
 
-    <string name="mess_12_1">〜　退　却　〜</string>
+    <string name="mess_12_1">〜　退　却　〜　</string>
     <string name="mess_12_2">勇者はストレスが強いため</string>
     <string name="mess_12_3">一旦、退却して逃げることにした</string>
     <string name="mess_12_4">（戦闘を中断します）</string>
@@ -117,12 +117,12 @@
     <string name="mess_13_2">ストレスの平原の浄化率をあげて下さい</string>
     <string name="mess_13_3">浄化率[100%]にする必要があります</string>
 
-    <string name="shop_1">[済] </string>
-    <string name="shop_2">[　] </string>
-    <string name="shop_3"> 攻撃</string>
-    <string name="shop_4"> 攻撃 必殺技 </string>
-    <string name="shop_5">　入手累計：</string>
-    <string name="shop_6">　攻撃エフェクト　</string>
+    <string name="shop_1">"[済] "</string>
+    <string name="shop_2">"[　] "</string>
+    <string name="shop_3">" 攻撃"</string>
+    <string name="shop_4">" 攻撃 必殺技 "</string>
+    <string name="shop_5">"　入手累計："</string>
+    <string name="shop_6">"　攻撃エフェクト　"</string>
 
     <string name="shop_7_1">攻撃　１：通常ダメージ ｘ 1.0 </string>
     <string name="shop_7_2">攻撃　２：通常ダメージ ｘ 1.1 </string>
@@ -147,5 +147,58 @@
     <string name="common_pop_3">実行</string>
     <string name="common_pop_4">中止</string>
     <string name="common_pop_5">視聴</string>
+
+    <string name="boss_menu_1">"[討伐済] "</string>
+    <string name="boss_menu_2">"[　　　] "</string>
+    <string name="boss_menu_3">ＢＯＳＳ説明</string>
+    <string name="boss_menu_4">遭遇条件：ステージ ▶</string>
+    <string name="boss_menu_5">遭遇条件：必要素材 ▶</string>
+    <string name="boss_menu_6">平原︎</string>
+    <string name="boss_menu_7">城︎</string>
+    <string name="boss_menu_8">不明︎</string>
+    <string name="boss_menu_0">なし︎</string>
+
+    <string name="his_1">〜　ストレスの草原　状態　〜</string>
+    <string name="his_2">浄化率：</string>
+    <string name="his_3_1">ストレスが充満している</string>
+    <string name="his_3_2">少しストレスが減ってきた</string>
+    <string name="his_3_3">ストレスが減ってきた</string>
+    <string name="his_3_4">少しリラックスできる</string>
+    <string name="his_3_5">楽しい気分になった</string>
+
+    <string name="his_5_1">〜　ストーリー　〜</string>
+    <string name="his_5_2">"平原　浄化率　　："</string>
+    <string name="his_5_3">"城　　浄化率　　："</string>
+    <string name="his_5_4">"リラックスの結晶："</string>
+
+    <string name="his_6_1">〜　勇者ステータス　〜</string>
+    <string name="his_6_2">"Ｌｖ　　　　　　："</string>
+    <string name="his_6_3">"必殺発生確率　　："</string>
+    <string name="his_6_4">"通常ダメージ　　："</string>
+    <string name="his_6_5">"必殺ダメージ　　："</string>
+
+    <string name="his_7_1">〜　戦歴モンスター　〜</string>
+    <string name="his_7_2">の討伐数：</string>
+    <string name="his_7_3">〜　戦歴BOSS　〜</string>
+
+    <string name="lvup_1">Level UP！！</string>
+    <string name="lvup_2_1">勇者のLv（ </string>
+    <string name="lvup_2_2"> ）が上がった</string>
+    <string name="lvup_3_1">浄化ポイント（ </string>
+    <string name="lvup_3_2"> ）を入手</string>
+
+    <string name="lvup_4_1">覚醒チェック</string>
+    <string name="lvup_4_2">覚醒する必要はありません</string>
+    <string name="lvup_4_3">あなたはストレスに強くなっています</string>
+    <string name="lvup_4_4">勇者を覚醒して【 Lv50 】しますか？</string>
+    <string name="lvup_4_5">加えて浄化ポイントを【 150 】にします</string>
+
+    <string name="present_menu_1">宝GET！！</string>
+    <string name="present_menu_2">リフレッシュの結晶（ </string>
+    <string name="present_menu_3"> ）を入手</string>
+    <string name="present_menu_4">宝箱チェック</string>
+    <string name="present_menu_5">広告動画を視聴して宝箱を手に入れますか？</string>
+    <string name="present_menu_6">【 リフレッシュの結晶 】が入手できます</string>
+    <string name="present_menu_7">（新たな攻撃エフェクトの入手に必要）</string>
 
 </resources>

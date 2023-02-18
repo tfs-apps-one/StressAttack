@@ -1294,32 +1294,32 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     public void guidePage2() {
         String tmptitle = getString(R.string.shop_6);
         String tmpstr = "";
-        tmpstr ="\n\n"+
+        tmpstr ="\n\n　"+
                 getString(R.string.shop_7_5) +
-                "\n"+
+                "\n　"+
                 getString(R.string.shop_8_1) + EFFECT_5 +
-                "\n"+
+                "\n　"+
                 getString(R.string.shop_8_2) + getString(R.string.shop_parts_2)  +
-                "\n"+
-                "\n"+
+                "\n　"+
+                "\n　"+
                 getString(R.string.shop_7_6) +
-                "\n"+
+                "\n　"+
                 getString(R.string.shop_8_1) + EFFECT_6 +
-                "\n"+
+                "\n　"+
                 getString(R.string.shop_8_2) + getString(R.string.shop_parts_3)  +
-                "\n"+
-                "\n"+
+                "\n　"+
+                "\n　"+
                 getString(R.string.shop_7_7) +
-                "\n"+
+                "\n　"+
                 getString(R.string.shop_8_1) + "????" +
-                "\n"+
+                "\n　"+
                 getString(R.string.shop_8_2) + getString(R.string.shop_parts_0) +
-                "\n"+
-                "\n"+
+                "\n　"+
+                "\n　"+
                 getString(R.string.shop_7_8) +
-                "\n"+
+                "\n　"+
                 getString(R.string.shop_8_1) + "????" +
-                "\n"+
+                "\n　"+
                 getString(R.string.shop_8_2) + getString(R.string.shop_parts_0)  +
                 "\n"+
                 " \n\n";
@@ -1329,32 +1329,32 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     public void guidePage1() {
         String tmptitle = getString(R.string.shop_6);
         String tmpstr = "";
-        tmpstr ="\n\n"+
+        tmpstr ="\n\n　"+
                 getString(R.string.shop_7_1) +
-                "\n"+
+                "\n　"+
                 getString(R.string.shop_8_1) + EFFECT_1 +
-                "\n"+
+                "\n　"+
                 getString(R.string.shop_8_2)  + getString(R.string.shop_parts_0) +
-                "\n"+
-                "\n"+
+                "\n　"+
+                "\n　"+
                 getString(R.string.shop_7_2) +
-                "\n"+
+                "\n　"+
                 getString(R.string.shop_8_1) + EFFECT_2 +
-                "\n"+
+                "\n　"+
                 getString(R.string.shop_8_2) + getString(R.string.shop_parts_0) +
-                "\n"+
-                "\n"+
+                "\n　"+
+                "\n　"+
                 getString(R.string.shop_7_3) +
-                "\n"+
+                "\n　"+
                 getString(R.string.shop_8_1)  + EFFECT_3 +
-                "\n"+
+                "\n　"+
                 getString(R.string.shop_8_2)  + getString(R.string.shop_parts_0) +
-                "\n"+
-                "\n"+
+                "\n　"+
+                "\n　"+
                 getString(R.string.shop_7_4) +
-                "\n"+
+                "\n　"+
                 getString(R.string.shop_8_1) + EFFECT_4 +
-                "\n"+
+                "\n　"+
                 getString(R.string.shop_8_2) + getString(R.string.shop_parts_1) +
                 "\n"+
                 " \n\n";
@@ -1437,8 +1437,8 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
         TextView total = (TextView) findViewById(R.id.text_blist_total);
 
-        String get_after  = "[討伐済] ";
-        String get_before = "[　　　] ";
+        String get_after  = getString(R.string.boss_menu_1);
+        String get_before = getString(R.string.boss_menu_2);
         String buf = "";
         boolean flag = true;
         int _color = 0;
@@ -1533,47 +1533,63 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         return ret;
     }
     public void bguidePage2() {
-        String tmptitle = "　ＢＯＳＳ説明　";
+        String tmptitle = getString(R.string.boss_menu_3);
         String tmpstr = "";
         tmpstr ="\n\n"+
                 "　" + B_NAME_5 + "\n"+
-                "　遭遇条件：ステージ ▶ ︎" + "城" + "\n"+
-                "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_7) +
+                "\n"+
+                "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_0) +
+                "\n"+
                 "\n"+
                 "　" + B_NAME_6 + "\n"+
-                "　遭遇条件：ステージ ▶ ︎" + "城" + "\n"+
-                "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_7) +
+                "\n"+
+                "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_0) +
+                "\n"+
                 "\n"+
                 "　" + B_NAME_7 + "\n"+
-                "　遭遇条件：ステージ ▶ ︎" + "不明" + "\n"+
-                "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_8) +
+                "\n"+
+                "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_0) +
+                "\n"+
                 "\n"+
                 "　" + B_NAME_8 + "\n"+
-                "　遭遇条件：ステージ ▶ ︎" + "不明" + "\n"+
-                "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_8) +
+                "\n"+
+                "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_0) +
+                "\n"+
                 " \n\n";
 
         DialogDisplay(tmptitle,tmpstr,0);
     }
     public void bguidePage1() {
-        String tmptitle = "　ＢＯＳＳ説明　";
+        String tmptitle = getString(R.string.boss_menu_3);
         String tmpstr = "";
         tmpstr ="\n\n"+
                 "　" + B_NAME_1 + "\n"+
-                "　遭遇条件：ステージ ▶ ︎" + "草原" + "\n"+
-                "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "　" + getString(R.string.boss_menu_4) + getString(R.string.boss_menu_6) +
+                "\n"+
+                "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_0) +
+                "\n"+
                 "\n"+
                 "　" + B_NAME_2 + "\n"+
-                "　遭遇条件：ステージ ▶ ︎" + "平原" + "\n"+
-                "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "　" + getString(R.string.boss_menu_4) + getString(R.string.boss_menu_6) +
+                "\n"+
+                "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_0) +
+                "\n"+
                 "\n"+
                 "　" + B_NAME_3 + "\n"+
-                "　遭遇条件：ステージ ▶ ︎" + "城" + "\n"+
-                "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_7) +
+                "\n"+
+                "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_0) +
+                "\n"+
                 "\n"+
                 "　" + B_NAME_4 + "\n"+
-                "　遭遇条件：ステージ ▶ ︎" + "城" + "\n"+
-                "　遭遇条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_7) +
+                "\n"+
+                "　"  + getString(R.string.boss_menu_5) + getString(R.string.boss_menu_0) +
+                "\n"+
                 " \n\n";
 
         DialogDisplay(tmptitle,tmpstr,2);
@@ -1605,25 +1621,25 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
         String tmp = "";
         TextView map = (TextView) findViewById(R.id.text_map_name);
-        map.setText("〜　ストレスの草原　状態　〜");
+        map.setText( getString(R.string.his_1) );
 
         TextView now = (TextView) findViewById(R.id.text_nowprog);
         String mapsta = "";
-        mapsta += "　浄化率："+ db_jrate + "％";
+        mapsta += "　" + getString(R.string.his_2) + db_jrate + "％";
         if (db_jrate < 10 ) {
-            mapsta += "\n　ストレスが充満している";
+            mapsta += "\n　" + getString(R.string.his_3_1);
             imgmap.setImageResource(R.drawable.map00);
         }else if (db_jrate < 25){
-            mapsta += "\n　少しストレスが減ってきた";
+            mapsta += "\n　" + getString(R.string.his_3_2);
             imgmap.setImageResource(R.drawable.map25);
         }else if (db_jrate < 50){
-            mapsta += "\n　ストレスが減ってきた";
+            mapsta += "\n　" + getString(R.string.his_3_3);
             imgmap.setImageResource(R.drawable.map50);
         }else if (db_jrate < 75){
-            mapsta += "\n　少しリラックスできる";
+            mapsta += "\n　" + getString(R.string.his_3_4);
             imgmap.setImageResource(R.drawable.map75);
         }else{
-            mapsta += "\n　楽しい気分になった";
+            mapsta += "\n　" + getString(R.string.his_3_5);
             imgmap.setImageResource(R.drawable.map99);
         }
         now.setText(mapsta);
@@ -1636,37 +1652,37 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
         TextView history = (TextView) findViewById(R.id.text_history);
 
-        tmp += "\n　〜　ストーリー　〜 \n"
-                + "　平原　浄化率　　：" + db_jrate + "％\n"
-                + "　城　　浄化率　　：" + db_brate + "％\n"
-                + "　リラックスの結晶：" + db_present_a + "個\n";
+        tmp += "\n　" + getString(R.string.his_5_1) + "\n"
+                + "　" + getString(R.string.his_5_2) + db_jrate + "％\n"
+                + "　" + getString(R.string.his_5_3) + db_brate + "％\n"
+                + "　" + getString(R.string.his_5_4) + db_present_a + "個\n";
 
 
-        tmp += "\n　〜　勇者ステータス　〜 \n"
-                + "　Ｌｖ　　　　　　：" + db_level + "\n"
-                + "　必殺発生確率　　：" + (db_critical) + "％\n"
-                + "　通常ダメージ　　：" + db_damage + "\n"
-                + "　必殺ダメージ　　：" + (db_damage*3) + "\n";
+        tmp += "\n　" + getString(R.string.his_6_1) +"\n"
+                + "　" + getString(R.string.his_6_2) + db_level + "\n"
+                + "　" + getString(R.string.his_6_3) + (db_critical) + "％\n"
+                + "　" + getString(R.string.his_6_4) + db_damage + "\n"
+                + "　" + getString(R.string.his_6_5) + (db_damage*3) + "\n";
 
-        tmp += "\n　〜　戦歴モンスター　〜 \n"
-                + "　" + E_NAME_1 + "の討伐数：" + db_enemy_1 + " \n"
-                + "　" + E_NAME_2 + "の討伐数：" + db_enemy_2 + " \n"
-                + "　" + E_NAME_3 + "の討伐数：" + db_enemy_3 + " \n"
-                + "　" + E_NAME_4 + "の討伐数：" + db_enemy_4 + " \n"
-                + "　" + E_NAME_5 + "の討伐数：" + db_enemy_5 + " \n"
-                + "　" + E_NAME_6 + "の討伐数：" + db_enemy_6 + " \n"
-                + "　" + E_NAME_7 + "の討伐数：" + db_enemy_7 + " \n"
-                + "　" + E_NAME_8 + "の討伐数：" + db_enemy_8 + " \n"
-                + "　" + E_NAME_9 + "の討伐数：" + db_enemy_9 + " \n"
-                + "　" + E_NAME_10 + "の討伐数：" + db_enemy_10 + " \n"
+        tmp += "\n　" + getString(R.string.his_7_1) + "\n"
+                + "　" + E_NAME_1 + getString(R.string.his_7_2) + db_enemy_1 + " \n"
+                + "　" + E_NAME_2 + getString(R.string.his_7_2) + db_enemy_2 + " \n"
+                + "　" + E_NAME_3 + getString(R.string.his_7_2) + db_enemy_3 + " \n"
+                + "　" + E_NAME_4 + getString(R.string.his_7_2) + db_enemy_4 + " \n"
+                + "　" + E_NAME_5 + getString(R.string.his_7_2) + db_enemy_5 + " \n"
+                + "　" + E_NAME_6 + getString(R.string.his_7_2) + db_enemy_6 + " \n"
+                + "　" + E_NAME_7 + getString(R.string.his_7_2) + db_enemy_7 + " \n"
+                + "　" + E_NAME_8 + getString(R.string.his_7_2) + db_enemy_8 + " \n"
+                + "　" + E_NAME_9 + getString(R.string.his_7_2) + db_enemy_9 + " \n"
+                + "　" + E_NAME_10 + getString(R.string.his_7_2) + db_enemy_10 + " \n"
                 + "\n"
-                + "　〜　戦歴BOSS　〜 \n"
-                + "　" + B_NAME_1 + "の討伐数：" + db_boss_1 + " \n"
-                + "　" + B_NAME_2 + "の討伐数：" + db_boss_2 + " \n"
-                + "　" + B_NAME_3 + "の討伐数：" + db_boss_3 + " \n"
-                + "　" + B_NAME_4 + "の討伐数：" + db_boss_4 + " \n"
-                + "　" + B_NAME_5 + "の討伐数：" + db_boss_5 + " \n"
-                + "　" + B_NAME_6 + "の討伐数：" + db_boss_6 + " \n"
+                + "　" + getString(R.string.his_7_3) + "\n"
+                + "　" + B_NAME_1 + getString(R.string.his_7_2) + db_boss_1 + " \n"
+                + "　" + B_NAME_2 + getString(R.string.his_7_2) + db_boss_2 + " \n"
+                + "　" + B_NAME_3 + getString(R.string.his_7_2) + db_boss_3 + " \n"
+                + "　" + B_NAME_4 + getString(R.string.his_7_2) + db_boss_4 + " \n"
+                + "　" + B_NAME_5 + getString(R.string.his_7_2) + db_boss_5 + " \n"
+                + "　" + B_NAME_6 + getString(R.string.his_7_2) + db_boss_6 + " \n"
         ;
         history.setText(tmp);
     }
@@ -1674,15 +1690,17 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
          レベルアップ
      ************************************************/
     public void GetLevelUp(){
-        String tmptitle = "　Level UP！！　";
+        String tmptitle = getString(R.string.lvup_1);
         String tmpstr = "";
         int tmp_a = db_level;
         db_level = 50;
         int tmp_b = db_jpoint;
         db_jpoint = 150;
         tmpstr =    "\n\n\n"+
-                "　勇者のLv（ " + tmp_a + " ▶︎ " + db_level + " ）が上がった\n"+
-                "　浄化ポイント（ " + tmp_b + " ▶︎ " + db_jpoint + " ）を入手\n"+
+                "　" + getString(R.string.lvup_2_1) + tmp_a + " ▶︎ " + db_level + getString(R.string.lvup_2_2) +
+                "\n"+
+                "　" + getString(R.string.lvup_3_1) + tmp_b + " ▶︎ " + db_jpoint + getString(R.string.lvup_3_2) +
+                "\n"+
                 "  \n\n"+
                 "　\n\n"+
                 "\n\n\n";
@@ -1693,13 +1711,15 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     public void onLevel(View v){
         AlertDialog.Builder guide = new AlertDialog.Builder(this);
         TextView vmessage = new TextView(this);
-        String tmptitle = "　覚醒チェック　";
+        String tmptitle = getString(R.string.lvup_4_1);
         String tmpstr = "";
 
         if (db_level >= 50) {
             tmpstr =    "\n\n\n"+
-                    "　覚醒する必要はありません\n"+
-                    "　あなたはストレスに強くなっています\n\n"+
+                    "　" + getString(R.string.lvup_4_2)+
+                    "\n"+
+                    "　" + getString(R.string.lvup_4_3)+
+                    "\n\n"+
                     "　\n"+
                     "\n\n\n";
             DialogDisplay(tmptitle,tmpstr,0);
@@ -1708,8 +1728,10 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         else {
             //メッセージ
             tmpstr =    "\n\n\n"+
-                    "　勇者を覚醒して【 Lv50 】しますか？\n"+
-                    "　加えて浄化ポイントを【 150 】にします\n\n"+
+                    "　" + getString(R.string.lvup_4_4)+
+                    "\n"+
+                    "　" + getString(R.string.lvup_4_5)+
+                    "\n\n"+
                     "　\n"+
                     "\n\n\n";
 
@@ -1742,13 +1764,13 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         宝箱
      ************************************************/
     public void GetPresent(){
-        String tmptitle = "　宝GET！！　";
+        String tmptitle = getString(R.string.present_menu_1);
         String tmpstr = "";
         int tmp_present = db_present_a;
         db_present_a += 3;
 
         tmpstr =    "\n\n\n"+
-                "　リフレッシュの結晶（ " + tmp_present + " ▶︎ " + db_present_a + " ）を入手\n"+
+                "　" + getString(R.string.present_menu_2) + tmp_present + " ▶︎ " + db_present_a + getString(R.string.present_menu_3) + "\n"+
                 "  \n\n"+
                 "　\n\n"+
                 "\n\n\n";
@@ -1757,14 +1779,18 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     public void onPresent(View v){
         AlertDialog.Builder guide = new AlertDialog.Builder(this);
         TextView vmessage = new TextView(this);
-        String tmptitle = "　宝箱チェック　";
+        String tmptitle = getString(R.string.present_menu_4);
         String tmpstr = "";
         int tmp = db_present_a;
 
         //メッセージ
         tmpstr =    "\n\n\n"+
-                "　広告動画を視聴して宝箱を手に入れますか？\n\n"+
-                "　【 リフレッシュの結晶 】が入手できます\n　（新たな攻撃エフェクトの入手に必要）\n"+
+                "　" + getString(R.string.present_menu_5) +
+                "\n\n"+
+                "　" + getString(R.string.present_menu_6) +
+                "\n"+
+                "　" + getString(R.string.present_menu_7) +
+                "\n"+
                 "　\n"+
                 "\n\n\n";
         vmessage.setText(tmpstr);
