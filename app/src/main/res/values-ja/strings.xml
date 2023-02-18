@@ -70,7 +70,7 @@
     <string name="mess_6_3">真の強さを手に入れた！！</string>
 
     <string name="mess_7_1">勇者のストレスが解消された</string>
-    <string name="mess_7_2">ストレスの森が少し浄化した</string>
+    <string name="mess_7_2">ストレスの平原が少し浄化した</string>
     <string name="mess_7_3">〜戦闘結果〜</string>
     <string name="mess_7_4">勇者のＬｖが </string>
     <string name="mess_7_5">上がった</string>
@@ -94,19 +94,19 @@
 
     <string name="mess_10_1">草原</string>
     <string name="mess_10_2">城</string>
-    <string name="mess_10_3">勇者のＬｖ：</string>
-    <string name="mess_10_4">浄化率：</string>
+    <string name="mess_10_3">"勇者Ｌｖ："</string>
+    <string name="mess_10_4">"浄化率　："</string>
 
-    <string name="mess_11_1">斬撃で </string>
-    <string name="mess_11_2">打撃で </string>
-    <string name="mess_11_3">鋭い雷撃で </string>
-    <string name="mess_11_4">大爆発で </string>
-    <string name="mess_11_5">一閃で </string>
-    <string name="mess_11_6">空間裂き </string>
-    <string name="mess_11_7">　敵（＝ストレス）を倒した！！</string>
-    <string name="mess_11_8">ターン目:  </string>
-    <string name="mess_11_9">敵に</string>
-    <string name="mess_11_10"> のダメージ</string>
+    <string name="mess_11_1">"斬撃で "</string>
+    <string name="mess_11_2">"打撃で "</string>
+    <string name="mess_11_3">"鋭い雷撃で "</string>
+    <string name="mess_11_4">"大爆発で "</string>
+    <string name="mess_11_5">"一閃で "</string>
+    <string name="mess_11_6">"空間裂き "</string>
+    <string name="mess_11_7">"　敵（＝ストレス）を倒した！！"</string>
+    <string name="mess_11_8">"ターン目:  "</string>
+    <string name="mess_11_9">"敵に"</string>
+    <string name="mess_11_10">" のダメージ"</string>
 
     <string name="mess_12_1">〜　退　却　〜　</string>
     <string name="mess_12_2">勇者はストレスが強いため</string>
@@ -170,6 +170,7 @@
     <string name="his_5_2">"平原　浄化率　　："</string>
     <string name="his_5_3">"城　　浄化率　　："</string>
     <string name="his_5_4">"リラックスの結晶："</string>
+    <string name="his_5_5">"個"</string>
 
     <string name="his_6_1">〜　勇者ステータス　〜</string>
     <string name="his_6_2">"Ｌｖ　　　　　　："</string>

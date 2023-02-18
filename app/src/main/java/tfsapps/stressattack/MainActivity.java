@@ -815,37 +815,37 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         switch (at_type){
             default:
             case 1:
-                at_str = "斬撃で ";
+                at_str = getString(R.string.mess_11_1);
                 damege = db_damage;
                 display_hold = TIME_EFFECT_SHORT;
 //                display_hold = 200;
                 break;
             case 2:
-                at_str = "打撃で ";
+                at_str = getString(R.string.mess_11_2);
                 damege = (db_damage * 110) / 100;
                 display_hold = TIME_EFFECT_SHORT;
 //                display_hold = 200;
                 break;
             case 3:
-                at_str = "鋭い雷撃で ";
+                at_str = getString(R.string.mess_11_3);
                 damege = (db_damage * 3);
                 display_hold = TIME_EFFECT;
 //                display_hold = 200;
                 break;
             case 4:
-                at_str = "大爆発で ";
+                at_str = getString(R.string.mess_11_4);
                 damege = (db_damage * 330) / 100;
                 display_hold = TIME_EFFECT;
 //                display_hold = 200;
                 break;
             case 5:
-                at_str = "一閃で ";
+                at_str = getString(R.string.mess_11_5);
                 damege = (db_damage * 5);
                 display_hold = TIME_EFFECT;
 //                display_hold = 200;
                 break;
             case 6:
-                at_str = "空間裂き ";
+                at_str = getString(R.string.mess_11_6);
                 damege = (db_damage * 6);
                 display_hold = TIME_EFFECT;
 //                display_hold = 200;
@@ -855,7 +855,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         seqno++;
 
         if (enemy_hp <= 0){
-            gamestr = "　敵（＝ストレス）を倒した！！";
+            gamestr = "　" + getString(R.string.mess_11_7);
             display_hold = TIME_PROG_SHORT;
             GameNextStep();
         }
@@ -864,7 +864,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
             bak4_gamestr = bak3_gamestr;
             bak3_gamestr = bak2_gamestr;
             bak2_gamestr = bak1_gamestr;
-            bak1_gamestr =  "　" + seqno + "ターン目:  " + "敵に"+ at_str + damege + " のダメージ"+
+            bak1_gamestr =  "　" + seqno + getString(R.string.mess_11_8) + getString(R.string.mess_11_9) + at_str + damege + getString(R.string.mess_11_10)+
                             "\n";
             gamestr = "";
             gamestr += bak1_gamestr+"\n";
@@ -1655,7 +1655,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         tmp += "\n　" + getString(R.string.his_5_1) + "\n"
                 + "　" + getString(R.string.his_5_2) + db_jrate + "％\n"
                 + "　" + getString(R.string.his_5_3) + db_brate + "％\n"
-                + "　" + getString(R.string.his_5_4) + db_present_a + "個\n";
+                + "　" + getString(R.string.his_5_4) + db_present_a + getString(R.string.his_5_5) + "\n";
 
 
         tmp += "\n　" + getString(R.string.his_6_1) +"\n"

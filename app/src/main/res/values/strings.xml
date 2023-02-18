@@ -51,156 +51,156 @@
     <string name="mess_1_4">Let\'s make the plains [100%].</string>
 
 
-    <string name="mess_2_1">勇者のストレスを克服する物語は</string>
-    <string name="mess_2_2">これで終了です</string>
-    <string name="mess_2_3">さらなる強敵が待つ追加コンテンツを</string>
-    <string name="mess_2_4">お待ち下さい</string>
+    <string name="mess_2_1">The story of overcoming stress is over..</string>
+    <string name="mess_2_2"></string>
+    <string name="mess_2_3">Please wait for additional content</string>
+    <string name="mess_2_4">where more powerful enemies await.</string>
 
-    <string name="mess_3_1">ストレスの源になっている城へ・・</string>
-    <string name="mess_3_2">BOSSをすべて倒して世界を解放へ・・</string>
-    <string name="mess_3_3">強敵が待っている準備はできているか？</string>
-    <string name="mess_3_4">ストレスの城を浄化[100%]しよう♪</string>
+    <string name="mess_3_1">To the castle that is the source of stress..</string>
+    <string name="mess_3_2">Defeat all BOSS and liberate the world..</string>
+    <string name="mess_3_3">Are you ready for a formidable foe?</string>
+    <string name="mess_3_4">"Let's clean the castle [100%]"</string>
 
-    <string name="mess_4_1">勇者はストレスのない週末を</string>
-    <string name="mess_4_2">しばらくの間・・・過ごすことにした</string>
+    <string name="mess_4_1">Have a stress-free weekend</string>
+    <string name="mess_4_2">decided to spend some time..</string>
 
-    <string name="mess_5_1">平原は [ストレス] から解放された</string>
+    <string name="mess_5_1">Plains relieved of [stress].</string>
 
-    <string name="mess_6_1">勇者はストレスを克服した</string>
-    <string name="mess_6_2">勇者はこれからの困難にも負けない</string>
-    <string name="mess_6_3">真の強さを手に入れた！！</string>
+    <string name="mess_6_1">Hero overcame stress.</string>
+    <string name="mess_6_2">"And he's gained true strength to"</string>
+    <string name="mess_6_3">overcome difficulties.</string>
 
-    <string name="mess_7_1">勇者のストレスが解消された</string>
-    <string name="mess_7_2">ストレスの森が少し浄化した</string>
-    <string name="mess_7_3">〜戦闘結果〜</string>
-    <string name="mess_7_4">勇者のＬｖが </string>
-    <string name="mess_7_5">上がった</string>
-    <string name="mess_7_6">を倒した、欠片 x1 を入手</string>
-    <string name="mess_7_7">浄化ポイント </string>
-    <string name="mess_7_8">を入手！！</string>
-    <string name="mess_7_9">リフレッシュの結晶 x</string>
-    <string name="mess_7_10"> を入手</string>
+    <string name="mess_7_1">"Hero's stress relieved."</string>
+    <string name="mess_7_2">Plains of stress cleaned up a bit.</string>
+    <string name="mess_7_3">〜Battle Results〜</string>
+    <string name="mess_7_4">"Hero's Lv "</string>
+    <string name="mess_7_5">went up.</string>
+    <string name="mess_7_6">"defeats the enemy, obtains Fragment x1"</string>
+    <string name="mess_7_7">"POINTS "</string>
+    <string name="mess_7_8">I got.</string>
+    <string name="mess_7_9">"CRYSRAL x"</string>
+    <string name="mess_7_10">I got.</string>
 
-    <string name="mess_8_1">の攻撃！！</string>
-    <string name="mess_8_2">勇者のストレスが増えて、敵が活性した。</string>
-    <string name="mess_8_3">浄化ポイントが </string>
-    <string name="mess_8_4">に減った</string>
+    <string name="mess_8_1">... The brave got attacked.</string>
+    <string name="mess_8_2">Stress increased, and the enemy became active.</string>
+    <string name="mess_8_3">POINT</string>
+    <string name="mess_8_4">reduced.</string>
 
-    <string name="mess_9_1">勇者がストレスの草原を歩いていると・・・</string>
-    <string name="mess_9_2">勇者がボスの城を歩いていると・・・</string>
-    <string name="mess_9_3">なんと・・・！？</string>
-    <string name="mess_9_4">ストレス（</string>
-    <string name="mess_9_5">）が現れた！！</string>
-    <string name="mess_9_6">【タップ】してストレスを倒せ！！</string>
+    <string name="mess_9_1">When the hero is walking in the meadow ..</string>
+    <string name="mess_9_2">When the hero is walking through the castle..</string>
+    <string name="mess_9_3">HOW !?</string>
+    <string name="mess_9_4">STRESS（</string>
+    <string name="mess_9_5">）has appeared.</string>
+    <string name="mess_9_6">[Tap] to beat stress.</string>
 
 
-    <string name="mess_10_1">草原</string>
-    <string name="mess_10_2">城</string>
-    <string name="mess_10_3">勇者のＬｖ：</string>
-    <string name="mess_10_4">浄化率：</string>
+    <string name="mess_10_1">meadow</string>
+    <string name="mess_10_2">castle</string>
+    <string name="mess_10_3">"Hero Lv  : "</string>
+    <string name="mess_10_4">"Cleaning : "</string>
 
-    <string name="mess_11_1">斬撃で </string>
-    <string name="mess_11_2">打撃で </string>
-    <string name="mess_11_3">鋭い雷撃で </string>
-    <string name="mess_11_4">大爆発で </string>
-    <string name="mess_11_5">一閃で </string>
-    <string name="mess_11_6">空間裂き </string>
-    <string name="mess_11_7">　敵（＝ストレス）を倒した！！</string>
-    <string name="mess_11_8">ターン目:  </string>
-    <string name="mess_11_9">敵に</string>
-    <string name="mess_11_10"> のダメージ</string>
+    <string name="mess_11_1">"HIT(斬) "</string>
+    <string name="mess_11_2">"HIT(打) "</string>
+    <string name="mess_11_3">"HIT(雷) "</string>
+    <string name="mess_11_4">"HIT(爆発) "</string>
+    <string name="mess_11_5">"HIT(一閃) "</string>
+    <string name="mess_11_6">"HIT(空間裂) "</string>
+    <string name="mess_11_7">"Defeated an enemy."</string>
+    <string name="mess_11_8">" TURN:  "</string>
+    <string name="mess_11_9">"Damaged "</string>
+    <string name="mess_11_10">" an enemy."</string>
 
-    <string name="mess_12_1">〜　退　却　〜　</string>
-    <string name="mess_12_2">勇者はストレスが強いため</string>
-    <string name="mess_12_3">一旦、退却して逃げることにした</string>
-    <string name="mess_12_4">（戦闘を中断します）</string>
+    <string name="mess_12_1">〜 Retreat 〜</string>
+    <string name="mess_12_2">Because the hero has a strong enemy</string>
+    <string name="mess_12_3">I decided to retreat and run away</string>
+    <string name="mess_12_4">(interrupts the battle)</string>
 
-    <string name="mess_13_1">ラスボスへの挑戦が出来ません</string>
-    <string name="mess_13_2">ストレスの平原の浄化率をあげて下さい</string>
-    <string name="mess_13_3">浄化率[100%]にする必要があります</string>
+    <string name="mess_13_1">"I can't challenge the final boss."</string>
+    <string name="mess_13_2">"Increase the cleaning rate of the stress plains."</string>
+    <string name="mess_13_3">"Must be [100%] cleaning rate."</string>
 
-    <string name="shop_1">"[済] "</string>
+    <string name="shop_1">"[レ] "</string>
     <string name="shop_2">"[　] "</string>
-    <string name="shop_3">" 攻撃"</string>
-    <string name="shop_4">" 攻撃 必殺技 "</string>
-    <string name="shop_5">"　入手累計："</string>
-    <string name="shop_6">"　攻撃エフェクト　"</string>
+    <string name="shop_3">" Attack"</string>
+    <string name="shop_4">" Deathblow "</string>
+    <string name="shop_5">"　Cumulative："</string>
+    <string name="shop_6">"　EFFECT　"</string>
 
-    <string name="shop_7_1">攻撃　１：通常ダメージ ｘ 1.0 </string>
-    <string name="shop_7_2">攻撃　２：通常ダメージ ｘ 1.1 </string>
-    <string name="shop_7_3">攻撃　３：通常ダメージ ｘ 3.1 </string>
-    <string name="shop_7_4">攻撃　４：通常ダメージ ｘ 3.3 </string>
-    <string name="shop_7_5">攻撃　５：通常ダメージ ｘ 5.0 </string>
-    <string name="shop_7_6">攻撃　６：通常ダメージ ｘ 6.0 </string>
-    <string name="shop_7_7">攻撃　７：通常ダメージ ｘ ???? </string>
-    <string name="shop_7_8">攻撃　８：通常ダメージ ｘ ???? </string>
+    <string name="shop_7_1">"ATTACK　1：Damage = 1.0 "</string>
+    <string name="shop_7_2">"ATTACK　2：Damage = 1.1 "</string>
+    <string name="shop_7_3">"ATTACK　3：Damage = 3.0 "</string>
+    <string name="shop_7_4">"ATTACK　4：Damage = 3.3 "</string>
+    <string name="shop_7_5">"ATTACK　5：Damage = 5.0 "</string>
+    <string name="shop_7_6">"ATTACK　6：Damage = 6.0 "</string>
+    <string name="shop_7_7">"ATTACK　7：Damage = ??? "</string>
+    <string name="shop_7_8">"ATTACK　8：Damage = ??? "</string>
 
-    <string name="shop_8_1">入手条件：ポイント ▶ </string>
-    <string name="shop_8_2">入手条件：必要素材 ▶ ︎</string>
+    <string name="shop_8_1">"Need POINTS ▶"</string>
+    <string name="shop_8_2">"Need Material ▶" ︎</string>
 
-    <string name="shop_parts_0">なし</string>
-    <string name="shop_parts_1">闇ドラゴンの欠片 x 1</string>
-    <string name="shop_parts_2">リラックスの結晶 x 30</string>
-    <string name="shop_parts_3">リラックスの結晶 x 100</string>
+    <string name="shop_parts_0">NONE</string>
+    <string name="shop_parts_1">Dark Dragon Fragment x1</string>
+    <string name="shop_parts_2">CRYSTAL x30</string>
+    <string name="shop_parts_3">CRYSTAL x100</string>
 
+    <string name="common_pop_1">STORY CHECK</string>
+    <string name="common_pop_2">NEXT</string>
+    <string name="common_pop_3">DONE</string>
+    <string name="common_pop_4">CANCEL</string>
+    <string name="common_pop_5">WATCH</string>
 
-    <string name="common_pop_1">物語チェック</string>
-    <string name="common_pop_2">次へ</string>
-    <string name="common_pop_3">実行</string>
-    <string name="common_pop_4">中止</string>
-    <string name="common_pop_5">視聴</string>
+    <string name="boss_menu_1">"[Killed] "</string>
+    <string name="boss_menu_2">"[　　　 ] "</string>
+    <string name="boss_menu_3">BOSS Info.</string>
+    <string name="boss_menu_4">Encounter STAGE ▶</string>
+    <string name="boss_menu_5">Need Material ▶</string>
+    <string name="boss_menu_6">Plains︎</string>
+    <string name="boss_menu_7">Castle</string>
+    <string name="boss_menu_8">Unknown︎</string>
+    <string name="boss_menu_0">None︎</string>
 
-    <string name="boss_menu_1">"[討伐済] "</string>
-    <string name="boss_menu_2">"[　　　] "</string>
-    <string name="boss_menu_3">ＢＯＳＳ説明</string>
-    <string name="boss_menu_4">遭遇条件：ステージ ▶</string>
-    <string name="boss_menu_5">遭遇条件：必要素材 ▶</string>
-    <string name="boss_menu_6">平原︎</string>
-    <string name="boss_menu_7">城︎</string>
-    <string name="boss_menu_8">不明︎</string>
-    <string name="boss_menu_0">なし︎</string>
+    <string name="his_1">"〜　View of the plains　〜"</string>
+    <string name="his_2">Cleaning rate：</string>
+    <string name="his_3_1">full of stress</string>
+    <string name="his_3_2">a little less stress</string>
+    <string name="his_3_3">less stress</string>
+    <string name="his_3_4">feel a little more relaxed</string>
+    <string name="his_3_5">happy mood</string>
 
-    <string name="his_1">〜　ストレスの草原　状態　〜</string>
-    <string name="his_2">浄化率：</string>
-    <string name="his_3_1">ストレスが充満している</string>
-    <string name="his_3_2">少しストレスが減ってきた</string>
-    <string name="his_3_3">ストレスが減ってきた</string>
-    <string name="his_3_4">少しリラックスできる</string>
-    <string name="his_3_5">楽しい気分になった</string>
+    <string name="his_5_1">"〜　STORY　〜"</string>
+    <string name="his_5_2">"Plains︎　rate："</string>
+    <string name="his_5_3">"Castle　rate："</string>
+    <string name="his_5_4">"CRYSTAL："</string>
+    <string name="his_5_5">" "</string>
 
-    <string name="his_5_1">〜　ストーリー　〜</string>
-    <string name="his_5_2">"平原　浄化率　　："</string>
-    <string name="his_5_3">"城　　浄化率　　："</string>
-    <string name="his_5_4">"リラックスの結晶："</string>
+    <string name="his_6_1">"〜　HERO status　〜"</string>
+    <string name="his_6_2">"Level："</string>
+    <string name="his_6_3">"Deathblow Rate："</string>
+    <string name="his_6_4">"Normal Damage："</string>
+    <string name="his_6_5">"Deathblow Damage："</string>
 
-    <string name="his_6_1">〜　勇者ステータス　〜</string>
-    <string name="his_6_2">"Ｌｖ　　　　　　："</string>
-    <string name="his_6_3">"必殺発生確率　　："</string>
-    <string name="his_6_4">"通常ダメージ　　："</string>
-    <string name="his_6_5">"必殺ダメージ　　："</string>
+    <string name="his_7_1">"〜　War Record　〜"</string>
+    <string name="his_7_2">Killed：</string>
+    <string name="his_7_3">"〜　War Record (BOSS)　〜"</string>
 
-    <string name="his_7_1">〜　戦歴モンスター　〜</string>
-    <string name="his_7_2">の討伐数：</string>
-    <string name="his_7_3">〜　戦歴BOSS　〜</string>
+    <string name="lvup_1">"Level UP"</string>
+    <string name="lvup_2_1">"Hero Level（ "</string>
+    <string name="lvup_2_2">" ）UP"</string>
+    <string name="lvup_3_1">"POINTS（ "</string>
+    <string name="lvup_3_2">" ）was obtained."</string>
 
-    <string name="lvup_1">Level UP！！</string>
-    <string name="lvup_2_1">勇者のLv（ </string>
-    <string name="lvup_2_2"> ）が上がった</string>
-    <string name="lvup_3_1">浄化ポイント（ </string>
-    <string name="lvup_3_2"> ）を入手</string>
+    <string name="lvup_4_1">Awakening check</string>
+    <string name="lvup_4_2">"Hero don't need to be awakened."</string>
+    <string name="lvup_4_3">"Hero is strong enough."</string>
+    <string name="lvup_4_4">"Would you like to raise the hero to level 50 ?"</string>
+    <string name="lvup_4_5">and get 150 points ?</string>
 
-    <string name="lvup_4_1">覚醒チェック</string>
-    <string name="lvup_4_2">覚醒する必要はありません</string>
-    <string name="lvup_4_3">あなたはストレスに強くなっています</string>
-    <string name="lvup_4_4">勇者を覚醒して【 Lv50 】しますか？</string>
-    <string name="lvup_4_5">加えて浄化ポイントを【 150 】にします</string>
-
-    <string name="present_menu_1">宝GET！！</string>
-    <string name="present_menu_2">リフレッシュの結晶（ </string>
-    <string name="present_menu_3"> ）を入手</string>
-    <string name="present_menu_4">宝箱チェック</string>
-    <string name="present_menu_5">広告動画を視聴して宝箱を手に入れますか？</string>
-    <string name="present_menu_6">【 リフレッシュの結晶 】が入手できます</string>
-    <string name="present_menu_7">（新たな攻撃エフェクトの入手に必要）</string>
+    <string name="present_menu_1">GET Present</string>
+    <string name="present_menu_2">CRYSTAL（ </string>
+    <string name="present_menu_3"> ）was obtained.</string>
+    <string name="present_menu_4">Treasure check</string>
+    <string name="present_menu_5">Watch ad videos to get treasure ?</string>
+    <string name="present_menu_6">You can get crystals.</string>
+    <string name="present_menu_7">(Crystals are needed to acquire new attacks)</string>
 
 </resources>
