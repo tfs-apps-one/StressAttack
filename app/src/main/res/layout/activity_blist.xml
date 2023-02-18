@@ -22,7 +22,7 @@
             android:textStyle="bold"
             android:gravity="center"
             android:background="@drawable/bak_1"
-            android:text="ボス一覧"
+            android:text="@string/blist_title"
             android:textColor="@color/white" />
 
         <LinearLayout
@@ -306,7 +306,7 @@
                 app:backgroundTint="@null"
                 android:background="@drawable/bak_1"
                 android:onClick="onbGuide"
-                android:text="説明"
+                android:text="@string/list_menu_1"
                 android:textColor="@color/white"
                 android:textSize="20dp"
                 android:textStyle="bold"
@@ -324,7 +324,7 @@
                 app:backgroundTint="@null"
                 android:background="@drawable/bak_1"
                 android:onClick="onBackbList"
-                android:text="戻る"
+                android:text="@string/list_menu_2"
                 android:textColor="@color/white"
                 android:textSize="20dp"
                 android:textStyle="bold"

@@ -1,55 +1,54 @@
 <resources>
-    <string name="app_name">Stress\nQuest</string>
+    <string name="app_name">ストレスクエスト</string>
 
-    <string name="main_menu_1">STAGE Plain</string>
-    <string name="main_menu_2">STAGE Castle</string>
-    <string name="main_menu_3">SHOP</string>
-    <string name="main_menu_4">BOSS LIST</string>
-    <string name="main_menu_5">WAR RECORD</string>
-    <string name="main_menu_6">AWAKENING</string>
-    <string name="main_menu_7">TREASURE</string>
+    <string name="main_menu_1">ステージ「平原」</string>
+    <string name="main_menu_2">ステージ「BOSS城」</string>
+    <string name="main_menu_3">ショップ（攻撃）</string>
+    <string name="main_menu_4">ＢＯＳＳ図鑑</string>
+    <string name="main_menu_5">戦　歴</string>
+    <string name="main_menu_6">勇者覚醒</string>
+    <string name="main_menu_7">宝箱</string>
 
-    <string name="sub_menu_1">RETREAT</string>
+    <string name="sub_menu_1">退却</string>
 
-    <string name="list_title">Accumulate points and get new attacks.</string>
-    <string name="list_menu_1">DETAIL</string>
-    <string name="list_menu_2">BACK</string>
+    <string name="list_title">浄化ポイントを貯めて新たな攻撃を手に入れよう♪</string>
+    <string name="list_menu_1">説明</string>
+    <string name="list_menu_2">戻る</string>
 
-    <string name="his_menu1">cleaning rate</string>
+    <string name="his_menu1">　浄化率　</string>
 
-    <string name="blist_title">BOSS LIST</string>
-
-    <string name="enemy_1_name">Orge</string>
-    <string name="enemy_2_name">Mummy</string>
-    <string name="enemy_3_name">Buffalo</string>
-    <string name="enemy_4_name">Swordsman</string>
-    <string name="enemy_5_name">Shadow</string>
-    <string name="enemy_6_name">Golem</string>
-    <string name="enemy_7_name">Troll</string>
-    <string name="enemy_8_name">＊＊＊＊</string>
-    <string name="enemy_9_name">＊＊＊＊</string>
-    <string name="enemy_10_name">＊＊＊＊</string>
-
-    <string name="boss_1_name">Dirt Dragon</string>
-    <string name="boss_2_name">Darkness Dragon</string>
-    <string name="boss_3_name">Wind Dragon</string>
-    <string name="boss_4_name">Water Dragon</string>
-    <string name="boss_5_name">Fire Dragon</string>
-    <string name="boss_6_name">Stress</string>
-    <string name="boss_7_name">＊＊＊＊</string>
-    <string name="boss_8_name">＊＊＊＊</string>
-    <string name="boss_9_name">＊＊＊＊</string>
-    <string name="boss_10_name">＊＊＊＊</string>
+    <string name="blist_title">ボス一覧</string>
 
 
-    <string name="present_complete">Reward video ready.</string>
-    <string name="present_complete_err">Reward video preparation error=</string>
+    <string name="enemy_1_name">オーガ　　　　</string>
+    <string name="enemy_2_name">ミイラ　　　　</string>
+    <string name="enemy_3_name">バッファロー　</string>
+    <string name="enemy_4_name">さまよう剣士　</string>
+    <string name="enemy_5_name">シャドー　　　</string>
+    <string name="enemy_6_name">ゴーレム　　　</string>
+    <string name="enemy_7_name">トロル　　　　</string>
+    <string name="enemy_8_name">＊＊＊　　　　</string>
+    <string name="enemy_9_name">＊＊＊　　　　</string>
+    <string name="enemy_10_name">＊＊＊　　　　</string>
 
-    <string name="mess_1_1">Stress is taking over the world...</string>
-    <string name="mess_1_2">The brave (you) stood up bravely...</string>
-    <string name="mess_1_3">Let\'s go on a stress relieving trip.</string>
-    <string name="mess_1_4">Let\'s make the plains [100%].</string>
+    <string name="boss_1_name">土ドラゴン　　</string>
+    <string name="boss_2_name">闇ドラゴン　　</string>
+    <string name="boss_3_name">風ドラゴン　　</string>
+    <string name="boss_4_name">水ドラゴン　　</string>
+    <string name="boss_5_name">火ドラゴン　　</string>
+    <string name="boss_6_name">ストレス　　　</string>
+    <string name="boss_7_name">＊＊＊＊　　　</string>
+    <string name="boss_8_name">＊＊＊＊　　　</string>
+    <string name="boss_9_name">＊＊＊＊　　　</string>
+    <string name="boss_10_name">＊＊＊＊　　　</string>
 
+    <string name="present_complete">報酬動画の準備完了</string>
+    <string name="present_complete_err">報酬動画の準備エラー ERR=</string>
+
+    <string name="mess_1_1">ストレスが世界を覆っている・・</string>
+    <string name="mess_1_2">勇者（あなた）は勇敢に立ち上がった・・</string>
+    <string name="mess_1_3">さぁストレスを浄化する旅へ！！</string>
+    <string name="mess_1_4">ストレスの平原を浄化[100%]しよう♪</string>
 
     <string name="mess_2_1">勇者のストレスを克服する物語は</string>
     <string name="mess_2_2">これで終了です</string>
@@ -93,7 +92,6 @@
     <string name="mess_9_5">）が現れた！！</string>
     <string name="mess_9_6">【タップ】してストレスを倒せ！！</string>
 
-
     <string name="mess_10_1">草原</string>
     <string name="mess_10_2">城</string>
     <string name="mess_10_3">勇者のＬｖ：</string>
@@ -110,7 +108,7 @@
     <string name="mess_11_9">敵に</string>
     <string name="mess_11_10"> のダメージ</string>
 
-    <string name="mess_12_1">〜　退　却　〜　</string>
+    <string name="mess_12_1">〜　退　却　〜</string>
     <string name="mess_12_2">勇者はストレスが強いため</string>
     <string name="mess_12_3">一旦、退却して逃げることにした</string>
     <string name="mess_12_4">（戦闘を中断します）</string>
@@ -149,4 +147,5 @@
     <string name="common_pop_3">実行</string>
     <string name="common_pop_4">中止</string>
     <string name="common_pop_5">視聴</string>
+
 </resources>

@@ -296,7 +296,8 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
     @Override
     public void onRewardedVideoAdLoaded() {
-        Toast.makeText(this, "報酬動画の準備完了", Toast.LENGTH_SHORT).show();
+        String _tmp = getString(R.string.present_complete);
+        Toast.makeText(this, _tmp, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -327,7 +328,8 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
     @Override
     public void onRewardedVideoAdFailedToLoad(int i) {
-        Toast.makeText(this, "報酬動画の準備エラー ERR="+i, Toast.LENGTH_SHORT).show();
+        String _tmp = getString(R.string.present_complete_err);
+        Toast.makeText(this, _tmp+i, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -343,27 +345,36 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
         if (last_map == false){
             tmpstr =    "\n\n\n" +
-                        "　ストレスが世界を覆っている・・\n" +
-                        "　勇者（あなた）は勇敢に立ち上がった・・\n\n\n" +
-                        "　さぁストレスを浄化する旅へ！！\n" +
-                        "　ストレスの平原を浄化[100%]しよう♪" +
-                        "　\n\n\n";
+                    "　" + getString(R.string.mess_1_1)+
+                    "\n" +
+                    "　" + getString(R.string.mess_1_2)+
+                    "\n\n\n" +
+                    "　" + getString(R.string.mess_1_3)+
+                    "\n" +
+                    "　" + getString(R.string.mess_1_4)+
+                    "　\n\n\n";
         }
         else{
             if (db_boss_6 == 1) {
                 tmpstr = "\n\n\n" +
-                        "　勇者のストレスを克服する物語は\n" +
-                        "　これで終了です\n\n\n" +
-                        "　さらなる強敵が待つ追加コンテンツを\n" +
-                        "　お待ち下さい" +
+                        "　"+ getString(R.string.mess_2_1)+
+                        "\n" +
+                        "　"+ getString(R.string.mess_2_2)+
+                        "\n\n\n" +
+                        "　"+ getString(R.string.mess_2_3)+
+                        "\n" +
+                        "　"+ getString(R.string.mess_2_4)+
                         "　\n\n\n";
             }
             else{
                 tmpstr = "\n\n\n" +
-                        "　ストレスの源になっている城へ・・\n" +
-                        "　BOSSをすべて倒して世界を解放へ・・\n\n\n" +
-                        "　強敵が待っている準備はできているか？\n" +
-                        "　ストレスの城を浄化[100%]しよう♪" +
+                        "　" + getString(R.string.mess_3_1)+
+                        "\n" +
+                        "　" + getString(R.string.mess_3_2)+
+                        "\n\n\n" +
+                        "　" + getString(R.string.mess_3_3)+
+                        "\n" +
+                        "　" + getString(R.string.mess_3_4)+
                         "　\n\n\n";
             }
         }
@@ -391,10 +402,10 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         vmessage.setTextColor(getResources().getColor(R.color.white));
         vmessage.setTypeface(Typeface.DEFAULT_BOLD);
 
-        guide.setTitle(" 物語チェック ");
+        guide.setTitle( getString(R.string.common_pop_1) );
         guide.setIcon(R.drawable.book2);
         guide.setView(vmessage);
-        guide.setPositiveButton("次へ", new DialogInterface.OnClickListener() {
+        guide.setPositiveButton( getString(R.string.common_pop_2) , new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 popdispcount++;
@@ -497,12 +508,16 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         enemynamestr = "";
         ename.setText(enemynamestr);
         //ストリー
-        gamestr =   "　勇者はストレスのない週末を\n" +
-                    "　しばらくの間・・・過ごすことにした\n";
+        gamestr =   "　" + getString(R.string.mess_4_1)+
+                    "\n" +
+                    "　" + getString(R.string.mess_4_2)+
+                    "\n";
 
         /* 平原の浄化率が100％達成 */
         if (last_map == false && db_lastboss > 0){
-            gamestr += "\n　平原は [ストレス] から解放された\n";
+            gamestr += "\n"+
+                    "　" + getString(R.string.mess_5_1)+
+                    "\n";
         }
         /* ラスボスを討伐した時 */
         if (last_map == true && enemy_type == B_TYPE_6){
@@ -510,9 +525,11 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
                 if (db_boss_6 == 1) {
                     popdispcount = 0;
                 }
-                gamestr =   "　勇者はストレスを克服した\n\n" +
-                            "　勇者はこれからの困難にも負けない\n"+
-                            "　真の強さを手に入れた！！";
+                gamestr =   "　" + getString(R.string.mess_6_1)+
+                            "\n\n" +
+                            "　" + getString(R.string.mess_6_2)+
+                            "\n"+
+                            "　" + getString(R.string.mess_6_3);
             }
         }
 
@@ -539,18 +556,23 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         enemynamestr = "";
         ename.setText(enemynamestr);
         //ストリー
-        gamestr =   "　勇者のストレスが解消された\n" +
-                    "　ストレスの森が少し浄化した\n\n" +
-                    "　〜戦闘結果〜\n" +
-                    "　勇者のＬｖが " + tmp_level + " ▶︎ " + db_level + " 上がった\n" +
-                    "　" + GetEnemyName(false) + "を倒した、欠片 x1 を入手\n" +
-//                  "　" + GetEnemyName(false) + "の欠片を手に入れた\n"+
-                    "　浄化ポイント "+GetEnemyPoint(0)+" を入手！！\n";
+        gamestr =   "　" + getString(R.string.mess_7_1)+
+                    "\n" +
+                    "　" + getString(R.string.mess_7_2)+
+                    "\n\n" +
+                    "　" + getString(R.string.mess_7_3)+
+                    "\n" +
+                    "　" + getString(R.string.mess_7_4)+ tmp_level + " ▶︎ " + db_level + " " + getString(R.string.mess_7_5)+
+                    "\n" +
+                    "　" + GetEnemyName(false) + getString(R.string.mess_7_6)+
+                    "\n" +
+                    "　" + getString(R.string.mess_7_7) + GetEnemyPoint(0) + " " + getString(R.string.mess_7_8) +
+                    "\n";
 
         _refpoint = GetEnemyPoint(4);
         if (_refpoint > 0){
             db_present_a += _refpoint;
-            gamestr += "　リフレッシュの結晶 x" + _refpoint + " を入手";
+            gamestr += "　" + getString(R.string.mess_7_9) + _refpoint + getString(R.string.mess_7_10);
         }
 
         story.setText(gamestr);
@@ -620,9 +642,12 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
             ;
         } else {
             gamestr =
-                    "　" + GetEnemyName(false) + "の攻撃！！\n" +
-                    "　勇者のストレスが増えて、敵が活性した。\n\n" +
-                    "　浄化ポイントが " + tmp_point + " ▶︎ " + aft_point + " に減った";
+                        "　" + GetEnemyName(false) + getString(R.string.mess_8_1)+
+                        "\n" +
+                        "　" + getString(R.string.mess_8_2) +
+                        "\n\n" +
+                        "　" + getString(R.string.mess_8_3) + tmp_point + " ▶︎ " + aft_point + "　" + getString(R.string.mess_8_4);
+
             story.setText(gamestr);
             story.setTextColor(getResources().getColor(R.color.red));
         }
@@ -658,11 +683,21 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         //敵名前
         enemynamestr = "";
         ename.setText(enemynamestr);
-        if (last_map == false)  gamestr = "　勇者がストレスの草原を歩いていると・・・\n";
-        else                    gamestr = "　勇者がボスの城を歩いていると・・・\n";
+        if (last_map == false){
+            gamestr =   "　" + getString(R.string.mess_9_1)+
+                        "\n";
+        }
+        else{
+            gamestr =   "　" + getString(R.string.mess_9_2)+
+                        "\n";
+        }
         //ストリー
-        gamestr +=  "　なんと・・・！？\n\n" + "　ストレス（" + GetEnemyName(false) + "）が現れた！！\n"+
-                    "　【タップ】してストレスを倒せ！！";
+        gamestr +=  "　" + getString(R.string.mess_9_3)+
+                    "\n\n" +
+                    "　" + getString(R.string.mess_9_4)+ GetEnemyName(false) + getString(R.string.mess_9_5) +
+                    "\n"+
+                    "　" + getString(R.string.mess_9_6);
+
         story.setText(gamestr);
         story.setTextColor(getResources().getColor(R.color.white));
         display_hold = TIME_PROG_LONG;
@@ -677,7 +712,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
         /* タイトル部の表示 */
         if (last_map == false) {
-            gamettl.setText("草原");
+            gamettl.setText(getString(R.string.mess_10_1));
             if (db_jrate < 10) gameimg.setImageResource(R.drawable.map00);
             else if (db_jrate < 25) gameimg.setImageResource(R.drawable.map25);
             else if (db_jrate < 50) gameimg.setImageResource(R.drawable.map50);
@@ -685,15 +720,17 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
             else gameimg.setImageResource(R.drawable.map99);
         }
         else{
-            gamettl.setText("城");
+            gamettl.setText(getString(R.string.mess_10_2));
             gameimg.setImageResource(R.drawable.map_last);
         }
 
         String buf = "";
-        buf += "　勇者のＬｖ："+db_level;
+        buf += "　" + getString(R.string.mess_10_3) + db_level;
         if (last_map)   _rate = db_brate;
         else            _rate = db_jrate;
-        buf += "\n　浄化率："+ _rate + "％（" + db_jpoint + "）";
+        buf +=  "\n" +
+                "　" + getString(R.string.mess_10_4) + _rate + "％（" + db_jpoint + "）";
+
         gamesta.setText(buf);
 
         if (display_hold > 0) {
@@ -827,7 +864,8 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
             bak4_gamestr = bak3_gamestr;
             bak3_gamestr = bak2_gamestr;
             bak2_gamestr = bak1_gamestr;
-            bak1_gamestr = "　" + seqno + "ターン目:  " + "敵に"+ at_str + damege + " のダメージ\n";
+            bak1_gamestr =  "　" + seqno + "ターン目:  " + "敵に"+ at_str + damege + " のダメージ"+
+                            "\n";
             gamestr = "";
             gamestr += bak1_gamestr+"\n";
             gamestr += bak2_gamestr;
@@ -837,11 +875,15 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         }
         /* 50ターン以上は退却 */
         if (seqno > 50){
-            _title = "　〜　退　却　〜　";
-            _message =    "\n\n\n"+
-                    "　勇者はストレスが強いため\n"+
-                    "　一旦、退却して逃げることにした\n\n"+
-                    "　（戦闘を中断します）\n"+
+            _title = getString(R.string.mess_12_1);
+            _message =
+                    "\n\n\n"+
+                    "　" + getString(R.string.mess_12_2)+
+                    "\n"+
+                    "　" + getString(R.string.mess_12_3)+
+                    "\n\n"+
+                    "　" + getString(R.string.mess_12_4)+
+                    "\n"+
                     "\n\n\n";
             DialogDisplay(_title,_message,3);
             return;
@@ -937,12 +979,15 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         BgmStart(1);
 
         if (game_step == G_BATTLE || game_step == G_BATTLE_ENEMY) {
-            _title = "　〜　退　却　〜　";
-            _message = "\n\n\n" +
-                    "　勇者はストレスが強いため\n" +
-                    "　一旦、退却して逃げることにした\n\n" +
-                    "　（戦闘を中断します）\n" +
-                    "\n\n\n";
+            _title = getString(R.string.mess_12_1);
+            _message = "\n\n\n"+
+                        "　" + getString(R.string.mess_12_2)+
+                        "\n"+
+                        "　" + getString(R.string.mess_12_3)+
+                        "\n\n"+
+                        "　" + getString(R.string.mess_12_4)+
+                        "\n"+
+                        "\n\n\n";
             DialogDisplay(_title, _message, 0);
         }
     }
@@ -1115,7 +1160,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         guide.setCancelable(false);
         guide.setIcon(R.drawable.book2);
         guide.setView(vmessage);
-        guide.setPositiveButton("次へ", new DialogInterface.OnClickListener() {
+        guide.setPositiveButton( getString(R.string.common_pop_2), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (next_btn){
@@ -1138,12 +1183,15 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
         if (db_lastboss <= 0) {
             //メッセージ
-            String tmptitle = "　物語チェック　";
+            String tmptitle =  getString(R.string.common_pop_1);
             String tmpstr = "";
             tmpstr =    "\n\n\n"+
-                        "　ラスボスへの挑戦が出来ません\n"+
-                        "　ストレスの平原の浄化率をあげて下さい\n\n"+
-                        "　浄化率[100%]にする必要があります\n"+
+                        "　" + getString(R.string.mess_13_1)+
+                        "\n"+
+                        "　" + getString(R.string.mess_13_2)+
+                        "\n\n"+
+                        "　" + getString(R.string.mess_13_3)+
+                        "\n"+
                         "\n\n\n";
             DialogDisplay(tmptitle,tmpstr,0);
         }
@@ -1176,15 +1224,15 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
         TextView total = (TextView) findViewById(R.id.text_list_total);
 
-        String get_after  = "[済] ";
-        String get_before = "[　] ";
-        String get_attack = " 攻撃";
-        String get_attack2 = " 攻撃 必殺技 ";
+        String get_after  = getString(R.string.shop_1);
+        String get_before = getString(R.string.shop_2);
+        String get_attack = getString(R.string.shop_3);
+        String get_attack2 = getString(R.string.shop_4);
         String buf = "";
         boolean flag = true;
         int _color = 0;
 
-        total.setText("　入手累計："+db_jpoint);
+        total.setText( "　" + getString(R.string.shop_5) + db_jpoint );
 
         flag = GetEffectLevel(1);
         if (flag)   buf = get_after  + get_attack + "　１";
@@ -1244,47 +1292,71 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
     }
     public void guidePage2() {
-        String tmptitle = "　攻撃エフェクト　";
+        String tmptitle = getString(R.string.shop_6);
         String tmpstr = "";
         tmpstr ="\n\n"+
-                "　攻撃　５：通常ダメージ ｘ 5.0 \n"+
-                "　入手条件：ポイント ▶ ︎" + EFFECT_5 + "\n"+
-                "　入手条件：必要素材 ▶ ︎" + "リラックスの結晶 x 30" + "\n"+
+                getString(R.string.shop_7_5) +
                 "\n"+
-                "　攻撃　６：通常ダメージ ｘ 6.0 \n"+
-                "　入手条件：ポイント ▶ ︎" + EFFECT_6 + "\n"+
-                "　入手条件：必要素材 ▶ ︎" + "リラックスの結晶 x 100" + "\n"+
+                getString(R.string.shop_8_1) + EFFECT_5 +
                 "\n"+
-                "　攻撃　７：通常ダメージ ｘ ???? \n"+
-                "　入手条件：ポイント ▶ ︎" + "????" + "\n"+
-                "　入手条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                getString(R.string.shop_8_2) + getString(R.string.shop_parts_2)  +
                 "\n"+
-                "　攻撃　８：通常ダメージ ｘ ???? \n"+
-                "　入手条件：ポイント ▶ ︎" + "????" + "\n"+
-                "　入手条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                "\n"+
+                getString(R.string.shop_7_6) +
+                "\n"+
+                getString(R.string.shop_8_1) + EFFECT_6 +
+                "\n"+
+                getString(R.string.shop_8_2) + getString(R.string.shop_parts_3)  +
+                "\n"+
+                "\n"+
+                getString(R.string.shop_7_7) +
+                "\n"+
+                getString(R.string.shop_8_1) + "????" +
+                "\n"+
+                getString(R.string.shop_8_2) + getString(R.string.shop_parts_0) +
+                "\n"+
+                "\n"+
+                getString(R.string.shop_7_8) +
+                "\n"+
+                getString(R.string.shop_8_1) + "????" +
+                "\n"+
+                getString(R.string.shop_8_2) + getString(R.string.shop_parts_0)  +
+                "\n"+
                 " \n\n";
 
         DialogDisplay(tmptitle,tmpstr,0);
     }
     public void guidePage1() {
-        String tmptitle = "　攻撃エフェクト　";
+        String tmptitle = getString(R.string.shop_6);
         String tmpstr = "";
         tmpstr ="\n\n"+
-                "　攻撃　１：通常ダメージ ｘ 1.0 \n"+
-                "　入手条件：ポイント ▶ ︎" + EFFECT_1 + "\n"+
-                "　入手条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                getString(R.string.shop_7_1) +
                 "\n"+
-                "　攻撃　２：通常ダメージ ｘ 1.1 \n"+
-                "　入手条件：ポイント ▶ ︎" + EFFECT_2 + "\n"+
-                "　入手条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                getString(R.string.shop_8_1) + EFFECT_1 +
                 "\n"+
-                "　攻撃　３：通常ダメージ ｘ 3.0 \n"+
-                "　入手条件：ポイント ▶ ︎" + EFFECT_3 + "\n"+
-                "　入手条件：必要素材 ▶ ︎" + "なし" + "\n"+
+                getString(R.string.shop_8_2)  + getString(R.string.shop_parts_0) +
                 "\n"+
-                "　攻撃　４：通常ダメージ ｘ 3.3 \n"+
-                "　入手条件：ポイント ▶ ︎" + EFFECT_4 + "\n"+
-                "　入手条件：必要素材 ▶ ︎" + "闇ドラゴンの欠片 x 1" + "\n"+
+                "\n"+
+                getString(R.string.shop_7_2) +
+                "\n"+
+                getString(R.string.shop_8_1) + EFFECT_2 +
+                "\n"+
+                getString(R.string.shop_8_2) + getString(R.string.shop_parts_0) +
+                "\n"+
+                "\n"+
+                getString(R.string.shop_7_3) +
+                "\n"+
+                getString(R.string.shop_8_1)  + EFFECT_3 +
+                "\n"+
+                getString(R.string.shop_8_2)  + getString(R.string.shop_parts_0) +
+                "\n"+
+                "\n"+
+                getString(R.string.shop_7_4) +
+                "\n"+
+                getString(R.string.shop_8_1) + EFFECT_4 +
+                "\n"+
+                getString(R.string.shop_8_2) + getString(R.string.shop_parts_1) +
+                "\n"+
                 " \n\n";
 
         DialogDisplay(tmptitle,tmpstr,1);
@@ -1650,13 +1722,13 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
             guide.setIcon(R.drawable.book2);
             guide.setView(vmessage);
 
-            guide.setPositiveButton("実行", new DialogInterface.OnClickListener() {
+            guide.setPositiveButton( getString(R.string.common_pop_3), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     GetLevelUp();
                 }
             });
-            guide.setNegativeButton("中止", new DialogInterface.OnClickListener() {
+            guide.setNegativeButton( getString(R.string.common_pop_4), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                 }
@@ -1703,7 +1775,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         guide.setCancelable(false);
         guide.setIcon(R.drawable.treasure);
         guide.setView(vmessage);
-        guide.setPositiveButton("視聴", new DialogInterface.OnClickListener() {
+        guide.setPositiveButton(getString(R.string.common_pop_5), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // TODO リワード処理
@@ -1713,7 +1785,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
                 return;
             }
         });
-        guide.setNegativeButton("中止", new DialogInterface.OnClickListener() {
+        guide.setNegativeButton(getString(R.string.common_pop_4), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 return;
