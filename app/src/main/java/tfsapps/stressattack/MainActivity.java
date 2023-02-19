@@ -293,6 +293,15 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         SoundInit();
         BgmStart(1);
 
+        /*test*/
+        /*
+        db_jpoint = 1000;
+        db_level = 50;
+        db_jrate = 100;
+        db_present_a = 100;
+        db_lastboss = 1;
+        */
+
         initEnemyNameSet();
     }
     @Override
@@ -854,30 +863,35 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
             case 1:
                 at_str = getString(R.string.mess_11_1);
                 damege = db_damage;
+                //test
                 display_hold = TIME_EFFECT_SHORT;
 //                display_hold = 200;
                 break;
             case 2:
                 at_str = getString(R.string.mess_11_2);
                 damege = (db_damage * 110) / 100;
+                //test
                 display_hold = TIME_EFFECT_SHORT;
 //                display_hold = 200;
                 break;
             case 3:
                 at_str = getString(R.string.mess_11_3);
                 damege = (db_damage * 3);
+                //test
                 display_hold = TIME_EFFECT;
 //                display_hold = 200;
                 break;
             case 4:
                 at_str = getString(R.string.mess_11_4);
                 damege = (db_damage * 330) / 100;
+                //test
                 display_hold = TIME_EFFECT;
 //                display_hold = 200;
                 break;
             case 5:
                 at_str = getString(R.string.mess_11_5);
                 damege = (db_damage * 5);
+                //test
                 display_hold = TIME_EFFECT;
 //                display_hold = 200;
                 break;
