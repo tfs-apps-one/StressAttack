@@ -1,3 +1,206 @@
 <resources>
-    <string name="app_name">ストレスクエスト</string>
+    <string name="app_name">Stress\nQuest</string>
+
+    <string name="main_menu_1">STAGE Plain</string>
+    <string name="main_menu_2">STAGE Castle</string>
+    <string name="main_menu_3">SHOP</string>
+    <string name="main_menu_4">BOSS LIST</string>
+    <string name="main_menu_5">WAR RECORD</string>
+    <string name="main_menu_6">AWAKENING</string>
+    <string name="main_menu_7">TREASURE</string>
+
+    <string name="sub_menu_1">RETREAT</string>
+
+    <string name="list_title">Accumulate points and get new attacks.</string>
+    <string name="list_menu_1">DETAIL</string>
+    <string name="list_menu_2">BACK</string>
+
+    <string name="his_menu1">cleaning rate</string>
+
+    <string name="blist_title">BOSS LIST</string>
+
+    <string name="enemy_1_name">"Orge       "</string>
+    <string name="enemy_2_name">"Mummy      "</string>
+    <string name="enemy_3_name">"Buffalo    "</string>
+    <string name="enemy_4_name">"Swordsman  "</string>
+    <string name="enemy_5_name">"Shadow     "</string>
+    <string name="enemy_6_name">"Golem      "</string>
+    <string name="enemy_7_name">"Troll      "</string>
+    <string name="enemy_8_name">"*****      "</string>
+    <string name="enemy_9_name">"*****      "</string>
+    <string name="enemy_10_name">"*****      "</string>
+
+    <string name="boss_1_name">"Dirt Dragon  "</string>
+    <string name="boss_2_name">"Dark Dragon  "</string>
+    <string name="boss_3_name">"Wind Dragon  "</string>
+    <string name="boss_4_name">"Water Dragon "</string>
+    <string name="boss_5_name">"Fire Dragon  "</string>
+    <string name="boss_6_name">"Stress       "</string>
+    <string name="boss_7_name">"*****        "</string>
+    <string name="boss_8_name">"*****        "</string>
+    <string name="boss_9_name">"*****        "</string>
+    <string name="boss_10_name">"*****        "</string>
+
+
+    <string name="present_complete">Reward video ready.</string>
+    <string name="present_complete_err">Reward video preparation error=</string>
+
+    <string name="mess_1_1">Stress is taking over the world...</string>
+    <string name="mess_1_2">Hero (you) stood up bravely...</string>
+    <string name="mess_1_3">Let\'s go on a stress relieving trip.</string>
+    <string name="mess_1_4">Let\'s make the plains [100%].</string>
+
+
+    <string name="mess_2_1">The story of overcoming stress is over..</string>
+    <string name="mess_2_2"></string>
+    <string name="mess_2_3">Please wait for additional content</string>
+    <string name="mess_2_4">where more powerful enemies await.</string>
+
+    <string name="mess_3_1">To the castle that is the source of stress..</string>
+    <string name="mess_3_2">Defeat all BOSS and liberate the world..</string>
+    <string name="mess_3_3">Are you ready for a formidable foe?</string>
+    <string name="mess_3_4">"Let's clean the castle [100%]"</string>
+
+    <string name="mess_4_1">Have a stress-free weekend</string>
+    <string name="mess_4_2">decided to spend some time..</string>
+
+    <string name="mess_5_1">Plains relieved of [stress].</string>
+
+    <string name="mess_6_1">Hero overcame stress.</string>
+    <string name="mess_6_2">"And he's gained true strength to"</string>
+    <string name="mess_6_3">overcome difficulties.</string>
+
+    <string name="mess_7_1">"Hero's stress relieved."</string>
+    <string name="mess_7_2">Plains of stress cleaned up a bit.</string>
+    <string name="mess_7_3">〜Battle Results〜</string>
+    <string name="mess_7_4">"Hero's Lv "</string>
+    <string name="mess_7_5">went up.</string>
+    <string name="mess_7_6">"defeats the enemy, obtains Fragment x1"</string>
+    <string name="mess_7_7">"POINTS "</string>
+    <string name="mess_7_8">"▶︎ I got it."</string>
+    <string name="mess_7_9">"CRYSRAL x"</string>
+    <string name="mess_7_10">"▶︎ I got it."</string>
+
+    <string name="mess_8_1">... The brave got attacked.</string>
+    <string name="mess_8_2">Stress increased, and the enemy became active.</string>
+    <string name="mess_8_3">POINT</string>
+    <string name="mess_8_4">reduced.</string>
+
+    <string name="mess_9_1">When the hero is walking in the meadow ..</string>
+    <string name="mess_9_2">When the hero is walking through the castle..</string>
+    <string name="mess_9_3">HOW !?</string>
+    <string name="mess_9_4">STRESS（</string>
+    <string name="mess_9_5">）has appeared.</string>
+    <string name="mess_9_6">[Tap] to beat stress.</string>
+
+
+    <string name="mess_10_1">meadow</string>
+    <string name="mess_10_2">castle</string>
+    <string name="mess_10_3">"Hero Lv  : "</string>
+    <string name="mess_10_4">"Cleaning : "</string>
+
+    <string name="mess_11_1">"HIT(斬) "</string>
+    <string name="mess_11_2">"HIT(打) "</string>
+    <string name="mess_11_3">"HIT(雷) "</string>
+    <string name="mess_11_4">"HIT(爆発) "</string>
+    <string name="mess_11_5">"HIT(一閃) "</string>
+    <string name="mess_11_6">"HIT(空間裂) "</string>
+    <string name="mess_11_7">"Defeated an enemy."</string>
+    <string name="mess_11_8">" TURN:  "</string>
+    <string name="mess_11_9">"Damaged "</string>
+    <string name="mess_11_10">" an enemy."</string>
+
+    <string name="mess_12_1">〜 Retreat 〜</string>
+    <string name="mess_12_2">Because the hero has a strong enemy</string>
+    <string name="mess_12_3">I decided to retreat and run away</string>
+    <string name="mess_12_4">(interrupts the battle)</string>
+
+    <string name="mess_13_1">"I can't challenge the final boss."</string>
+    <string name="mess_13_2">"Increase the cleaning rate of the stress plains."</string>
+    <string name="mess_13_3">"Must be [100%] cleaning rate."</string>
+
+    <string name="shop_1">"[レ] "</string>
+    <string name="shop_2">"[　] "</string>
+    <string name="shop_3">" Attack"</string>
+    <string name="shop_4">" Deathblow "</string>
+    <string name="shop_5">"　Cumulative："</string>
+    <string name="shop_6">"　EFFECT　"</string>
+
+    <string name="shop_7_1">"ATTACK　1：Damage = 1.0 "</string>
+    <string name="shop_7_2">"ATTACK　2：Damage = 1.1 "</string>
+    <string name="shop_7_3">"ATTACK　3：Damage = 3.0 "</string>
+    <string name="shop_7_4">"ATTACK　4：Damage = 3.3 "</string>
+    <string name="shop_7_5">"ATTACK　5：Damage = 5.0 "</string>
+    <string name="shop_7_6">"ATTACK　6：Damage = 6.0 "</string>
+    <string name="shop_7_7">"ATTACK　7：Damage = ??? "</string>
+    <string name="shop_7_8">"ATTACK　8：Damage = ??? "</string>
+
+    <string name="shop_8_1">"Need POINTS ▶"</string>
+    <string name="shop_8_2">"Need Material ▶" ︎</string>
+
+    <string name="shop_parts_0">NONE</string>
+    <string name="shop_parts_1">Dark Dragon Fragment x1</string>
+    <string name="shop_parts_2">CRYSTAL x30</string>
+    <string name="shop_parts_3">CRYSTAL x100</string>
+
+    <string name="common_pop_1">STORY CHECK</string>
+    <string name="common_pop_2">NEXT</string>
+    <string name="common_pop_3">DONE</string>
+    <string name="common_pop_4">CANCEL</string>
+    <string name="common_pop_5">WATCH</string>
+
+    <string name="boss_menu_1">"[Killed] "</string>
+    <string name="boss_menu_2">"[　　　 ] "</string>
+    <string name="boss_menu_3">BOSS Info.</string>
+    <string name="boss_menu_4">Encounter STAGE ▶</string>
+    <string name="boss_menu_5">Need Material ▶</string>
+    <string name="boss_menu_6">Plains︎</string>
+    <string name="boss_menu_7">Castle</string>
+    <string name="boss_menu_8">Unknown︎</string>
+    <string name="boss_menu_0">None︎</string>
+
+    <string name="his_1">"〜　View of the plains　〜"</string>
+    <string name="his_2">Cleaning rate：</string>
+    <string name="his_3_1">full of stress</string>
+    <string name="his_3_2">a little less stress</string>
+    <string name="his_3_3">less stress</string>
+    <string name="his_3_4">feel a little more relaxed</string>
+    <string name="his_3_5">happy mood</string>
+
+    <string name="his_5_1">"〜　STORY　〜"</string>
+    <string name="his_5_2">"Plains︎　rate："</string>
+    <string name="his_5_3">"Castle　rate："</string>
+    <string name="his_5_4">"CRYSTAL："</string>
+    <string name="his_5_5">" "</string>
+
+    <string name="his_6_1">"〜　HERO status　〜"</string>
+    <string name="his_6_2">"Level："</string>
+    <string name="his_6_3">"Deathblow Rate："</string>
+    <string name="his_6_4">"Normal Damage："</string>
+    <string name="his_6_5">"Deathblow Damage："</string>
+
+    <string name="his_7_1">"〜　War Record　〜"</string>
+    <string name="his_7_2">Killed：</string>
+    <string name="his_7_3">"〜　War Record (BOSS)　〜"</string>
+
+    <string name="lvup_1">"Level UP"</string>
+    <string name="lvup_2_1">"Hero Level（ "</string>
+    <string name="lvup_2_2">" ）UP"</string>
+    <string name="lvup_3_1">"POINTS（ "</string>
+    <string name="lvup_3_2">" ）was obtained."</string>
+
+    <string name="lvup_4_1">Awakening check</string>
+    <string name="lvup_4_2">"Hero don't need to be awakened."</string>
+    <string name="lvup_4_3">"Hero is strong enough."</string>
+    <string name="lvup_4_4">"Would you like to raise the hero to level 50 ?"</string>
+    <string name="lvup_4_5">and get 150 points ?</string>
+
+    <string name="present_menu_1">GET Present</string>
+    <string name="present_menu_2">CRYSTAL（ </string>
+    <string name="present_menu_3"> ）was obtained.</string>
+    <string name="present_menu_4">Treasure check</string>
+    <string name="present_menu_5">Watch ad videos to get treasure ?</string>
+    <string name="present_menu_6">You can get crystals.</string>
+    <string name="present_menu_7">(Crystals are needed to acquire new attacks)</string>
+
 </resources>
