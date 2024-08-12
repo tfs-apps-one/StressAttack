@@ -248,6 +248,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        loadRewardedAd();
+    }
+
+    // 動画リワード
+    public void loadRewardedAd(){
         // リワード広告
         RewardedAd.load(this,
                 AD_UNIT_ID,
@@ -273,15 +278,8 @@ public class MainActivity extends AppCompatActivity {
 //                        Log.d("TAG", "The rewarded ad wasn't loaded yet.");
                     }
                 });
-
-        /*
-        MobileAds.initialize(this, APP_ID);
-        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
-        mRewardedVideoAd.setRewardedVideoAdListener(this);
-        loadRewardedVideoAd();
-         */
-
     }
+
 
     public void initEnemyNameSet() {
         _local = Locale.getDefault();
@@ -393,6 +391,7 @@ public class MainActivity extends AppCompatActivity {
     public void RdPresent() {
         GetPresent();
         AppDBUpdated();
+        loadRewardedAd();
     }
 
 
@@ -1012,27 +1011,30 @@ public class MainActivity extends AppCompatActivity {
         if (last_map){
             value = 85; //ステージ「城」の被弾率
         }
+        if (GameTimer == null) {
+            return super.onTouchEvent(event);
+        }
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
 //                if (enemy_hp == 0 || display_hold > 0){
 
-                if (display_hold > 0) {
-                    ;
-                }
-                else {
-                    if (game_step == G_BATTLE) {
-                        if (enemy_at > value){
-                            EffectBgmStart(10);
-                            display_hold = TIME_PROG_VERY_SHORT;
-                            GameButtleEnemyView();
-                        }
-                        else {
-                            EventGameView();
-                        }
+            if (display_hold > 0) {
+                ;
+            }
+            else {
+                if (game_step == G_BATTLE) {
+                    if (enemy_at > value){
+                        EffectBgmStart(10);
+                        display_hold = TIME_PROG_VERY_SHORT;
+                        GameButtleEnemyView();
+                    }
+                    else {
+                        EventGameView();
                     }
                 }
-                break;
+            }
+            break;
         }
         return super.onTouchEvent(event);
     }
